@@ -249,7 +249,7 @@ Public Class pelajar_ulang_akademik_v21
 
             strSQL = "  SELECT NamaMataPelajaran, KodMataPelajaran FROM  kpmkv_matapelajaran 
                         WHERE Tahun = '" & ddlTahun.Text & "' 
-                        AND Semester = '1'
+                        AND Semester = '4'
                         AND NamaMataPelajaran NOT LIKE 'BAHASA MELAYU'
                         AND NamaMataPelajaran NOT LIKE 'SEJARAH'"
 
@@ -668,7 +668,7 @@ Public Class pelajar_ulang_akademik_v21
                     strSQL = "  INSERT INTO kpmkv_pelajar_ulang 
                                 (PelajarID, KolejRecordID, Pengajian, Tahun, Semester, Sesi, KursusID, KelasID, NamaMataPelajaran, PB, PA, MarkahPB)
                                 VALUES
-                                ('" & strPelajarID & "', '" & lblKolejID.Text & "', '" & strPengajian & "', '" & ddlTahun.Text & "', '" & ddlSemester.Text & "', '" & chkSesi.Text & "', '" & ddlKodKursus.SelectedValue & "', '" & ddlKelas.SelectedValue & "', '" & strNamaMP & "', NULL, '1', '" & markahPB & "')"
+                                ('" & strPelajarID & "', '" & ddlKolej.Text & "', '" & strPengajian & "', '" & ddlTahun.Text & "', '" & ddlSemester.Text & "', '" & chkSesi.Text & "', '" & ddlKodKursus.SelectedValue & "', '" & ddlKelas.SelectedValue & "', '" & strNamaMP & "', NULL, '1', '" & markahPB & "')"
                     strRet = oCommon.ExecuteSQL(strSQL)
 
                     count = count + 1
