@@ -62,7 +62,7 @@ Public Class sijil_vok_malaysia1
             ddlNegeri.DataValueField = "Negeri"
             ddlNegeri.DataBind()
 
-
+            ddlNegeri.Items.Insert(0, "-PILIH-")
 
         Catch ex As Exception
             lblMsg.Text = "System Error:" & ex.Message
@@ -88,7 +88,7 @@ Public Class sijil_vok_malaysia1
             ddlJenis.DataValueField = "Jenis"
             ddlJenis.DataBind()
 
-            ddlJenis.SelectedValue = "KPM"
+            ddlJenis.Items.Insert(0, "-PILIH-")
 
         Catch ex As Exception
             lblMsg.Text = "System Error:" & ex.Message
@@ -114,7 +114,7 @@ Public Class sijil_vok_malaysia1
             ddlKolej.DataValueField = "RecordID"
             ddlKolej.DataBind()
 
-
+            ddlKolej.Items.Insert(0, "-PILIH-")
 
         Catch ex As Exception
             lblMsg.Text = "System Error:" & ex.Message
@@ -167,8 +167,10 @@ Public Class sijil_vok_malaysia1
             ddlKodKursus.DataValueField = "KursusID"
             ddlKodKursus.DataBind()
 
+            ddlKodKursus.Items.Insert(0, "-PILIH-")
+
         Catch ex As Exception
-            lblMsg.Text = "System Error:" & ex.Message
+            lblMsg.Text = "System Error: ddlkodkursus" & ex.Message
 
         Finally
             objConn.Dispose()
@@ -194,7 +196,7 @@ Public Class sijil_vok_malaysia1
             ddlNamaKelas.DataBind()
 
         Catch ex As Exception
-            lblMsg.Text = "System Error:" & ex.Message
+            'lblMsg.Text = "System Error: ddlnamakelas" & ex.Message
 
         Finally
             objConn.Dispose()
@@ -217,7 +219,6 @@ Public Class sijil_vok_malaysia1
             ddlSign.DataTextField = "NamaPengarah"
             ddlSign.DataValueField = "ID"
             ddlSign.DataBind()
-
 
         Catch ex As Exception
 
@@ -368,7 +369,7 @@ Public Class sijil_vok_malaysia1
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strWhere As String = ""
-        Dim strOrder As String = " ORDER BY kpmkv_pelajar.AngkaGiliran ASC"
+        Dim strOrder As String = " ORDER BY kpmkv_pelajar.KolejRecordID, kpmkv_kursus.NamaKursus, kpmkv_pelajar.AngkaGiliran ASC"
 
         '--not deleted
         tmpSQL = "SELECT kpmkv_pelajar.PelajarID, kpmkv_pelajar.Tahun, kpmkv_pelajar.Semester, kpmkv_pelajar.Sesi, kpmkv_pelajar.Nama, kpmkv_pelajar.MYKAD, kpmkv_pelajar.AngkaGiliran, "
@@ -615,7 +616,7 @@ Public Class sijil_vok_malaysia1
 
             End If
 
-            strSQL += " ORDER BY kpmkv_pelajar.AngkaGiliran ASC"
+            strSQL += " ORDER BY kpmkv_pelajar.KolejRecordID, kpmkv_kursus.NamaKursus, kpmkv_pelajar.AngkaGiliran ASC"
 
             strRet = oCommon.ExecuteSQL(strSQL)
 
