@@ -50,3 +50,5 @@ apkv_v2_admin/obj/Release/apkv_v2_admin.vbproj.GenerateResource.cache
 apkv_v2_admin/obj/Release/Package/PackageTmp/bin/apkv_v2_admin.dll
 
 apkv_v2_admin/obj/Release/Package/PackageTmp/bin/apkv_v2_admin.pdb
+
+apkv_v2_admin/Web.config

@@ -2321,7 +2321,7 @@ Public Class transkrip_sijil_vok1
                     strSQL += " AND kpmkv_SVM.LayakSVM IS NULL"
                 End If
 
-                strSQL += " ORDER BY kpmkv_pelajar.AngkaGiliran ASC"
+                strSQL += " ORDER BY kpmkv_pelajar.KolejRecordID, kpmkv_kursus.NamaKursus, kpmkv_pelajar.AngkaGiliran ASC"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
