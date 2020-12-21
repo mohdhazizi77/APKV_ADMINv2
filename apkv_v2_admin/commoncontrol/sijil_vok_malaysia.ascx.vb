@@ -392,11 +392,11 @@ Public Class sijil_vok_malaysia1
             strWhere += " AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
         End If
         '--kodkursus
-        If Not ddlKodKursus.Text = "" Then
+        If Not ddlKodKursus.Text = "-PILIH-" Then
             strWhere += " AND kpmkv_pelajar.KursusID ='" & ddlKodKursus.SelectedValue & "'"
         End If
         '--NamaKelas
-        If Not ddlNamaKelas.Text = "" Then
+        If Not ddlNamaKelas.Text = "-PILIH-" Then
             strWhere += " AND kpmkv_pelajar.KelasID ='" & ddlNamaKelas.SelectedValue & "'"
         End If
         '--txtNama
@@ -1595,6 +1595,34 @@ Public Class sijil_vok_malaysia1
 
                     End If
 
+                    strSQL = " SELECT RunningNo FROM kpmkv_sijil_RunningNo WHERE PelajarID = '" & PelajarID & "'"
+                    Dim RunNo As String = oCommon.getFieldValue(strSQL)
+
+                    If RunNo = "" Then
+
+                        ''kod
+                        strSQL = " SELECT Kod FROM kpmkv_tahun WHERE Tahun = '" & isBMTahun & "'"
+                        Dim KodRunningNo As String = oCommon.getFieldValue(strSQL)
+
+                        ''digit
+                        strSQL = " SELECT RunningNoDigit FROM kpmkv_tahun WHERE Tahun = '" & isBMTahun & "'"
+                        Dim strRunNoDigit As String = oCommon.getFieldValue(strSQL)
+
+                        ''lastrunningno
+                        strSQL = " SELECT LastRunningNo FROM kpmkv_tahun WHERE Tahun = '" & isBMTahun & "'"
+                        Dim strLastRunNo As Integer = oCommon.getFieldValue(strSQL)
+                        strLastRunNo = strLastRunNo + 1
+
+                        ''INSERT 
+                        strSQL = " INSERT INTO kpmkv_sijil_RunningNo (PelajarID, RunningNo, TotalPrint) VALUES ('" & PelajarID & "', '" & KodRunningNo & "   " & strLastRunNo.ToString("D" & strRunNoDigit) & "', 0)"
+                        strRet = oCommon.ExecuteSQL(strSQL)
+
+                        ''UPDATE
+                        strSQL = " UPDATE kpmkv_tahun SET LastRunningNo = '" & strLastRunNo & "' WHERE Tahun = '" & isBMTahun & "'"
+                        strRet = oCommon.ExecuteSQL(strSQL)
+
+                    End If
+
                     Dim table As New PdfPTable(3)
                     table.WidthPercentage = 100
                     table.SetWidths({42, 16, 42})
@@ -2136,6 +2164,7 @@ Public Class sijil_vok_malaysia1
                     cell.Border = 0
                     table.AddCell(cell)
 
+
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += "PURATA NILAI GRED KUMULATIF AKADEMIK (PNGKA)"
@@ -2143,11 +2172,26 @@ Public Class sijil_vok_malaysia1
                     cell.Border = 0
                     table.AddCell(cell)
 
-                    cell = New PdfPCell()
-                    cetak = ""
-                    cetak += FormatNumber(CDbl(PNGKA), 2)
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
+                    If PNGKA = "" Then
+
+                        cell = New PdfPCell()
+                        cetak = ""
+                        'cetak += FormatNumber(CDbl(PNGKA), 2)
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.Border = 0
+                        table.AddCell(cell)
+
+                    Else
+
+                        cell = New PdfPCell()
+                        cetak = ""
+                        cetak += FormatNumber(CDbl(PNGKA), 2)
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.Border = 0
+                        table.AddCell(cell)
+
+                    End If
+
                     table.AddCell(cell)
 
                     myDocument.Add(table)
@@ -2173,12 +2217,25 @@ Public Class sijil_vok_malaysia1
                     cell.Border = 0
                     table.AddCell(cell)
 
-                    cell = New PdfPCell()
-                    cetak = ""
-                    cetak += FormatNumber(CDbl(PNGKV), 2)
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
+                    If PNGKV = "" Then
+
+                        cell = New PdfPCell()
+                        cetak = ""
+                        'cetak += FormatNumber(CDbl(PNGKV), 2)
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.Border = 0
+                        table.AddCell(cell)
+
+                    Else
+
+                        cell = New PdfPCell()
+                        cetak = ""
+                        cetak += FormatNumber(CDbl(PNGKV), 2)
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.Border = 0
+                        table.AddCell(cell)
+
+                    End If
 
                     myDocument.Add(table)
 
@@ -2247,6 +2304,8 @@ Public Class sijil_vok_malaysia1
                     strSQL = " SELECT Kod FROM kpmkv_tahun WHERE Tahun = '" & strIsBMTahun & "'"
                     Dim strKod As String = oCommon.getFieldValue(strSQL)
 
+
+
                     ''runningno
                     strSQL = " SELECT RunningNo FROM kpmkv_sijil_RunningNo WHERE PelajarID = '" & PelajarID & "'"
                     Dim strRunningNo As String = oCommon.getFieldValue(strSQL)
@@ -2311,6 +2370,9 @@ Public Class sijil_vok_malaysia1
             HttpContext.Current.Response.End()
 
         Catch ex As Exception
+
+            lblMsg.Text = strSQL & " " & ex.Message
+            lblMsg.Text = strSQL & " " & ex.Message
 
         End Try
 
