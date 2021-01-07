@@ -329,7 +329,7 @@ Public Class transkrip_sijil_vok1
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strWhere As String = ""
-        Dim strOrder As String = " ORDER BY kpmkv_pelajar.AngkaGiliran ASC"
+        Dim strOrder As String = " ORDER BY kpmkv_pelajar.KolejRecordID, kpmkv_kursus.NamaKursus, kpmkv_pelajar.AngkaGiliran ASC"
 
         '--not deleted
         tmpSQL = "SELECT kpmkv_pelajar.PelajarID, kpmkv_pelajar.Tahun, kpmkv_pelajar.Semester, kpmkv_pelajar.Sesi, kpmkv_pelajar.Nama, kpmkv_pelajar.MYKAD, kpmkv_pelajar.AngkaGiliran, "
@@ -532,7 +532,7 @@ Public Class transkrip_sijil_vok1
                 strSQL += " AND kpmkv_SVM.LayakSVM IS NULL"
             End If
 
-            strSQL += " ORDER BY kpmkv_pelajar.AngkaGiliran ASC"
+            strSQL += " ORDER BY kpmkv_pelajar.KolejRecordID, kpmkv_kursus.NamaKursus, kpmkv_pelajar.AngkaGiliran ASC"
 
             strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -1963,9 +1963,8 @@ Public Class transkrip_sijil_vok1
 
                     '' Get data from kpmkv_svm sem 4
 
-                    strSQL = "SELECT PNGKA FROM kpmkv_SVM WHERE Mykad='" & strmykad & "'"
-                    strSQL += " AND  Tahun='" & ddlTahun.SelectedValue & "' AND Semester='4' AND KodKursus='" & strkodKursus & "'"
-                    'strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+                    strSQL = "SELECT PNGKA FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
+
 
                     Dim strPNGKA As String = oCommon.getFieldValue(strSQL)
 
@@ -2037,9 +2036,8 @@ Public Class transkrip_sijil_vok1
 
                     ''PNGK vok & jumlah jam kredit vok
 
-                    strSQL = "SELECT PNGKV FROM kpmkv_SVM WHERE Mykad='" & strmykad & "'"
-                    strSQL += " AND  Tahun='" & ddlTahun.SelectedValue & "' AND Semester='4' AND KodKursus='" & strkodKursus & "'"
-                    'strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+                    strSQL = "SELECT PNGKV FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
+
 
                     Dim strPNGKV As String = oCommon.getFieldValue(strSQL)
 
@@ -2126,9 +2124,8 @@ Public Class transkrip_sijil_vok1
 
                     ''PNGK keseluruhan
 
-                    strSQL = "SELECT PNGKK FROM kpmkv_SVM WHERE Mykad='" & strmykad & "'"
-                    strSQL += " AND  Tahun='" & ddlTahun.SelectedValue & "' AND Semester='4' AND KodKursus='" & strkodKursus & "'"
-                    'strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+                    strSQL = "SELECT PNGKK FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
+
 
                     Dim strPNGKK As String = oCommon.getFieldValue(strSQL)
 
@@ -3720,8 +3717,7 @@ Public Class transkrip_sijil_vok1
 
                     '' Get data from kpmkv_svm sem 4
 
-                    strSQL = "SELECT PNGKA FROM kpmkv_SVM WHERE Mykad='" & strmykad & "'"
-                    strSQL += " AND  Tahun='" & ddlTahun.SelectedValue & "' AND Semester='4' AND KodKursus='" & strkodKursus & "'"
+                    strSQL = "SELECT PNGKA FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
                     'strSQL += " AND Sesi ='" & chkSesi.Text & "'"
 
                     Dim strPNGKA As String = oCommon.getFieldValue(strSQL)
@@ -3762,7 +3758,6 @@ Public Class transkrip_sijil_vok1
 
                     strSQL = " SELECT Jum_JamKredit_Akademik FROM kpmkv_pelajar_markah"
                     strSQL += " WHERE PelajarID = '" & strkey & "'"
-                    strSQL += " AND Semester = '4'"
 
                     Dim TotalJK As Integer = oCommon.getFieldValue(strSQL)
 
@@ -3794,9 +3789,7 @@ Public Class transkrip_sijil_vok1
 
                     ''PNGK vok & jumlah jam kredit vok
 
-                    strSQL = "SELECT PNGKV FROM kpmkv_SVM WHERE Mykad='" & strmykad & "'"
-                    strSQL += " AND  Tahun='" & ddlTahun.SelectedValue & "' AND Semester='4' AND KodKursus='" & strkodKursus & "'"
-                    'strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+                    strSQL = "SELECT PNGKV FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
 
                     Dim strPNGKV As String = oCommon.getFieldValue(strSQL)
 
@@ -3883,9 +3876,7 @@ Public Class transkrip_sijil_vok1
 
                     ''PNGK keseluruhan
 
-                    strSQL = "SELECT PNGKK FROM kpmkv_SVM WHERE Mykad='" & strmykad & "'"
-                    strSQL += " AND  Tahun='" & ddlTahun.SelectedValue & "' AND Semester='4' AND KodKursus='" & strkodKursus & "'"
-                    'strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+                    strSQL = "SELECT PNGKK FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
 
                     Dim strPNGKK As String = oCommon.getFieldValue(strSQL)
 

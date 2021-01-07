@@ -2085,7 +2085,7 @@ Public Class sijil_vok_malaysia1
 
                     myDocument.Add(table)
 
-                    If Not GredSJSetara = "G" Then
+                    If GredSJSetara = "LULUS" Then
 
                         table = New PdfPTable(5)
                         table.WidthPercentage = 100
