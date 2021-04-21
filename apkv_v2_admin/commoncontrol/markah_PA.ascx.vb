@@ -178,26 +178,100 @@ Public Class markah_PA
     End Sub
 
     Private Sub kpmkv_semester_list()
-        strSQL = "SELECT Semester FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Semester ASC"
-        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
-        Dim objConn As SqlConnection = New SqlConnection(strConn)
-        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
 
-        Try
-            Dim ds As DataSet = New DataSet
-            sqlDA.Fill(ds, "AnyTable")
+        strSQL = "SELECT * FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Pemeriksa Borang Markah PA' AND Aktif='1'"
+        If oCommon.isExist(strSQL) = True Then
 
-            ddlSemester.DataSource = ds
-            ddlSemester.DataTextField = "Semester"
-            ddlSemester.DataValueField = "Semester"
-            ddlSemester.DataBind()
+            'count data takwim
+            'Get the data from database into datatable
+            Dim cmd As New SqlCommand("SELECT TakwimID FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Pemeriksa Borang Markah PA' AND Aktif='1'")
+            Dim dt As DataTable = GetData(cmd)
 
-        Catch ex As Exception
-            lblMsg.Text = "System Error:" & ex.Message
+            For i As Integer = 0 To dt.Rows.Count - 1
+                IntTakwim = dt.Rows(i)("TakwimID")
 
-        Finally
-            objConn.Dispose()
-        End Try
+                strSQL = "SELECT TarikhMula,TarikhAkhir FROM kpmkv_takwim WHERE TakwimID='" & IntTakwim & "'"
+                strRet = oCommon.getFieldValueEx(strSQL)
+
+                Dim ar_user_login As Array
+                ar_user_login = strRet.Split("|")
+                Dim strMula As String = ar_user_login(0)
+                Dim strAkhir As String = ar_user_login(1)
+
+                Dim strdateNow As Date = Date.Now.Date
+                Dim startDate = DateTime.ParseExact(strMula, "dd-MM-yyyy", CultureInfo.InvariantCulture)
+                Dim endDate = DateTime.ParseExact(strAkhir, "dd-MM-yyyy", CultureInfo.InvariantCulture)
+
+                Dim ts As New TimeSpan
+                ts = startDate.Subtract(strdateNow)
+                Dim dayDiffMula = ts.Days
+                ts = endDate.Subtract(strdateNow)
+                Dim dayDiffAkhir = ts.Days
+
+                If strMula IsNot Nothing And dayDiffMula <= 0 Then
+                    If strAkhir IsNot Nothing And dayDiffAkhir >= 0 Then
+
+                        strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
+                        lblUserId.Text = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT UserType FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
+                        lblUserType.Text = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT Semester FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Semester ASC"
+                        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+                        Dim objConn As SqlConnection = New SqlConnection(strConn)
+                        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+                        Try
+                            Dim ds As DataSet = New DataSet
+                            sqlDA.Fill(ds, "AnyTable")
+
+                            ddlSemester.DataSource = ds
+                            ddlSemester.DataTextField = "Semester"
+                            ddlSemester.DataValueField = "Semester"
+                            ddlSemester.DataBind()
+
+                        Catch ex As Exception
+                            lblMsg.Text = "System Error:" & ex.Message
+
+                        Finally
+                            objConn.Dispose()
+                        End Try
+
+                        'checkinbox
+                        strSQL = "SELECT Sesi FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Kohort ASC"
+                        strRet = oCommon.getFieldValue(strSQL)
+
+                        If strRet = 1 Then
+                            chkSesi.Items(0).Enabled = True
+                            chkSesi.Items(0).Selected = True
+                            ' chkSesi.Items(1).Enabled = False
+                        Else
+                            ' chkSesi.Items(0).Enabled = False
+                            chkSesi.Items(1).Enabled = True
+                        End If
+                        btnCari.Enabled = True
+                        ddlTahun.Enabled = True
+                        ddlKodPusat.Enabled = True
+                        ddlSemester.Enabled = True
+                        lblMsg.Text = ""
+
+                    End If
+                Else
+                    btnCari.Enabled = False
+                    ddlTahun.Enabled = False
+                    ddlKodPusat.Enabled = False
+                    ddlSemester.Enabled = False
+                    lblMsg.Text = "Pemeriksa Borang Markah PA telah ditutup!"
+                End If
+            Next
+        Else
+            btnCari.Enabled = False
+            ddlTahun.Enabled = False
+            ddlKodPusat.Enabled = False
+            ddlSemester.Enabled = False
+            lblMsg.Text = "Pemeriksa Borang Markah PA telah ditutup!"
+        End If
 
     End Sub
 

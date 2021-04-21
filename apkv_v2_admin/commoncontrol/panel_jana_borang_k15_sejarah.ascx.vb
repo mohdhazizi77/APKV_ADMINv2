@@ -128,7 +128,7 @@ Public Class panel_jana_borang_k15_sejarah1
                     AND kpmkv_pelajar.IsSJUlang = '1'
                     AND kpmkv_markah_bmsj_setara.MataPelajaran = 'SEJARAH'
                     AND kpmkv_pelajar.KolejRecordID = '" & ddlKodPusat.SelectedValue & "'
-                    AND kpmkv_markah_bmsj_setara.IsAKATahun = '" & Now.Year & "'
+                    AND kpmkv_markah_bmsj_setara.IsAKATahun = '" & ddlTahun.Text & "'
                     AND kpmkv_pelajar.Sesi = '" & chkSesi.Text & "'
                     GROUP BY  
                     kpmkv_markah_bmsj_setara.PelajarID, 

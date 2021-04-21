@@ -102,7 +102,7 @@ Public Class markah_PA_sejarah1
                     AND kpmkv_pelajar.IsSJUlang = '1'
                     AND kpmkv_markah_bmsj_setara.MataPelajaran = 'SEJARAH'
                     AND kpmkv_pelajar.KolejRecordID = '" & lblKolejRecorID.Text & "'
-                    AND kpmkv_markah_bmsj_setara.IsAKATahun = '" & Now.Year & "'
+                    AND kpmkv_markah_bmsj_setara.IsAKATahun = '" & lblTahun.Text & "'
                     AND kpmkv_pelajar.Sesi = '" & lblSesi.Text & "'
                     GROUP BY  
                     kpmkv_markah_bmsj_setara.PelajarID, 
@@ -129,7 +129,7 @@ Public Class markah_PA_sejarah1
                     AND kpmkv_pelajar.IsSJUlang IS NULL
                     AND kpmkv_pelajar.Semester = '4'
                     AND kpmkv_pelajar.KolejRecordID = '" & lblKolejRecorID.Text & "'
-                    AND kpmkv_pelajar.IsSJTahun = '" & Now.Year & "'
+                    AND kpmkv_pelajar.IsSJTahun = '" & lblTahun.Text & "'
                     AND kpmkv_pelajar.Sesi = '" & lblSesi.Text & "'
                     GROUP BY 
                     kpmkv_pelajar.PelajarID, 

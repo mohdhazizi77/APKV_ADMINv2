@@ -2960,6 +2960,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:apkv_v2_admin.borang_markah_sejarah_khas1._ddlTahun">
+<summary>
+ddlTahun control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:apkv_v2_admin.borang_markah_sejarah_khas1._gridView">
 <summary>
 gridView control.
@@ -12347,6 +12356,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:apkv_v2_admin.markah_bmsetara._ddlTahun">
+<summary>
+ddlTahun control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:apkv_v2_admin.markah_bmsetara._ddlKodPusat">
 <summary>
 ddlKodPusat control.
@@ -12413,6 +12431,15 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.markah_bmsetara._lblUserId">
 <summary>
 lblUserId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.markah_bmsetara._lblUserType">
+<summary>
+lblUserType control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -15869,6 +15896,96 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.muatnaik_bahan._lblAction">
 <summary>
 lblAction control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._ddlKohort">
+<summary>
+ddlKohort control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._ddlSemester">
+<summary>
+ddlSemester control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._ddlKategory">
+<summary>
+ddlKategory control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._btnSearch">
+<summary>
+btnSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._datRespondent2">
+<summary>
+datRespondent2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._datRespondent">
+<summary>
+datRespondent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._divMsg">
+<summary>
+divMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._lblKolejID">
+<summary>
+lblKolejID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._lblJenisKursus">
+<summary>
+lblJenisKursus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._lblMsg">
+<summary>
+lblMsg control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -29486,6 +29603,15 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.muatnaik_bahan1._muatnaik_bahan">
 <summary>
 muatnaik_bahan control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan._muatturunbahan">
+<summary>
+muatturunbahan control.
 </summary>
 <remarks>
 Auto-generated field.

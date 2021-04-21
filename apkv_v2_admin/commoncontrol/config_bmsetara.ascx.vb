@@ -137,7 +137,7 @@ Public Class config_bmsetara
                     AND kpmkv_pelajar.IsBMUlang = '1'
                     AND kpmkv_markah_bmsj_setara.MataPelajaran = 'BAHASA MELAYU'
                     AND kpmkv_pelajar.KolejRecordID = '" & ddlKodPusat.Text & "'
-                    AND kpmkv_markah_bmsj_setara.IsAKATahun = '" & Now.Year & "'
+                    AND kpmkv_markah_bmsj_setara.IsAKATahun = '" & ddlTahun.Text & "'
                     AND kpmkv_pelajar.Sesi = '" & chkSesi.Text & "'
                     GROUP BY  
                     kpmkv_markah_bmsj_setara.PelajarID, 

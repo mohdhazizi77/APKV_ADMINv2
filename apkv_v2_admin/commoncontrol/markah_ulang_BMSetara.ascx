@@ -15,7 +15,7 @@
     <tr>
         <td style="width: 20%;">Negeri:</td>
         <td>
-            <asp:DropDownList ID="ddlNegeri" runat="server" Width="350px"></asp:DropDownList></td>
+            <asp:DropDownList ID="ddlNegeri" runat="server" Width="350px" AutoPostBack="true"></asp:DropDownList></td>
     </tr>
     <tr>
         <td style="width: 20%;">Jenis Kolej:</td>

@@ -36,44 +36,44 @@ Public Class markah_sejarah1
     End Sub
     Private Sub kpmkv_Kohort()
 
-        ddlTahun.Items.Insert(0, Now.Year)
-        ddlTahun.SelectedItem.Text = Now.Year
+        ''ddlTahun.Items.Insert(0, Now.Year)
+        ''ddlTahun.SelectedItem.Text = Now.Year
 
-        'If lblUserType.Text = "ADMIN" Then
-        '    strSQL = " SELECT Distinct Tahun FROM kpmkv_pemeriksa ORDER BY Tahun DESC"
-        'Else
-        '    strSQL = "SELECT Distinct Tahun FROM kpmkv_pemeriksa WHERE UserID='" & lblUserId.Text & "'  ORDER BY Tahun DESC"
+        If lblUserType.Text = "ADMIN" Then
+            strSQL = " SELECT Distinct Tahun FROM kpmkv_pemeriksa ORDER BY Tahun DESC"
+        Else
+            strSQL = "SELECT Distinct Tahun FROM kpmkv_pemeriksa WHERE UserID='" & lblUserId.Text & "'  ORDER BY Tahun DESC"
 
-        'End If
+        End If
 
-        'Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
-        'Dim objConn As SqlConnection = New SqlConnection(strConn)
-        'Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
 
-        'Try
-        '    Dim ds As DataSet = New DataSet
-        '    sqlDA.Fill(ds, "AnyTable")
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
 
-        '    ddlTahun.DataSource = ds
-        '    ddlTahun.DataTextField = "Tahun"
-        '    ddlTahun.DataValueField = "Tahun"
-        '    ddlTahun.DataBind()
+            ddlTahun.DataSource = ds
+            ddlTahun.DataTextField = "Tahun"
+            ddlTahun.DataValueField = "Tahun"
+            ddlTahun.DataBind()
 
-        '    '--ALL
-        '    ddlTahun.Items.Add(New ListItem("-Pilih-", ""))
+            '--ALL
+            ddlTahun.Items.Add(New ListItem("-Pilih-", ""))
 
-        'Catch ex As Exception
-        '    lblMsg.Text = "System Error:" & ex.Message
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
 
-        'Finally
-        '    objConn.Dispose()
-        'End Try
+        Finally
+            objConn.Dispose()
+        End Try
 
     End Sub
 
     Private Sub kpmkv_kolej_list()
         If lblUserType.Text = "ADMIN" Then
-            strSQL = " SELECT Distinct KodKolej FROM kpmkv_pemeriksa WHERE Tahun='" & Now.Year & "' ORDER By KodKolej"
+            strSQL = " SELECT Distinct KodKolej FROM kpmkv_pemeriksa WHERE Tahun='" & ddlTahun.SelectedValue & "' ORDER By KodKolej"
         Else
             strSQL = " SELECT  Distinct KodKolej FROM kpmkv_pemeriksa WHERE UserID='" & lblUserId.Text & "' AND Tahun='" & ddlTahun.SelectedValue & "'"
 
@@ -219,7 +219,7 @@ Public Class markah_sejarah1
         If lblUserType.Text = "ADMIN" Then
             tmpSQL = " SELECT PemeriksaID,Tahun,Semester,Sesi,KodKolej,KodKursus FROM kpmkv_pemeriksa "
             strWhere = " WHERE KodKolej='" & ddlKodPusat.Text & "'"
-            strWhere += " AND Sesi='" & chkSesi.Text & "' AND Tahun='" & Now.Year & "' AND Semester='" & ddlSemester.Text & "'"
+            strWhere += " AND Sesi='" & chkSesi.Text & "' AND Tahun='" & ddlTahun.SelectedValue & "' AND Semester='" & ddlSemester.Text & "'"
             ''--debug
             ''Response.Write(getSQL)
         Else

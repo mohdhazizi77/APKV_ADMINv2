@@ -12,7 +12,16 @@ Option Explicit On
 
 
 Partial Public Class borang_markah_sejarah_khas1
-    
+
+    '''<summary>
+    '''ddlTahun control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
+
     '''<summary>
     '''gridView control.
     '''</summary>
@@ -21,7 +30,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents gridView As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''btnPrint control.
     '''</summary>
@@ -30,7 +39,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnPrint As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''divMsg control.
     '''</summary>
@@ -39,7 +48,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''lblID control.
     '''</summary>
@@ -48,7 +57,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblID As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblType control.
     '''</summary>
@@ -57,7 +66,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblType As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblTahun control.
     '''</summary>
@@ -66,7 +75,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTahun As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblPAT control.
     '''</summary>
@@ -75,7 +84,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblPAT As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblSesi control.
     '''</summary>
@@ -84,7 +93,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSesi As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblSemester control.
     '''</summary>
@@ -93,7 +102,7 @@ Partial Public Class borang_markah_sejarah_khas1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSemester As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>

@@ -15,6 +15,12 @@ Public Class markah_bmsetara
                 strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "'"
                 lblUserId.Text = oCommon.getFieldValue(strSQL)
 
+                strSQL = "SELECT UserType FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "'"
+                lblUserType.Text = oCommon.getFieldValue(strSQL)
+
+                kpmkv_Kohort()
+                ddlTahun.SelectedValue = ""
+
                 kpmkv_kolej_list()
 
             End If
@@ -23,6 +29,43 @@ Public Class markah_bmsetara
             lblMsg.Text = ex.Message
             lblMsgResult.Text = ex.Message
         End Try
+    End Sub
+
+    Private Sub kpmkv_Kohort()
+
+        ''ddlTahun.Items.Insert(0, Now.Year)
+        ''ddlTahun.SelectedItem.Text = Now.Year
+
+        If lblUserType.Text = "ADMIN" Then
+            strSQL = " SELECT Distinct Tahun FROM kpmkv_pemeriksa ORDER BY Tahun DESC"
+        Else
+            strSQL = "SELECT Distinct Tahun FROM kpmkv_pemeriksa WHERE UserID='" & lblUserId.Text & "'  ORDER BY Tahun DESC"
+
+        End If
+
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            ddlTahun.DataSource = ds
+            ddlTahun.DataTextField = "Tahun"
+            ddlTahun.DataValueField = "Tahun"
+            ddlTahun.DataBind()
+
+            '--ALL
+            ddlTahun.Items.Add(New ListItem("-Pilih-", ""))
+
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
+
+        Finally
+            objConn.Dispose()
+        End Try
+
     End Sub
     Private Sub datRespondent_PageIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewPageEventArgs) Handles datRespondent.PageIndexChanging
         datRespondent.PageIndex = e.NewPageIndex
@@ -59,9 +102,9 @@ Public Class markah_bmsetara
     End Function
     Private Sub kpmkv_kolej_list()
         If Session("LoginID") = "admin" Then
-            strSQL = " SELECT DISTINCT KodKolej FROM kpmkv_pemeriksa WHERE Tahun='" & Now.Year & "' ORDER By KodKolej"
+            strSQL = " SELECT DISTINCT KodKolej FROM kpmkv_pemeriksa WHERE Tahun='" & ddlTahun.SelectedValue & "' ORDER By KodKolej"
         Else
-            strSQL = " SELECT KodKolej FROM kpmkv_pemeriksa WHERE kpmkv_pemeriksa.UserID='" & lblUserId.Text & "' AND Tahun='" & Now.Year & "' ORDER By KodKolej"
+            strSQL = " SELECT KodKolej FROM kpmkv_pemeriksa WHERE kpmkv_pemeriksa.UserID='" & lblUserId.Text & "' AND Tahun='" & ddlTahun.SelectedValue & "' ORDER By KodKolej"
         End If
 
         Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
@@ -97,13 +140,13 @@ Public Class markah_bmsetara
         If Session("LoginID") = "admin" Then
             tmpSQL = " SELECT PemeriksaID,Tahun,Semester,Sesi,KodKolej,KertasNo FROM kpmkv_pemeriksa "
             strWhere = " WHERE kpmkv_pemeriksa.KodKolej='" & ddlKodPusat.Text & "'"
-            strWhere += " AND Sesi='" & chkSesi.Text & "' AND Tahun='" & Now.Year & "'"
+            strWhere += " AND Sesi='" & chkSesi.Text & "' AND Tahun='" & ddlTahun.SelectedValue & "'"
             ''--debug
             ''Response.Write(getSQL)
         Else
             tmpSQL = " SELECT PemeriksaID,Tahun,Semester,Sesi,KodKolej,KertasNo FROM  kpmkv_pemeriksa "
             strWhere = " WHERE kpmkv_pemeriksa.KodKolej='" & ddlKodPusat.Text & "' AND kpmkv_pemeriksa.UserID='" & lblUserId.Text & "'"
-            strWhere += " AND Sesi='" & chkSesi.Text & "' AND Tahun='" & Now.Year & "'"
+            strWhere += " AND Sesi='" & chkSesi.Text & "' AND Tahun='" & ddlTahun.SelectedValue & "'"
             ''--debug
             ''Response.Write(getSQL)
 
@@ -156,6 +199,11 @@ Public Class markah_bmsetara
         lblMsg.Text = ""
         lblMsgResult.Text = ""
         strRet = BindData(datRespondent)
+    End Sub
+
+    Private Sub ddlTahun_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlTahun.SelectedIndexChanged
+        kpmkv_kolej_list()
+
     End Sub
 End Class
 

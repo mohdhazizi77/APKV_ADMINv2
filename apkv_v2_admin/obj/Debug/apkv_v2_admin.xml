@@ -2960,6 +2960,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:apkv_v2_admin.borang_markah_sejarah_khas1._ddlTahun">
+<summary>
+ddlTahun control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:apkv_v2_admin.borang_markah_sejarah_khas1._gridView">
 <summary>
 gridView control.
@@ -12347,6 +12356,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:apkv_v2_admin.markah_bmsetara._ddlTahun">
+<summary>
+ddlTahun control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:apkv_v2_admin.markah_bmsetara._ddlKodPusat">
 <summary>
 ddlKodPusat control.
@@ -12413,6 +12431,15 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.markah_bmsetara._lblUserId">
 <summary>
 lblUserId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.markah_bmsetara._lblUserType">
+<summary>
+lblUserType control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -15869,6 +15896,96 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.muatnaik_bahan._lblAction">
 <summary>
 lblAction control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._ddlKohort">
+<summary>
+ddlKohort control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._ddlSemester">
+<summary>
+ddlSemester control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._ddlKategory">
+<summary>
+ddlKategory control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._btnSearch">
+<summary>
+btnSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._datRespondent2">
+<summary>
+datRespondent2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._datRespondent">
+<summary>
+datRespondent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._divMsg">
+<summary>
+divMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._lblKolejID">
+<summary>
+lblKolejID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._lblJenisKursus">
+<summary>
+lblJenisKursus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.muatturun_bahan1._lblMsg">
+<summary>
+lblMsg control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -25829,6 +25946,582 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:apkv_v2_admin.svmu_daftar_calon_ulang1._txtMYKAD">
+<summary>
+txtMYKAD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_daftar_calon_ulang1._lblMsgMYKAD">
+<summary>
+lblMsgMYKAD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_daftar_calon_ulang1._txtAngkaGiliran">
+<summary>
+txtAngkaGiliran control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_daftar_calon_ulang1._lblMsgAngkaGiliran">
+<summary>
+lblMsgAngkaGiliran control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_daftar_calon_ulang1._btnBack">
+<summary>
+btnBack control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_daftar_calon_ulang1._btnApply">
+<summary>
+btnApply control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtNama">
+<summary>
+txtNama control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtMYKAD">
+<summary>
+txtMYKAD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtAngkaGiliran">
+<summary>
+txtAngkaGiliran control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtDate">
+<summary>
+txtDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtJantina">
+<summary>
+txtJantina control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtKeturunan">
+<summary>
+txtKeturunan control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtAgama">
+<summary>
+txtAgama control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtKohort">
+<summary>
+txtKohort control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtAlamat">
+<summary>
+txtAlamat control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtPoskod">
+<summary>
+txtPoskod control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtBandar">
+<summary>
+txtBandar control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._ddlNegeri">
+<summary>
+ddlNegeri control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtTelefon">
+<summary>
+txtTelefon control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._txtEmail">
+<summary>
+txtEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._chkBM">
+<summary>
+chkBM control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._lblGredBM">
+<summary>
+lblGredBM control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._chkSJ">
+<summary>
+chkSJ control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._lblGredSJ">
+<summary>
+lblGredSJ control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._lblRMAsas">
+<summary>
+lblRMAsas control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._lblRMBM">
+<summary>
+lblRMBM control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._lblRMSJ">
+<summary>
+lblRMSJ control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._DropDownList1">
+<summary>
+DropDownList1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._ddlKolej">
+<summary>
+ddlKolej control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._btnBack">
+<summary>
+btnBack control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang1._btnProceed">
+<summary>
+btnProceed control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pengakuan_calon._chkPengakuan">
+<summary>
+chkPengakuan control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pengakuan_calon._btnBack">
+<summary>
+btnBack control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pengakuan_calon._btnSubmit">
+<summary>
+btnSubmit control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pusat_peperiksaan1._ddlNegeri">
+<summary>
+ddlNegeri control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pusat_peperiksaan1._ddlKolej">
+<summary>
+ddlKolej control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtNama">
+<summary>
+txtNama control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtMYKAD">
+<summary>
+txtMYKAD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtSuratBeranak">
+<summary>
+txtSuratBeranak control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtDate">
+<summary>
+txtDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtJantina">
+<summary>
+txtJantina control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtKeturunan">
+<summary>
+txtKeturunan control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtAgama">
+<summary>
+txtAgama control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtAngkaGiliran">
+<summary>
+txtAngkaGiliran control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtKohort">
+<summary>
+txtKohort control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtAlamat">
+<summary>
+txtAlamat control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtPoskod">
+<summary>
+txtPoskod control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtBandar">
+<summary>
+txtBandar control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtNegeri">
+<summary>
+txtNegeri control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtTelefon">
+<summary>
+txtTelefon control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._txtEmail">
+<summary>
+txtEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._GVMataPelajaran">
+<summary>
+GVMataPelajaran control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblRMAsas">
+<summary>
+lblRMAsas control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblTotalRMAsas">
+<summary>
+lblTotalRMAsas control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblRMBM">
+<summary>
+lblRMBM control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblTotalRMBM">
+<summary>
+lblTotalRMBM control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblRMSJ">
+<summary>
+lblRMSJ control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblTotalRMSJ">
+<summary>
+lblTotalRMSJ control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblTotalRM">
+<summary>
+lblTotalRM control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblKodPusat">
+<summary>
+lblKodPusat control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblNegeri">
+<summary>
+lblNegeri control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._lblKolej">
+<summary>
+lblKolej control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._btnBack">
+<summary>
+btnBack control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran._btnProceed">
+<summary>
+btnProceed control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:apkv_v2_admin.svm_pengesahan1._Label1">
 <summary>
 Label1 control.
@@ -29492,6 +30185,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:apkv_v2_admin.muatturun_bahan._muatturunbahan">
+<summary>
+muatturunbahan control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:apkv_v2_admin.NegeriDash._admin_reportNegeri1">
 <summary>
 admin_reportNegeri1 control.
@@ -29693,6 +30395,24 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.pembetulan_markah_PBV._pembetulan_markah_PB_vokasional">
 <summary>
 pembetulan_markah_PB_vokasional control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pendaftaran_calon_ulang_online._pendaftaran_calon_ulang_online">
+<summary>
+pendaftaran_calon_ulang_online control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pendaftaran_calon_ulang_online_contact._contact_us">
+<summary>
+contact_us control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -30008,6 +30728,105 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.svm_pengesahan._svm_pengesahan">
 <summary>
 svm_pengesahan control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu._Head1">
+<summary>
+Head1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu._head">
+<summary>
+head control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu._myform">
+<summary>
+myform control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu._ContentPlaceHolder1">
+<summary>
+ContentPlaceHolder1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu._lblFooterMsg">
+<summary>
+lblFooterMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_daftar_calon_ulang._svmu_daftar_calon_ulang">
+<summary>
+svmu_daftar_calon_ulang control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_kemaskini_calon_ulang._svmu_kemaskini_calon_ulang">
+<summary>
+svmu_kemaskini_calon_ulang control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pembayaran_pendaftaran2._svmu_pembayaran_pendaftaran">
+<summary>
+svmu_pembayaran_pendaftaran control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pengakuan_calon1._svmu_pengakuan_calon">
+<summary>
+svmu_pengakuan_calon control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_pusat_peperiksaan._svmu_pusat_peperiksaan">
+<summary>
+svmu_pusat_peperiksaan control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.svmu_rumusan_pendaftaran1._svmu_rumusan_pendaftaran">
+<summary>
+svmu_rumusan_pendaftaran control.
 </summary>
 <remarks>
 Auto-generated field.

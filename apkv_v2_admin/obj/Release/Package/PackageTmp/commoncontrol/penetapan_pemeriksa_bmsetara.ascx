@@ -28,7 +28,7 @@
         <td colspan="2">Penetapan Pemeriksa</td>
     </tr>
     <tr>
-        <td>Tahun Semasa:</td>
+        <td>Tahun Peperiksaan:</td>
         <td>
             <asp:DropDownList ID="ddlTahun" runat="server" AutoPostBack="false" Width="350px"></asp:DropDownList></td>
     </tr>

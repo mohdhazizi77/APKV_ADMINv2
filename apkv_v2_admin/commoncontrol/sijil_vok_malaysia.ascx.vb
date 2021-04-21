@@ -140,6 +140,8 @@ Public Class sijil_vok_malaysia1
             ddlTahun.DataValueField = "Tahun"
             ddlTahun.DataBind()
 
+            ddlTahun.Items.Insert(0, "-PILIH-")
+
         Catch ex As Exception
 
         Finally
@@ -195,6 +197,9 @@ Public Class sijil_vok_malaysia1
             ddlNamaKelas.DataValueField = "KelasID"
             ddlNamaKelas.DataBind()
 
+            ddlNamaKelas.Items.Insert(0, "-PILIH-")
+
+
         Catch ex As Exception
             'lblMsg.Text = "System Error: ddlnamakelas" & ex.Message
 
@@ -219,6 +224,9 @@ Public Class sijil_vok_malaysia1
             ddlSign.DataTextField = "NamaPengarah"
             ddlSign.DataValueField = "ID"
             ddlSign.DataBind()
+
+            ddlSign.Items.Insert(0, "-PILIH-")
+
 
         Catch ex As Exception
 
@@ -383,12 +391,12 @@ Public Class sijil_vok_malaysia1
         strWhere = " WHERE kpmkv_pelajar.IsDeleted='N' AND kpmkv_pelajar.StatusID='2' AND kpmkv_pelajar.KolejRecordID='" & ddlKolej.SelectedValue & "' AND kpmkv_pelajar.Semester ='4'"
 
         '--tahun
-        If Not ddlTahun.Text = "" Then
+        If Not ddlTahun.Text = "-PILIH-" Then
             strWhere += " AND kpmkv_pelajar.Tahun ='" & ddlTahun.Text & "'"
         End If
 
         '--sesi
-        If Not chkSesi.Text = "" Then
+        If Not chkSesi.Text = "-PILIH-" Then
             strWhere += " AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
         End If
         '--kodkursus
@@ -570,19 +578,19 @@ Public Class sijil_vok_malaysia1
             strSQL += " And kpmkv_pelajar.KolejRecordID ='" & ddlKolej.SelectedValue & "' "
             strSQL += " AND kpmkv_pelajar.Semester ='4'"
 
-            If Not ddlTahun.Text = "" Then
+            If Not ddlTahun.Text = "-PILIH-" Then
                 strSQL += " AND kpmkv_pelajar.Tahun ='" & ddlTahun.Text & "'"
             End If
 
-            If Not chkSesi.Text = "" Then
+            If Not chkSesi.Text = "-PILIH-" Then
                 strSQL += " AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
             End If
 
-            If Not ddlKodKursus.Text = "" Then
+            If Not ddlKodKursus.Text = "-PILIH-" Then
                 strSQL += " AND kpmkv_pelajar.KursusID ='" & ddlKodKursus.SelectedValue & "'"
             End If
 
-            If Not ddlNamaKelas.Text = "" Then
+            If Not ddlNamaKelas.Text = "-PILIH-" Then
                 strSQL += " AND kpmkv_pelajar.KelasID ='" & ddlNamaKelas.SelectedValue & "'"
             End If
 
@@ -1334,13 +1342,23 @@ Public Class sijil_vok_malaysia1
 
                     End If
 
+                    strSQL = "SELECT signature_scale, signature_pos_x, signature_pos_y FROM tbl_signature WHERE signature_type = 'svm'"
+                    strRet = oCommon.getFieldValueEx(strSQL)
+
+                    Dim sign_measure As Array
+                    sign_measure = strRet.Split("|")
+
+                    Dim signScale As Integer = sign_measure(0)
+                    Dim signX As Integer = sign_measure(1)
+                    Dim signY As Integer = sign_measure(2)
+
                     strSQL = " Select FileLocation FROM kpmkv_config_pengarahPeperiksaan WHERE ID='" & ddlSign.SelectedValue & "'"
                     Dim FullFileName As String = oCommon.getFieldValue(strSQL)
                     Dim imageHeader As String = String.Concat(Server.MapPath("~/signature/" + FullFileName))
                     'Dim imageHeader As String = Server.MapPath(fileSavePath)
                     Dim imgHeader As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(imageHeader)
-                    imgHeader.ScalePercent(17)
-                    imgHeader.SetAbsolutePosition(410, 110)
+                    imgHeader.ScalePercent(signScale)
+                    imgHeader.SetAbsolutePosition(signX, signY)
                     myDocument.Add(imgHeader)
 
                     ''isbmtahun
@@ -2287,13 +2305,23 @@ Public Class sijil_vok_malaysia1
 
                     End If
 
+                    strSQL = "SELECT signature_scale, signature_pos_x, signature_pos_y FROM tbl_signature WHERE signature_type = 'svm'"
+                    strRet = oCommon.getFieldValueEx(strSQL)
+
+                    Dim sign_measure As Array
+                    sign_measure = strRet.Split("|")
+
+                    Dim signScale As Integer = sign_measure(0)
+                    Dim signX As Integer = sign_measure(1)
+                    Dim signY As Integer = sign_measure(2)
+
                     strSQL = " Select FileLocation FROM kpmkv_config_pengarahPeperiksaan WHERE ID='" & ddlSign.SelectedValue & "'"
                     Dim FullFileName As String = oCommon.getFieldValue(strSQL)
                     Dim imageHeader As String = String.Concat(Server.MapPath("~/signature/" + FullFileName))
                     'Dim imageHeader As String = Server.MapPath(fileSavePath)
                     Dim imgHeader As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(imageHeader)
-                    imgHeader.ScalePercent(17)
-                    imgHeader.SetAbsolutePosition(410, 110)
+                    imgHeader.ScalePercent(signScale)
+                    imgHeader.SetAbsolutePosition(signX, signY)
                     myDocument.Add(imgHeader)
 
                     ''isbmtahun

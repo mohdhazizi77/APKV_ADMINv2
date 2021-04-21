@@ -255,6 +255,7 @@ Public Class pengurusan_semester_calon1
                 strSQL += " AND Mykad='" & strmykad & "'"
                 If oCommon.isExist(strSQL) = True Then
                 Else
+
                     strSQL = "INSERT INTO kpmkv_pelajar (KolejRecordID,Pengajian,Tahun,Semester,Sesi,KursusID,AngkaGiliran,"
                     strSQL += "Nama,Mykad,Tel,Email,Jantina,Kaum,Agama,StatusID,JenisCalonID,IsDeleted,"
                     strSQL += " IsCalon,IsBMTahun,IsBMDated,IsSJCalon,IsSJTahun,IsSJDated,TahunSem)"
@@ -414,12 +415,12 @@ Public Class pengurusan_semester_calon1
     End Sub
     Private Function ValidatePage() As Boolean
 
-        If ddlSemesterTransfer.Text <= ddlSemester.Text Then
-            lblMsg.Text = "Sila pilih semester akan datang"
-            lblMsgTop.Text = "Sila pilih semester akan datang"
-            ddlSemesterTransfer.Focus()
-            Return False
-        End If
+        'If ddlSemesterTransfer.Text <= ddlSemester.Text Then
+        '    lblMsg.Text = "Sila pilih semester akan datang"
+        '    lblMsgTop.Text = "Sila pilih semester akan datang"
+        '    ddlSemesterTransfer.Focus()
+        '    Return False
+        'End If
 
         Return True
     End Function

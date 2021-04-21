@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class markah_bmsetara
 
     '''<summary>
+    '''ddlTahun control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''ddlKodPusat control.
     '''</summary>
     '''<remarks>
@@ -84,6 +93,15 @@ Partial Public Class markah_bmsetara
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblUserId As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblUserType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUserType As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblMsg control.
