@@ -14,6 +14,12 @@
     <tr class="fbform_header">
         <td colspan="2">Pemeriksa >> Markah Borang >> Markah Khas Sejarah</td>
     </tr>
+    <tr>
+                <td style="width: 200px">Tahun Peperiksaan:</td>
+        <td>
+            <asp:DropDownList ID="ddlTahun" runat="server" AutoPostBack="true" Width="350px"></asp:DropDownList>
+        </td>
+    </tr>
 </table>
 <br />
 <table class="fbform">

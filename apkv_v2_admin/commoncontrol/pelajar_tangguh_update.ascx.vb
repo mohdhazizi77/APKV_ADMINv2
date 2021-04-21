@@ -280,11 +280,11 @@ Public Class pelajar_tangguh_update
         strKursusID = oCommon.getFieldValue(strSQL)
 
         'insert table pelajar
-        strSQL = "INSERT INTO kpmkv_pelajar (KolejRecordID,Pengajian,KursusID,Tahun,Semester,Sesi,Nama,MYKAD,Jantina,Kaum,Agama,Email,Catatan,StatusID,JenisCalonID,AngkaGiliran,Tel)"
+        strSQL = "INSERT INTO kpmkv_pelajar (KolejRecordID,Pengajian,KursusID,Tahun,Semester,Sesi,Nama,MYKAD,Jantina,Kaum,Agama,Email,Catatan,StatusID,JenisCalonID,AngkaGiliran,Tel,IsDeleted)"
         strSQL += "VALUES ('" & lblRecordID.Text & "','" & lblPengajian.Text & "','" & strKursusID & "','" & ddlTahun.SelectedValue & "','" & ddlSemester.SelectedValue & "',"
         strSQL += "'" & chkSesi.SelectedValue & "','" & oCommon.FixSingleQuotes(lblNama.Text.ToUpper) & "','" & oCommon.FixSingleQuotes(lblMykad.Text.ToUpper) & "','" & lblJantina.Text & "',"
         strSQL += " '" & lblkaum.Text & "','" & lblAgama.Text & "','" & oCommon.FixSingleQuotes(txtEmail.Text) & "','" & oCommon.FixSingleQuotes(txtCatatan.Text) & "','2','2',"
-        strSQL += " '" & oCommon.FixSingleQuotes(lblAngkaGiliran.Text) & "','" & oCommon.FixSingleQuotes(lbltelefon.Text) & "')"
+        strSQL += " '" & oCommon.FixSingleQuotes(lblAngkaGiliran.Text) & "','" & oCommon.FixSingleQuotes(lbltelefon.Text) & "','N')"
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then

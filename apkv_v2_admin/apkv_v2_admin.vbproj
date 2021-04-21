@@ -304,6 +304,7 @@
     <Content Include="commoncontrol\mp_vok_search.ascx" />
     <Content Include="commoncontrol\mp_vok_view.ascx" />
     <Content Include="commoncontrol\muatnaik_bahan.ascx" />
+    <Content Include="commoncontrol\muatturun.bahan.ascx" />
     <Content Include="commoncontrol\panel_jana_borang_k15_sejarah.ascx" />
     <Content Include="commoncontrol\pelajar.ulang.akademik.view.ascx" />
     <Content Include="commoncontrol\pelajar.ulang.vokasional.view.ascx" />
@@ -330,6 +331,8 @@
     <Content Include="commoncontrol\pemeriksa_borang_markah_PA_2.ascx" />
     <Content Include="commoncontrol\pemeriksa_markah_import.ascx" />
     <Content Include="commoncontrol\pemeriksa_markah_PA.ascx" />
+    <Content Include="commoncontrol\pendaftaran_calon_ulang_online.ascx" />
+    <Content Include="commoncontrol\pendaftaran_calon_ulang_online_contact.ascx" />
     <Content Include="commoncontrol\penentuan_standard_sejarah.ascx" />
     <Content Include="commoncontrol\penentuan_standard_vok.ascx" />
     <Content Include="commoncontrol\penetapan_pemeriksa_bmsetara.ascx" />
@@ -370,6 +373,12 @@
     <Content Include="commoncontrol\slip_roster_SJ1251.ascx" />
     <Content Include="commoncontrol\slip_sijilvokasionalmalaysia.ascx" />
     <Content Include="commoncontrol\slip_view.ascx" />
+    <Content Include="commoncontrol\svmu_daftar_calon_ulang.ascx" />
+    <Content Include="commoncontrol\svmu_kemaskini_calon_ulang.ascx" />
+    <Content Include="commoncontrol\svmu_pembayaran_pendaftaran.ascx" />
+    <Content Include="commoncontrol\svmu_pengakuan_calon.ascx" />
+    <Content Include="commoncontrol\svmu_pusat_peperiksaan.ascx" />
+    <Content Include="commoncontrol\svmu_rumusan_pendaftaran.ascx" />
     <Content Include="commoncontrol\svm_pengesahan.ascx" />
     <Content Include="commoncontrol\takwim_create.ascx" />
     <Content Include="commoncontrol\takwim_list.ascx" />
@@ -597,6 +606,7 @@
     <Content Include="mp.vok.search.aspx" />
     <Content Include="mp.vok.view.aspx" />
     <Content Include="muatnaik.bahan.aspx" />
+    <Content Include="muatturun.bahan.aspx" />
     <Content Include="NegeriDash.aspx" />
     <Content Include="NegeriKVDash.aspx" />
     <Content Include="packages\AjaxControlToolkit.15.1.3.0\lib\net40\AjaxControlToolkit.dll" />
@@ -622,6 +632,8 @@
     <Content Include="pembetulan.markah.PAV.aspx" />
     <Content Include="pembetulan.markah.PBA.aspx" />
     <Content Include="pembetulan.markah.PBV.aspx" />
+    <Content Include="pendaftaran_calon_ulang_online.aspx" />
+    <Content Include="pendaftaran_calon_ulang_online_contact.aspx" />
     <Content Include="penentuan.standard.sejarah.aspx" />
     <Content Include="penentuan.standard.vok.aspx" />
     <Content Include="penetapan.pemeriksa.sejarah.aspx" />
@@ -656,6 +668,12 @@
     <Content Include="Slip_Peperiksaan.aspx" />
     <Content Include="sskt.aspx" />
     <Content Include="svm.pengesahan.aspx" />
+    <Content Include="svmu_daftar_calon_ulang.aspx" />
+    <Content Include="svmu_kemaskini_calon_ulang.aspx" />
+    <Content Include="svmu_pembayaran_pendaftaran.aspx" />
+    <Content Include="svmu_pengakuan_calon.aspx" />
+    <Content Include="svmu_pusat_peperiksaan.aspx" />
+    <Content Include="svmu_rumusan_pendaftaran.aspx" />
     <Content Include="transkrip.12.14.aspx" />
     <Content Include="transkrip.sijil.vok.aspx" />
     <Content Include="UpgradeLog.htm" />
@@ -1977,6 +1995,13 @@
       <DependentUpon>muatnaik_bahan.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\muatturun.bahan.ascx.designer.vb">
+      <DependentUpon>muatturun.bahan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\muatturun.bahan.ascx.vb">
+      <DependentUpon>muatturun.bahan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\panel_jana_borang_k15_sejarah.ascx.designer.vb">
       <DependentUpon>panel_jana_borang_k15_sejarah.ascx</DependentUpon>
     </Compile>
@@ -2157,6 +2182,20 @@
     </Compile>
     <Compile Include="commoncontrol\pemeriksa_markah_PA.ascx.vb">
       <DependentUpon>pemeriksa_markah_PA.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\pendaftaran_calon_ulang_online.ascx.designer.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\pendaftaran_calon_ulang_online.ascx.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\pendaftaran_calon_ulang_online_contact.ascx.designer.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online_contact.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\pendaftaran_calon_ulang_online_contact.ascx.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online_contact.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\penentuan_standard_sejarah.ascx.designer.vb">
@@ -2433,6 +2472,48 @@
     </Compile>
     <Compile Include="commoncontrol\slip_view.ascx.vb">
       <DependentUpon>slip_view.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_daftar_calon_ulang.ascx.designer.vb">
+      <DependentUpon>svmu_daftar_calon_ulang.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_daftar_calon_ulang.ascx.vb">
+      <DependentUpon>svmu_daftar_calon_ulang.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_kemaskini_calon_ulang.ascx.designer.vb">
+      <DependentUpon>svmu_kemaskini_calon_ulang.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_kemaskini_calon_ulang.ascx.vb">
+      <DependentUpon>svmu_kemaskini_calon_ulang.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_pembayaran_pendaftaran.ascx.designer.vb">
+      <DependentUpon>svmu_pembayaran_pendaftaran.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_pembayaran_pendaftaran.ascx.vb">
+      <DependentUpon>svmu_pembayaran_pendaftaran.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_pengakuan_calon.ascx.designer.vb">
+      <DependentUpon>svmu_pengakuan_calon.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_pengakuan_calon.ascx.vb">
+      <DependentUpon>svmu_pengakuan_calon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_pusat_peperiksaan.ascx.designer.vb">
+      <DependentUpon>svmu_pusat_peperiksaan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_pusat_peperiksaan.ascx.vb">
+      <DependentUpon>svmu_pusat_peperiksaan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_rumusan_pendaftaran.ascx.designer.vb">
+      <DependentUpon>svmu_rumusan_pendaftaran.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_rumusan_pendaftaran.ascx.vb">
+      <DependentUpon>svmu_rumusan_pendaftaran.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\svm_pengesahan.ascx.designer.vb">
@@ -3478,6 +3559,13 @@
       <DependentUpon>muatnaik.bahan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="muatturun.bahan.aspx.designer.vb">
+      <DependentUpon>muatturun.bahan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="muatturun.bahan.aspx.vb">
+      <DependentUpon>muatturun.bahan.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -3657,6 +3745,20 @@
     <Compile Include="pembetulan.markah.PBV.aspx.vb">
       <DependentUpon>pembetulan.markah.PBV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pendaftaran_calon_ulang_online.aspx.designer.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pendaftaran_calon_ulang_online.aspx.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="pendaftaran_calon_ulang_online_contact.aspx.designer.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online_contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pendaftaran_calon_ulang_online_contact.aspx.vb">
+      <DependentUpon>pendaftaran_calon_ulang_online_contact.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="penentuan.standard.sejarah.aspx.designer.vb">
       <DependentUpon>penentuan.standard.sejarah.aspx</DependentUpon>
@@ -3897,6 +3999,55 @@
       <DependentUpon>svm.pengesahan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="svmu.Master.designer.vb">
+      <DependentUpon>svmu.Master</DependentUpon>
+    </Compile>
+    <Compile Include="svmu.Master.vb">
+      <DependentUpon>svmu.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="svmu_daftar_calon_ulang.aspx.designer.vb">
+      <DependentUpon>svmu_daftar_calon_ulang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_daftar_calon_ulang.aspx.vb">
+      <DependentUpon>svmu_daftar_calon_ulang.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_kemaskini_calon_ulang.aspx.designer.vb">
+      <DependentUpon>svmu_kemaskini_calon_ulang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_kemaskini_calon_ulang.aspx.vb">
+      <DependentUpon>svmu_kemaskini_calon_ulang.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_pembayaran_pendaftaran.aspx.designer.vb">
+      <DependentUpon>svmu_pembayaran_pendaftaran.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_pembayaran_pendaftaran.aspx.vb">
+      <DependentUpon>svmu_pembayaran_pendaftaran.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_pengakuan_calon.aspx.designer.vb">
+      <DependentUpon>svmu_pengakuan_calon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_pengakuan_calon.aspx.vb">
+      <DependentUpon>svmu_pengakuan_calon.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_pusat_peperiksaan.aspx.designer.vb">
+      <DependentUpon>svmu_pusat_peperiksaan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_pusat_peperiksaan.aspx.vb">
+      <DependentUpon>svmu_pusat_peperiksaan.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_rumusan_pendaftaran.aspx.designer.vb">
+      <DependentUpon>svmu_rumusan_pendaftaran.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_rumusan_pendaftaran.aspx.vb">
+      <DependentUpon>svmu_rumusan_pendaftaran.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="transkrip.12.14.aspx.designer.vb">
       <DependentUpon>transkrip.12.14.aspx</DependentUpon>
     </Compile>
@@ -4019,6 +4170,7 @@
     <Content Include="sample_data\markahpa.xlsx" />
     <Content Include="sample_data\PELAJARUlang.xlsx" />
     <None Include="packages.config" />
+    <Content Include="svmu.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

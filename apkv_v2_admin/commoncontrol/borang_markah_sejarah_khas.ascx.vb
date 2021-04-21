@@ -35,6 +35,9 @@ Public Class borang_markah_sejarah_khas1
                     lblSesi.Text = ar_pemeriksa(0)
                 End If
 
+                kpmkv_tahun_list()
+                ddlTahun.Text = "-Pilih-"
+
                 loadStores()
 
             End If
@@ -42,12 +45,40 @@ Public Class borang_markah_sejarah_khas1
             lblMsg.Text = ex.Message
         End Try
     End Sub
+
+    Private Sub kpmkv_tahun_list()
+        strSQL = "SELECT Tahun FROM kpmkv_tahun  ORDER BY Tahun"
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            ddlTahun.DataSource = ds
+            ddlTahun.DataTextField = "Tahun"
+            ddlTahun.DataValueField = "Tahun"
+            ddlTahun.DataBind()
+
+            '--ALL
+            ddlTahun.Items.Insert(0, "-Pilih-")
+
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
+
+        Finally
+            objConn.Dispose()
+        End Try
+
+    End Sub
+
     Protected Sub loadStores()
         objConn.Open()
         If lblType.Text = "ADMIN" Then
-            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE Tahun='" & Now.Year & "'"
+            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE Tahun='" & ddlTahun.Text & "'"
         Else
-            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE PemeriksaID='" & lblID.Text & "' AND Tahun='" & Now.Year & "'"
+            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE PemeriksaID='" & lblID.Text & "' AND Tahun='" & ddlTahun.Text & "'"
         End If
 
         Dim cmd As New SqlCommand(strSQL, objConn)
@@ -161,9 +192,9 @@ Public Class borang_markah_sejarah_khas1
     Protected Sub btnPrint_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPrint.Click
 
         If lblType.Text = "ADMIN" Then
-            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE Tahun='" & Now.Year & "'"
+            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE Tahun='" & ddlTahun.Text & "'"
         Else
-            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE PemeriksaID='" & lblID.Text & "' AND Tahun='" & Now.Year & "'"
+            strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE PemeriksaID='" & lblID.Text & "' AND Tahun='" & ddlTahun.Text & "'"
 
         End If
 
@@ -281,9 +312,9 @@ Public Class borang_markah_sejarah_khas1
             myDocument.Add(imgSpacing)
 
             If lblType.Text = "ADMIN" Then
-                strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE Tahun='" & Now.Year & "'"
+                strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE Tahun='" & ddlTahun.Text & "'"
             Else
-                strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE PemeriksaID='" & lblID.Text & "' AND Tahun='" & Now.Year & "'"
+                strSQL = "SELECT * from kpmkv_markah_khas_sej WHERE PemeriksaID='" & lblID.Text & "' AND Tahun='" & ddlTahun.Text & "'"
 
             End If
 
@@ -310,10 +341,10 @@ Public Class borang_markah_sejarah_khas1
 
                 strKey = gridView.DataKeys(i).Value.ToString()
 
-                strTahun = Now.Year
+                strTahun = ddlTahun.Text
 
 
-                strSQL = "SELECT Kod FROM kpmkv_markah_khas_sej WHERE KhasID = '" & strKey & "'"
+                strSQL = "SELECT Kod FROM kpmkv_markah_khas_sej WHERE KhasSejID = '" & strKey & "'"
                 strKod = oCommon.getFieldValue(strSQL)
 
                 strSQL = "SELECT Sesi FROM kpmkv_markah_khas_sej WHERE KhasSejID = '" & strKey & "'"
@@ -373,7 +404,7 @@ Public Class borang_markah_sejarah_khas1
         End Try
     End Sub
 
-
-
-
+    Private Sub ddlTahun_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlTahun.SelectedIndexChanged
+        loadStores()
+    End Sub
 End Class

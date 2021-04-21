@@ -10,7 +10,7 @@
         <td colspan="3">Maklumat Kolej</td>
     </tr>
     <tr>
-        <td style ="width :10%">Tahun Semasa</td>
+        <td style ="width :10%">Tahun Peperiksaan</td>
         <td style ="width :2%">:</td>
         <td><asp:DropDownList ID="ddlTahun" runat="server" AutoPostBack="true" Width="150px"></asp:DropDownList>
         </td>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="markah_bmsetara.ascx.vb" Inherits="apkv_v2_admin.markah_bmsetara" %>
+﻿<%@ control language="vb" autoeventwireup="false" codebehind="markah_bmsetara.ascx.vb" inherits="apkv_v2_admin.markah_bmsetara" %>
 <table class="fbform">
     <tr class="fbform_header">
         <td colspan="2">Pemeriksa>>Markah &gt;&gt;Kemasukkan Markah BM Setara</td>
@@ -10,25 +10,32 @@
         <td colspan="2">Maklumat Kolej</td>
     </tr>
     <tr>
-        <td>Kod Pusat:</td>
-        <td>&nbsp;<asp:DropDownList ID="ddlKodPusat" runat="server" AutoPostBack="False" Width="250px"></asp:DropDownList>
+        <td style="width: 250px">Tahun Peperiksaan:</td>
+        <td>
+            <asp:dropdownlist id="ddlTahun" runat="server" autopostback="true" width="250px"></asp:dropdownlist>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 250px">Kod Pusat:</td>
+        <td><asp:dropdownlist id="ddlKodPusat" runat="server" autopostback="False" width="250px"></asp:dropdownlist>
         </td>
     </tr>
     <tr>
         <td>Sesi:</td>
         <td>
-            <asp:CheckBoxList ID="chkSesi" runat="server" AutoPostBack="true" Width="349px" RepeatDirection="Horizontal">
+            <asp:checkboxlist id="chkSesi" runat="server" autopostback="true" width="349px" repeatdirection="Horizontal">
                 <asp:ListItem>1</asp:ListItem>
                 <asp:ListItem>2</asp:ListItem>
-            </asp:CheckBoxList>
+            </asp:checkboxlist>
     </tr>
     <tr>
         <td colspan="2">
-            <asp:Button ID="btnCari" runat="server" Text="Cari" CssClass="fbbutton" />&nbsp;</td>
+            <asp:button id="btnCari" runat="server" text="Cari" cssclass="fbbutton" />
+            &nbsp;</td>
     </tr>
 </table>
 <div class="info" id="divMsgResult" runat="server">
-    <asp:Label ID="lblMsgResult" runat="server" Text="Mesej..."></asp:Label>
+    <asp:label id="lblMsgResult" runat="server" text="Mesej..."></asp:label>
 </div>
 <table class="fbform">
     <tr class="fbform_header">
@@ -37,9 +44,9 @@
     </tr>
     <tr>
         <td>
-            <asp:GridView ID="datRespondent" runat="server" AutoGenerateColumns="False" AllowPaging="True"
-                CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="PemeriksaID"
-                Width="100%" PageSize="12" CssClass="gridview_footer">
+            <asp:gridview id="datRespondent" runat="server" autogeneratecolumns="False" allowpaging="True"
+                cellpadding="4" forecolor="#333333" gridlines="None" datakeynames="PemeriksaID"
+                width="100%" pagesize="12" cssclass="gridview_footer">
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>
                     <asp:TemplateField HeaderText="#">
@@ -72,19 +79,22 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Pilih">
                         <ItemTemplate>
-                            <asp:Button ID="btnPilih" runat="server" Text="Pilih" CommandName="Pilih" CommandArgument='<%#Eval("PemeriksaID")%>' /></td>
-                        </ItemTemplate>
+                            <asp:Button ID="btnPilih" runat="server" Text="Pilih" CommandName="Pilih" CommandArgument='<%#Eval("PemeriksaID")%>' />
+        </td>
+        </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
-                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
-                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle"
-                    HorizontalAlign="Left" />
-                <EditRowStyle BackColor="#999999" />
-                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-            </asp:GridView>
+               
+        <footerstyle backcolor="#5D7B9D" font-bold="True" forecolor="White" font-underline="true" />
+        <pagerstyle backcolor="#284775" forecolor="White" horizontalalign="Center" cssclass="cssPager" />
+        <selectedrowstyle backcolor="#E2DED6" font-bold="True" forecolor="#333333" />
+        <headerstyle backcolor="#5D7B9D" font-bold="True" forecolor="White" verticalalign="Middle"
+            horizontalalign="Left" />
+        <editrowstyle backcolor="#999999" />
+        <alternatingrowstyle backcolor="White" forecolor="#284775" />
+        </asp:GridView>
         </td>
+   
     </tr>
     <tr>
         <td>&nbsp;</td>
@@ -92,7 +102,7 @@
 </table>
 <br />
 <div class="info" id="divMsg" runat="server">
-    <asp:Label ID="lblUserId" runat="server" Text="" Visible="false"></asp:Label>
-
-    <asp:Label ID="lblMsg" runat="server" Text="System message..."></asp:Label>
+    <asp:label id="lblUserId" runat="server" text="" visible="false"></asp:label>
+    <asp:label id="lblUserType" runat="server" text="" visible="false"></asp:label>
+    <asp:label id="lblMsg" runat="server" text="System message..."></asp:label>
 </div>

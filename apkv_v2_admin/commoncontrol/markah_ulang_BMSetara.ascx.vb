@@ -664,6 +664,8 @@ Public Class markah_ulang_BMSetara1
     End Sub
     Protected Sub ddlJenis_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenis.SelectedIndexChanged
         kpmkv_kolej_list()
+        kpmkv_kodkursus_list()
+        kpmkv_kelas_list()
 
     End Sub
 
@@ -715,6 +717,21 @@ Public Class markah_ulang_BMSetara1
 
 
         Next
+
+    End Sub
+
+    Private Sub ddlNegeri_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlNegeri.SelectedIndexChanged
+
+        kpmkv_kolej_list()
+        kpmkv_kodkursus_list()
+        kpmkv_kelas_list()
+
+    End Sub
+
+    Private Sub ddlKolej_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlKolej.SelectedIndexChanged
+
+        kpmkv_kodkursus_list()
+        kpmkv_kelas_list()
 
     End Sub
 End Class

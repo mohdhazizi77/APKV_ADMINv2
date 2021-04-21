@@ -141,12 +141,12 @@
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" />
                     </asp:TemplateField>
-                    <%-- <asp:TemplateField HeaderText="Teori1">
+                     <asp:TemplateField HeaderText="Teori1">
                         <ItemTemplate>
                             <asp:TextBox ID="txtTeori1" runat="server" Width="30px" MaxLength="3" Text='<%# Bind("A_Teori1")%>'></asp:TextBox>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" />
-                    </asp:TemplateField>--%>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Amali1">
                         <ItemTemplate>
                             <asp:TextBox ID="txtAmali1" runat="server" Width="30px" MaxLength="3" Text='<%# Bind("A_Amali1")%>' Enabled="false"></asp:TextBox>

@@ -48,29 +48,46 @@ Public Class muatnaik_bahan
     End Sub
 
     Private Sub kpmkv_kategori_list()
-        strSQL = "SELECT ID,Parameter FROM tbl_Settings WHERE type='KATEGORIMUATNAIKBAHAN'  ORDER BY idx ASC"
-        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
-        Dim objConn As SqlConnection = New SqlConnection(strConn)
-        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
 
-        Try
-            Dim ds As DataSet = New DataSet
-            sqlDA.Fill(ds, "AnyTable")
+        strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
+        Dim strUserID As String = oCommon.getFieldValue(strSQL)
 
-            ddlKategory.DataSource = ds
-            ddlKategory.DataTextField = "Parameter"
-            ddlKategory.DataValueField = "ID"
-            ddlKategory.DataBind()
+        strSQL = "SELECT UserType FROM kpmkv_users WHERE UserID = '" & strUserID & "'"
+        Dim strUserType As String = oCommon.getFieldValue(strSQL)
 
+        If strUserType = "JPN" Then
 
+            ddlKategory.Items.Add(New ListItem("JPN", "100"))
             ddlKategory.Items.Add(New ListItem("-Pilih-", ""))
 
-        Catch ex As Exception
-            lblMsg.Text = "System Error:" & ex.Message
+        Else
 
-        Finally
-            objConn.Dispose()
-        End Try
+            strSQL = "SELECT ID,Parameter FROM tbl_Settings WHERE type='KATEGORIMUATNAIKBAHAN'  ORDER BY idx ASC"
+            Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+            Dim objConn As SqlConnection = New SqlConnection(strConn)
+            Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+            Try
+                Dim ds As DataSet = New DataSet
+                sqlDA.Fill(ds, "AnyTable")
+
+                ddlKategory.DataSource = ds
+                ddlKategory.DataTextField = "Parameter"
+                ddlKategory.DataValueField = "ID"
+                ddlKategory.DataBind()
+
+                ddlKategory.Items.Add(New ListItem("JPN", "100"))
+                ddlKategory.Items.Add(New ListItem("-Pilih-", ""))
+
+            Catch ex As Exception
+                lblMsg.Text = "System Error:" & ex.Message
+
+            Finally
+                objConn.Dispose()
+            End Try
+
+        End If
+
     End Sub
 
     Private Sub kpmkv_kohort_list()
@@ -323,15 +340,32 @@ Public Class muatnaik_bahan
             strver = "Y"
         End If
 
-        strSQL = "INSERT INTO kpmkv_bahan(Kategori,Kohort,Semester,Sesi,Komponen,KursusID,Tajuk,Catatan,STarikh,"
-        strSQL += "ETarikh,FilePath,JenisKursus,NeedVerify,isVerified)"
-        strSQL += " VALUES ('" & ddlKategory.SelectedValue & "','" & ddlKohort.SelectedValue & "',"
-        strSQL += " '" & ddlSemester.SelectedValue & "','" & ddlSesi.SelectedValue & "',"
-        strSQL += " '" & ddlKomponen.SelectedValue & "','" & ddlKodkursus.SelectedValue & "',"
-        strSQL += " '" & txttitle.Text & "','" & txtDesc.Text & "',"
-        strSQL += " '" & txtDateStart.Text & "','" & txtDateEnd.Text & "','" & fullFileName & "',"
-        strSQL += " '" & ddlJenisKursus.SelectedValue & "','" & strchk & "','" & strver & "'"
-        strSQL += " )"
+        If ddlKategory.SelectedValue = "100" Then
+
+            strSQL = "INSERT INTO kpmkv_bahan(Kategori,Kohort,Semester,Sesi,Komponen,KursusID,Tajuk,Catatan,STarikh,"
+            strSQL += "ETarikh,FilePath,JenisKursus,NeedVerify,isVerified)"
+            strSQL += " VALUES ('100','" & ddlKohort.SelectedValue & "',"
+            strSQL += " '" & ddlSemester.SelectedValue & "','" & ddlSesi.SelectedValue & "',"
+            strSQL += " '" & ddlKomponen.SelectedValue & "','" & ddlKodkursus.SelectedValue & "',"
+            strSQL += " '" & txttitle.Text & "','" & txtDesc.Text & "',"
+            strSQL += " '" & txtDateStart.Text & "','" & txtDateEnd.Text & "','" & fullFileName & "',"
+            strSQL += " '" & ddlJenisKursus.SelectedValue & "','" & strchk & "','" & strver & "'"
+            strSQL += " )"
+
+        Else
+
+            strSQL = "INSERT INTO kpmkv_bahan(Kategori,Kohort,Semester,Sesi,Komponen,KursusID,Tajuk,Catatan,STarikh,"
+            strSQL += "ETarikh,FilePath,JenisKursus,NeedVerify,isVerified)"
+            strSQL += " VALUES ('" & ddlKategory.SelectedValue & "','" & ddlKohort.SelectedValue & "',"
+            strSQL += " '" & ddlSemester.SelectedValue & "','" & ddlSesi.SelectedValue & "',"
+            strSQL += " '" & ddlKomponen.SelectedValue & "','" & ddlKodkursus.SelectedValue & "',"
+            strSQL += " '" & txttitle.Text & "','" & txtDesc.Text & "',"
+            strSQL += " '" & txtDateStart.Text & "','" & txtDateEnd.Text & "','" & fullFileName & "',"
+            strSQL += " '" & ddlJenisKursus.SelectedValue & "','" & strchk & "','" & strver & "'"
+            strSQL += " )"
+
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
         If Not strRet = 0 Then
             divMsg.Attributes("class") = "error"
