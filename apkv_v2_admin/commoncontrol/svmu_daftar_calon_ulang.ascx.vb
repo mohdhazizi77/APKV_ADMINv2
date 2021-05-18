@@ -11,11 +11,18 @@ Public Class svmu_daftar_calon_ulang1
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        strSQL = "SELECT setting_value_string FROM kpmkv_svmu_setting WHERE setting_parameter = 'TARIKH_MULA'"
+        lblTarikhMula.Text = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'TARIKH_AKHIR'"
+        lblTarikhAkhir.Text = oCommon.getFieldValue(strSQL)
+
     End Sub
 
     Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
 
         Try
+
             '--validate
             If ValidatePage() = False Then
                 Exit Sub
@@ -24,7 +31,7 @@ Public Class svmu_daftar_calon_ulang1
             Dim strMYKAD As String = txtMYKAD.Text
             Dim strAG As String = txtAngkaGiliran.Text
 
-            strSQL = "SELECT PelajarID FROM kpmkv_pelajar WHERE MYKAD = '" & strMYKAD & "' AND AngkaGiliran = '" & strAG & "'"
+            strSQL = "SELECT PelajarID FROM kpmkv_pelajar WHERE MYKAD = '" & strMYKAD & "' AND AngkaGiliran = '" & strAG & "' AND Semester = '4'"
             Dim strPelajarID As String = oCommon.getFieldValue(strSQL)
 
             If strPelajarID.Length = 0 Then
@@ -34,10 +41,50 @@ Public Class svmu_daftar_calon_ulang1
 
             Else
 
-                strPelajarID = AsciiSwitchWithMod(strPelajarID, 19, 7)
+                Dim svmuID As String
 
+                strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'TAHUN_PEPERIKSAAN'"
+                Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
 
-                Response.Redirect("svmu_kemaskini_calon_ulang.aspx?PelajarID=" & strPelajarID)
+                strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "' AND Tahun = '" & TahunPeperiksaan & "'"
+                svmuID = oCommon.getFieldValue(strSQL)
+
+                If svmuID = "" Then
+
+                    strSQL = "INSERT INTO kpmkv_svmu
+                          (DatabaseName, Tahun,  PelajarID, MYKAD, AngkaGiliran, create_timestamp)
+                          VALUES
+                          ('APKV', '" & TahunPeperiksaan & "', '" & strPelajarID & "', '" & strMYKAD & "', '" & strAG & "', CURRENT_TIMESTAMP)"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                    strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "'"
+                    svmuID = oCommon.getFieldValue(strSQL)
+                    Response.Redirect("svmu_kemaskini_calon_ulang.aspx?ID=" & AsciiSwitchWithMod(strPelajarID, 19, 7) & "&NO=" & AsciiSwitchWithMod(svmuID, 19, 7))
+
+                Else
+
+                    strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "'"
+                    svmuID = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & svmuID & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'BM'"
+                    Dim BM As String = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & svmuID & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'SJ'"
+                    Dim SJ As String = oCommon.getFieldValue(strSQL)
+
+                    If Not BM = "" And Not SJ = "" Then
+
+                        lblMsg1.Visible = True
+
+                    Else
+
+                        strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "' AND Tahun = '" & TahunPeperiksaan & "'"
+                        svmuID = oCommon.getFieldValue(strSQL)
+                        Response.Redirect("svmu_kemaskini_calon_ulang.aspx?ID=" & AsciiSwitchWithMod(strPelajarID, 19, 7) & "&NO=" & AsciiSwitchWithMod(svmuID, 19, 7))
+
+                    End If
+
+                End If
 
             End If
 

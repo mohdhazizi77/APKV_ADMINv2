@@ -32,13 +32,13 @@ Partial Public Class svmu_rumusan_pendaftaran
     Protected WithEvents txtMYKAD As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtSuratBeranak control.
+    '''txtAngkaGiliran control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtSuratBeranak As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtAngkaGiliran As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtDate control.
@@ -59,13 +59,13 @@ Partial Public Class svmu_rumusan_pendaftaran
     Protected WithEvents txtJantina As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtKeturunan control.
+    '''txtBangsa control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtKeturunan As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtBangsa As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtAgama control.
@@ -77,13 +77,13 @@ Partial Public Class svmu_rumusan_pendaftaran
     Protected WithEvents txtAgama As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtAngkaGiliran control.
+    '''txtKolej control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtAngkaGiliran As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtKolej As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtKohort control.
@@ -149,15 +149,6 @@ Partial Public Class svmu_rumusan_pendaftaran
     Protected WithEvents txtEmail As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''GVMataPelajaran control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents GVMataPelajaran As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
     '''lblRMAsas control.
     '''</summary>
     '''<remarks>
@@ -167,13 +158,13 @@ Partial Public Class svmu_rumusan_pendaftaran
     Protected WithEvents lblRMAsas As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblTotalRMAsas control.
+    '''trBM control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTotalRMAsas As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents trBM As Global.System.Web.UI.HtmlControls.HtmlTableRow
 
     '''<summary>
     '''lblRMBM control.
@@ -185,13 +176,13 @@ Partial Public Class svmu_rumusan_pendaftaran
     Protected WithEvents lblRMBM As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblTotalRMBM control.
+    '''trSJ control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTotalRMBM As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents trSJ As Global.System.Web.UI.HtmlControls.HtmlTableRow
 
     '''<summary>
     '''lblRMSJ control.
@@ -201,15 +192,6 @@ Partial Public Class svmu_rumusan_pendaftaran
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblRMSJ As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblTotalRMSJ control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblTotalRMSJ As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblTotalRM control.

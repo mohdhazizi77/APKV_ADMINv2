@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class svmu_daftar_calon_ulang1
 
     '''<summary>
+    '''lblTarikhMula control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhMula As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblTarikhAkhir control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhAkhir As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtMYKAD control.
     '''</summary>
     '''<remarks>
@@ -48,6 +66,15 @@ Partial Public Class svmu_daftar_calon_ulang1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMsgAngkaGiliran As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblMsg1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMsg1 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''btnBack control.
