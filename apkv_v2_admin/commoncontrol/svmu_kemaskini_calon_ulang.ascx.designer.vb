@@ -59,13 +59,22 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     Protected WithEvents txtJantina As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtKeturunan control.
+    '''ddlBangsa control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtKeturunan As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlBangsa As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblErrBangsa control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrBangsa As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtAgama control.
@@ -75,6 +84,15 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtAgama As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtKolej control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtKolej As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtKohort control.
@@ -95,6 +113,15 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     Protected WithEvents txtAlamat As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblErrAlamat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrAlamat As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtPoskod control.
     '''</summary>
     '''<remarks>
@@ -102,6 +129,15 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtPoskod As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblErrPoskod control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrPoskod As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtBandar control.
@@ -113,6 +149,15 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     Protected WithEvents txtBandar As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblErrBandar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrBandar As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''ddlNegeri control.
     '''</summary>
     '''<remarks>
@@ -120,6 +165,15 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblErrNegeri control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrNegeri As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtTelefon control.
@@ -131,6 +185,15 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     Protected WithEvents txtTelefon As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblErrTelefon control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrTelefon As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtEmail control.
     '''</summary>
     '''<remarks>
@@ -138,6 +201,24 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtEmail As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblErrEmail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrEmail As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblErrMataPelajaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrMataPelajaran As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''chkBM control.
@@ -203,13 +284,22 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     Protected WithEvents lblRMSJ As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''DropDownList1 control.
+    '''ddlNegeriKV control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList1 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlNegeriKV As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblErrNegeriKV control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrNegeriKV As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''ddlKolej control.
@@ -219,6 +309,15 @@ Partial Public Class svmu_kemaskini_calon_ulang1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKolej As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblErrKolej control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrKolej As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''btnBack control.

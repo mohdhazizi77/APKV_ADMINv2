@@ -58,6 +58,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\nurul\admin_kpmkv\bin\Microsoft.Vbe.Interop.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="QRCoder, Version=1.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QRCoder.1.3.6\lib\net40\QRCoder.dll</HintPath>
     </Reference>
@@ -374,11 +377,15 @@
     <Content Include="commoncontrol\slip_sijilvokasionalmalaysia.ascx" />
     <Content Include="commoncontrol\slip_view.ascx" />
     <Content Include="commoncontrol\svmu_daftar_calon_ulang.ascx" />
+    <Content Include="commoncontrol\svmu_format_sampul.ascx" />
     <Content Include="commoncontrol\svmu_kemaskini_calon_ulang.ascx" />
     <Content Include="commoncontrol\svmu_pembayaran_pendaftaran.ascx" />
     <Content Include="commoncontrol\svmu_pengakuan_calon.ascx" />
     <Content Include="commoncontrol\svmu_pusat_peperiksaan.ascx" />
     <Content Include="commoncontrol\svmu_rumusan_pendaftaran.ascx" />
+    <Content Include="commoncontrol\svmu_semak_calon_ulang.ascx" />
+    <Content Include="commoncontrol\svmu_senarai_calon.ascx" />
+    <Content Include="commoncontrol\svmu_tindakan_calon.ascx" />
     <Content Include="commoncontrol\svm_pengesahan.ascx" />
     <Content Include="commoncontrol\takwim_create.ascx" />
     <Content Include="commoncontrol\takwim_list.ascx" />
@@ -452,6 +459,7 @@
     <Content Include="icons\calendar.png" />
     <Content Include="icons\chat.png" />
     <Content Include="icons\clock.png" />
+    <Content Include="icons\DaftarCalonMengulang.png" />
     <Content Include="icons\delete.png" />
     <Content Include="icons\delicious.gif" />
     <Content Include="icons\digg.gif" />
@@ -486,6 +494,7 @@
     <Content Include="icons\plus.png" />
     <Content Include="icons\puzzle.png" />
     <Content Include="icons\reddit.gif" />
+    <Content Include="icons\SemakStatusPermohonan.png" />
     <Content Include="icons\star.png" />
     <Content Include="icons\stumbleupon.gif" />
     <Content Include="icons\tag.png" />
@@ -668,12 +677,18 @@
     <Content Include="Slip_Peperiksaan.aspx" />
     <Content Include="sskt.aspx" />
     <Content Include="svm.pengesahan.aspx" />
+    <Content Include="svmu.tindakan.calon.aspx" />
     <Content Include="svmu_daftar_calon_ulang.aspx" />
+    <Content Include="svmu_format_sampul.aspx" />
     <Content Include="svmu_kemaskini_calon_ulang.aspx" />
     <Content Include="svmu_pembayaran_pendaftaran.aspx" />
     <Content Include="svmu_pengakuan_calon.aspx" />
+    <Content Include="commoncontrol\svmu_pengesahan_kodpusat.ascx" />
+    <Content Include="svmu_pengesahan_kodpusat.aspx" />
     <Content Include="svmu_pusat_peperiksaan.aspx" />
     <Content Include="svmu_rumusan_pendaftaran.aspx" />
+    <Content Include="svmu_semak_calon_ulang.aspx" />
+    <Content Include="svmu_senarai_calon.aspx" />
     <Content Include="transkrip.12.14.aspx" />
     <Content Include="transkrip.sijil.vok.aspx" />
     <Content Include="UpgradeLog.htm" />
@@ -2481,6 +2496,13 @@
       <DependentUpon>svmu_daftar_calon_ulang.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\svmu_format_sampul.ascx.designer.vb">
+      <DependentUpon>svmu_format_sampul.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_format_sampul.ascx.vb">
+      <DependentUpon>svmu_format_sampul.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\svmu_kemaskini_calon_ulang.ascx.designer.vb">
       <DependentUpon>svmu_kemaskini_calon_ulang.ascx</DependentUpon>
     </Compile>
@@ -2514,6 +2536,27 @@
     </Compile>
     <Compile Include="commoncontrol\svmu_rumusan_pendaftaran.ascx.vb">
       <DependentUpon>svmu_rumusan_pendaftaran.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_semak_calon_ulang.ascx.designer.vb">
+      <DependentUpon>svmu_semak_calon_ulang.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_semak_calon_ulang.ascx.vb">
+      <DependentUpon>svmu_semak_calon_ulang.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_calon.ascx.designer.vb">
+      <DependentUpon>svmu_senarai_calon.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_calon.ascx.vb">
+      <DependentUpon>svmu_senarai_calon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_tindakan_calon.ascx.designer.vb">
+      <DependentUpon>svmu_tindakan_calon.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_tindakan_calon.ascx.vb">
+      <DependentUpon>svmu_tindakan_calon.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\svm_pengesahan.ascx.designer.vb">
@@ -4006,11 +4049,25 @@
       <DependentUpon>svmu.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="svmu.tindakan.calon.aspx.designer.vb">
+      <DependentUpon>svmu.tindakan.calon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu.tindakan.calon.aspx.vb">
+      <DependentUpon>svmu.tindakan.calon.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="svmu_daftar_calon_ulang.aspx.designer.vb">
       <DependentUpon>svmu_daftar_calon_ulang.aspx</DependentUpon>
     </Compile>
     <Compile Include="svmu_daftar_calon_ulang.aspx.vb">
       <DependentUpon>svmu_daftar_calon_ulang.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_format_sampul.aspx.designer.vb">
+      <DependentUpon>svmu_format_sampul.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_format_sampul.aspx.vb">
+      <DependentUpon>svmu_format_sampul.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="svmu_kemaskini_calon_ulang.aspx.designer.vb">
@@ -4034,6 +4091,20 @@
       <DependentUpon>svmu_pengakuan_calon.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\svmu_pengesahan_kodpusat.ascx.designer.vb">
+      <DependentUpon>svmu_pengesahan_kodpusat.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_pengesahan_kodpusat.ascx.vb">
+      <DependentUpon>svmu_pengesahan_kodpusat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="svmu_pengesahan_kodpusat.aspx.designer.vb">
+      <DependentUpon>svmu_pengesahan_kodpusat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_pengesahan_kodpusat.aspx.vb">
+      <DependentUpon>svmu_pengesahan_kodpusat.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="svmu_pusat_peperiksaan.aspx.designer.vb">
       <DependentUpon>svmu_pusat_peperiksaan.aspx</DependentUpon>
     </Compile>
@@ -4046,6 +4117,20 @@
     </Compile>
     <Compile Include="svmu_rumusan_pendaftaran.aspx.vb">
       <DependentUpon>svmu_rumusan_pendaftaran.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_semak_calon_ulang.aspx.designer.vb">
+      <DependentUpon>svmu_semak_calon_ulang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_semak_calon_ulang.aspx.vb">
+      <DependentUpon>svmu_semak_calon_ulang.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_senarai_calon.aspx.designer.vb">
+      <DependentUpon>svmu_senarai_calon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_senarai_calon.aspx.vb">
+      <DependentUpon>svmu_senarai_calon.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="transkrip.12.14.aspx.designer.vb">
