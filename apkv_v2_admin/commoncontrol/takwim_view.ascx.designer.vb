@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class takwim_view
-    
+
     '''<summary>
     '''lblTahun control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTahun As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMenu control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMenu As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblTarikhMula control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhMula As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblTarikhAkhir control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhAkhir As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblTitle control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTitle As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''ltCatatan control.
     '''</summary>
@@ -66,7 +66,7 @@ Partial Public Class takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ltCatatan As Global.System.Web.UI.WebControls.Literal
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>

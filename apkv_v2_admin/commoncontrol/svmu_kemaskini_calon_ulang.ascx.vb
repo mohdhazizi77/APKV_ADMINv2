@@ -3,6 +3,7 @@ Public Class svmu_kemaskini_calon_ulang1
     Inherits System.Web.UI.UserControl
 
     Dim oCommon As New Commonfunction
+    Dim oCommon2 As New Commonfunction2
     Dim strSQL As String = ""
     Dim strRet As String = ""
 
@@ -49,12 +50,33 @@ Public Class svmu_kemaskini_calon_ulang1
         strPelajarID = AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7)
         strsvmuID = AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7)
 
-        strSQL = "SELECT kpmkv_pelajar.Nama, kpmkv_pelajar.MYKAD, kpmkv_pelajar.Jantina, kpmkv_pelajar.Bangsa, kpmkv_pelajar.Agama, kpmkv_pelajar.AngkaGiliran, kpmkv_pelajar.KolejRecordID, kpmkv_kolej.Nama, kpmkv_pelajar.Tahun, kpmkv_pelajar_markah.GredBMSetara, kpmkv_pelajar_markah.GredSJSetara FROM kpmkv_pelajar 
+        strSQL = "SELECT DatabaseName FROM kpmkv_svmu WHERE svmu_id = '" & strsvmuID & "'"
+        Dim DB As String = oCommon.getFieldValue(strSQL)
+
+        If DB = "APKV" Then
+
+            strSQL = "SELECT kpmkv_pelajar.Nama, kpmkv_pelajar.MYKAD, kpmkv_pelajar.Jantina, kpmkv_pelajar.Bangsa, kpmkv_pelajar.Agama, kpmkv_pelajar.AngkaGiliran, kpmkv_pelajar.KolejRecordID, kpmkv_kolej.Nama, kpmkv_pelajar.Tahun, kpmkv_pelajar_markah.GredBMSetara, kpmkv_pelajar_markah.GredSJSetara FROM kpmkv_pelajar 
 LEFT JOIN kpmkv_kolej ON kpmkv_pelajar.KolejRecordID = kpmkv_kolej.RecordID
 LEFT JOIN kpmkv_pelajar_markah ON kpmkv_pelajar.PelajarID = kpmkv_pelajar_markah.pelajarID 
 WHERE kpmkv_pelajar.PelajarID = '" & strPelajarID & "'
 AND kpmkv_pelajar.Semester = '4'"
-        strRet = oCommon.getFieldValueEx(strSQL)
+
+
+
+            strRet = oCommon.getFieldValueEx(strSQL)
+
+        Else
+
+            strSQL = "SELECT kpmkv_pelajar.Nama, kpmkv_pelajar.MYKAD, kpmkv_pelajar.Jantina, kpmkv_pelajar.Bangsa, kpmkv_pelajar.Agama, kpmkv_pelajar.AngkaGiliran, kpmkv_pelajar.KolejRecordID, kpmkv_kolej.Nama, kpmkv_pelajar.Tahun, kpmkv_pelajar_markah.GredBMSetara, kpmkv_pelajar_Akademik_Ulang.Kompetensi FROM kpmkv_pelajar 
+LEFT JOIN kpmkv_kolej ON kpmkv_pelajar.KolejRecordID = kpmkv_kolej.RecordID
+LEFT JOIN kpmkv_pelajar_markah ON kpmkv_pelajar.PelajarID = kpmkv_pelajar_markah.pelajarID 
+LEFT JOIN kpmkv_pelajar_Akademik_Ulang ON kpmkv_pelajar.PelajarID = kpmkv_pelajar_Akademik_Ulang.PelajarID
+WHERE kpmkv_pelajar.PelajarID = '" & strPelajarID & "'
+AND kpmkv_pelajar.Semester = '4'"
+
+            strRet = oCommon2.getFieldValueEx(strSQL)
+
+        End If
 
         ''--get user info
         Dim ar_Calon As Array
@@ -84,7 +106,7 @@ AND kpmkv_pelajar.Semester = '4'"
         strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'TAHUN_PEPERIKSAAN'"
         Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
 
-        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'BM'"
+        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'BM' AND StatusMP = '1' AND Status <> 'RALAT'"
         strRet = oCommon.getFieldValue(strSQL)
 
         If Not strRet = "" Then
@@ -122,7 +144,7 @@ FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
 
         End If
 
-        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'SJ'"
+        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'SJ' AND StatusMP = '1' AND Status <> 'RALAT'"
         strRet = oCommon.getFieldValue(strSQL)
 
         If Not strRet = "" Then
@@ -141,7 +163,6 @@ FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
             ddlNegeri.SelectedValue = ar_maklumat(4)
             txtTelefon.Text = ar_maklumat(5)
             txtEmail.Text = ar_maklumat(6)
-            ddlNegeriKV.Text = ar_maklumat(7)
             strSQL = "SELECT Negeri FROM kpmkv_kolej WHERE RecordID = '" & ar_maklumat(7) & "'"
             ddlNegeriKV.Text = oCommon.getFieldValue(strSQL)
             strSQL = "SELECT Nama FROM kpmkv_kolej WHERE RecordID = '" & ar_maklumat(7) & "'"
@@ -181,7 +202,7 @@ FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
         strDOB = strDay & "-" & strMonth & "-" & strYear
         txtDate.Text = strDOB
 
-        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND MataPelajaran = 'BM'"
+        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND MataPelajaran = 'BM' AND StatusMP = '1' AND Status <> 'RALAT'"
 
         If oCommon.getFieldValue(strSQL) = "" Then
 
@@ -193,7 +214,7 @@ FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
 
         End If
 
-        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND MataPelajaran = 'SJ'"
+        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND MataPelajaran = 'SJ' AND StatusMP = '1' AND Status <> 'RALAT'"
 
         If oCommon.getFieldValue(strSQL) = "" Then
 
@@ -300,7 +321,7 @@ FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
 
     Private Sub getKV()
 
-        strSQL = "SELECT Nama,RecordID FROM kpmkv_kolej WHERE Negeri='" & ddlNegeriKV.Text & "' ORDER BY Nama ASC"
+        strSQL = "SELECT Nama,RecordID FROM kpmkv_kolej WHERE Negeri='" & ddlNegeriKV.Text & "' AND Jenis = 'KPM' ORDER BY Nama ASC"
         Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
         Dim objConn As SqlConnection = New SqlConnection(strConn)
         Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
@@ -348,9 +369,6 @@ FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
             Exit Sub
         End If
 
-
-
-        Dim strsvmuCalonID As String
         Dim strPelajarID As String
         Dim strsvmuID As String
 
@@ -360,26 +378,71 @@ FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
         strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'TAHUN_PEPERIKSAAN'"
         Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
 
-        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "'"
-        strsvmuCalonID = oCommon.getFieldValue(strSQL)
+        strSQL = "DELETE FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'BM' AND StatusMP = '0'"
+        strRet = oCommon.ExecuteSQL(strSQL)
+
+        strSQL = "DELETE FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'SJ' AND StatusMP = '0'"
+        strRet = oCommon.ExecuteSQL(strSQL)
+
+        If txtNama.Text.Contains("'") Then
+
+            txtNama.Text = Replace(txtNama.Text, "'", "''")
+
+        End If
 
         If chkBM.Checked = True Then
 
-            strSQL = "  INSERT INTO kpmkv_svmu_calon
+            strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'SJ'"
+            strRet = oCommon.getFieldValue(strSQL)
+
+            If Not strRet = "" Then
+
+                strSQL = "SELECT PusatPeperiksaanID FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
+                Dim PusatPeperiksaanID As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "  INSERT INTO kpmkv_svmu_calon
+                        (svmu_id, Nama, TarikhLahir, Jantina, Bangsa, Agama, KolejID, KolejNama, Kohort, Alamat, Poskod, Bandar, Negeri, Telefon, Email, MataPelajaran, StatusMP, PusatPeperiksaanID, TahunPeperiksaan, Status, create_timestamp)
+                        VALUES
+                        ('" & strsvmuID & "', '" & txtNama.Text & "', '" & txtDate.Text & "', '" & txtJantina.Text & "', '" & ddlBangsa.Text & "', '" & txtAgama.Text & "', '" & txtKolej.Text & "', '" & txtKolej.Text & "', '" & txtKohort.Text & "', '" & txtAlamat.Text & "', '" & txtPoskod.Text & "', '" & txtBandar.Text & "', '" & ddlNegeri.Text & "', '" & txtTelefon.Text & "', '" & txtEmail.Text & "', 'BM', '0', '" & PusatPeperiksaanID & "', '" & TahunPeperiksaan & "', 'BARU', CURRENT_TIMESTAMP)"
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+            Else
+
+                strSQL = "  INSERT INTO kpmkv_svmu_calon
                         (svmu_id, Nama, TarikhLahir, Jantina, Bangsa, Agama, KolejID, KolejNama, Kohort, Alamat, Poskod, Bandar, Negeri, Telefon, Email, MataPelajaran, StatusMP, PusatPeperiksaanID, TahunPeperiksaan, Status, create_timestamp)
                         VALUES
                         ('" & strsvmuID & "', '" & txtNama.Text & "', '" & txtDate.Text & "', '" & txtJantina.Text & "', '" & ddlBangsa.Text & "', '" & txtAgama.Text & "', '" & txtKolej.Text & "', '" & txtKolej.Text & "', '" & txtKohort.Text & "', '" & txtAlamat.Text & "', '" & txtPoskod.Text & "', '" & txtBandar.Text & "', '" & ddlNegeri.Text & "', '" & txtTelefon.Text & "', '" & txtEmail.Text & "', 'BM', '0', '" & ddlKolej.SelectedValue & "', '" & TahunPeperiksaan & "', 'BARU', CURRENT_TIMESTAMP)"
-            strRet = oCommon.ExecuteSQL(strSQL)
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+            End If
 
         End If
 
         If chkSJ.Checked = True Then
 
-            strSQL = "  INSERT INTO kpmkv_svmu_calon
+            strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & strsvmuID & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'BM'"
+            strRet = oCommon.getFieldValue(strSQL)
+
+            If Not strRet = "" Then
+
+                strSQL = "SELECT PusatPeperiksaanID FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strRet & "'"
+                Dim PusatPeperiksaanID As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "  INSERT INTO kpmkv_svmu_calon
+                        (svmu_id, Nama, TarikhLahir, Jantina, Bangsa, Agama, KolejID, KolejNama, Kohort, Alamat, Poskod, Bandar, Negeri, Telefon, Email, MataPelajaran, StatusMP, PusatPeperiksaanID, TahunPeperiksaan, Status, create_timestamp)
+                        VALUES
+                        ('" & strsvmuID & "', '" & txtNama.Text & "', '" & txtDate.Text & "', '" & txtJantina.Text & "', '" & ddlBangsa.Text & "', '" & txtAgama.Text & "', '" & txtKolej.Text & "', '" & txtKolej.Text & "', '" & txtKohort.Text & "', '" & txtAlamat.Text & "', '" & txtPoskod.Text & "', '" & txtBandar.Text & "', '" & ddlNegeri.Text & "', '" & txtTelefon.Text & "', '" & txtEmail.Text & "', 'SJ', '0', '" & PusatPeperiksaanID & "', '" & TahunPeperiksaan & "', 'BARU', CURRENT_TIMESTAMP)"
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+            Else
+
+                strSQL = "  INSERT INTO kpmkv_svmu_calon
                         (svmu_id, Nama, TarikhLahir, Jantina, Bangsa, Agama, KolejID, KolejNama, Kohort, Alamat, Poskod, Bandar, Negeri, Telefon, Email, MataPelajaran, StatusMP, PusatPeperiksaanID, TahunPeperiksaan, Status, create_timestamp)
                         VALUES
                         ('" & strsvmuID & "', '" & txtNama.Text & "', '" & txtDate.Text & "', '" & txtJantina.Text & "', '" & ddlBangsa.Text & "', '" & txtAgama.Text & "', '" & txtKolej.Text & "', '" & txtKolej.Text & "', '" & txtKohort.Text & "', '" & txtAlamat.Text & "', '" & txtPoskod.Text & "', '" & txtBandar.Text & "', '" & ddlNegeri.Text & "', '" & txtTelefon.Text & "', '" & txtEmail.Text & "', 'SJ', '0', '" & ddlKolej.SelectedValue & "', '" & TahunPeperiksaan & "', 'BARU', CURRENT_TIMESTAMP)"
-            strRet = oCommon.ExecuteSQL(strSQL)
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+            End If
 
         End If
 

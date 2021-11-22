@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <head id="Head1" runat="server">
-    <title>APLIKASI PENGURUSAN PENTAKSIRAN. KOLEJ VOKASIONAL</title>
+    <title>APLIKASI PENGURUSAN PENTAKSIRAN KOLEJ VOKASIONAL</title>
     <link href="~/css/portal.default.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="img/faviconkpm.png" type="image/x-icon" />
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -15,11 +15,11 @@
             <tr>
                 <td colspan="2" >
                     <%--<a href="default.aspx"><img src="img/logogov.png" alt="GOV" /></a>--%>
-                    <a href="pendaftaran_calon_ulang_online.aspx"><img src="img/LOGOKPMBM.png" alt="KPM" /></a>
+                    <a href="default.aspx"><img src="img/LOGOKPMBM.png" alt="KPM" /></a>
 
                 </td>
                 <td style="text-align: right;">
-                    <a href="pendaftaran_calon_ulang_online.aspx">
+                    <a href="default.aspx">
                         <img src="img/logo-big.png" name="space" border="0" alt="LPM" /></a>
 
                 </td>
@@ -29,10 +29,10 @@
                     <table class="fbheader_menu">
                         <tr>
                             <td style="width: 60%; text-align: left;">
-                                <a href="pendaftaran_calon_ulang_online.aspx">APLIKASI PENGURUSAN PENTAKSIRAN KOLEJ VOKASIONAL</a>
+                                <a href="default.aspx">APLIKASI PENGURUSAN PENTAKSIRAN KOLEJ VOKASIONAL</a>
                             </td>
                             <td style="width: 40%; text-align: right;">
-                                <a href="pendaftaran_calon_ulang_online_contact.aspx">Hubungi Kami</a>
+                                <a href="default.contactus.aspx">Hubungi Kami</a>
                             </td>
                         </tr>
                     </table>

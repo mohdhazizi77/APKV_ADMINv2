@@ -38,6 +38,38 @@
     <tr class="fbform_header">
         <td colspan="2">Tambah Takwim Baru</td>
     </tr>
+
+    <!-- 11 NOV 2021 -->
+    <tr>
+        <td></td>
+        <td>
+            <asp:CheckBox ID="chkSelectAll" runat="server" Text="PILIH SEMUA KOLEJ" AutoPostBack="true" />
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>Negeri:</td>
+        <td>
+            <asp:DropDownList ID="ddlNegeri" runat="server" Width="450px" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Jenis Kolej:</td>
+        <td>
+            <asp:DropDownList ID="ddlJenis" runat="server" AutoPostBack="true" Width="450px"></asp:DropDownList>
+    </tr>
+    <tr>
+        <td>Kolej:</td>
+        <td>
+            <asp:CheckBoxList ID="chkBLKolej" runat="server" Width="450px" BorderColor="Black"></asp:CheckBoxList>
+        </td>
+    </tr>
+
+    <!-- 11 NOV 2021 -->
+
     <tr>
         <td>Menu:</td>
         <td>
@@ -97,6 +129,7 @@
             <asp:TextBox ID="txtCatatan" runat="server" TextMode="MultiLine" Rows="10" Width="450px"></asp:TextBox>&nbsp;</td>
     </tr>
     <tr>
+        <td></td>
         <td colspan="2">
             <asp:Button ID="btnadd" runat="server" Text=" Tambah " CssClass="fbbutton" />
             &nbsp;<asp:LinkButton ID="lnkList" runat="server">Senarai Takwim</asp:LinkButton>
@@ -148,6 +181,7 @@
         </td>
     </tr>
     <tr>
+        <td></td>
         <td colspan="2">
             <asp:Button ID="btnTambahNotifikasi" runat="server" Text=" Tambah " CssClass="fbbutton" />
         </td>

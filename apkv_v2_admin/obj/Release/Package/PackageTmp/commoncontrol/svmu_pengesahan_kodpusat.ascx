@@ -193,7 +193,7 @@
         <td style="text-align: right">
             <asp:Button ID="btnBack" runat="server" Text="Kembali" />
 
-            <asp:Button ID="btnProceed" runat="server" Text="Pengesahan" />
+            <asp:Button ID="btnProceed" OnClientClick="javascript:alert('Pengesahan Kod Pusat Berjaya!');" runat="server" Text="Pengesahan" />
         </td>
 
     </tr>

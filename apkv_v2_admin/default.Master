@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>APLIKASI PENGURUSAN PENTAKSIRAN. KOLEJ VOKASIONAL</title>
+    <title>APLIKASI PENGURUSAN PENTAKSIRAN KOLEJ VOKASIONAL</title>
     <meta name="robots" content="noindex" />
     <meta content="" name="Keywords" />
     <meta content="Global" name="Distribution" />
@@ -34,7 +34,7 @@
                     <table class="fbheader_menu">
                         <tr>
                             <td style="width: 60%; text-align: left;">
-                                <a href="default.aspx">APLIKASI PENGURUSAN PENTAKSIRAN. KOLEJ VOKASIONAL</a>
+                                <a href="default.aspx">APLIKASI PENGURUSAN PENTAKSIRAN KOLEJ VOKASIONAL</a>
                             </td>
                             <td style="width: 40%; text-align: right;">
                                 <a href="default.contactus.aspx">Hubungi Kami</a>

@@ -72,12 +72,22 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -154,17 +164,25 @@
     <Content Include="apkv.pemeriksa.borang.markah.PA.aspx" />
     <Content Include="apkv.pemeriksa.markah.import.pa.aspx" />
     <Content Include="apkv.pemeriksa.markah.pa.aspx" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\apkv_v2_admin.dll" />
+    <Content Include="bin\apkv_v2_admin.dll.config" />
     <Content Include="bin\apkv_v2_admin.pdb" />
     <Content Include="bin\apkv_v2_admin.xml" />
     <Content Include="bin\itextsharp.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\QRCoder.dll" />
     <Content Include="bin\RKLib.ExportData.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
     <Content Include="bin\WebChart.dll" />
     <Content Include="BMSETARADash.aspx" />
     <Content Include="borang.markah.sejarah.aspx" />
     <Content Include="borang.markah.sejarah.khas.aspx" />
     <Content Include="borang_kawalan_svm.aspx" />
     <Content Include="borang_kawalan_transkrip.aspx" />
+    <Content Include="cetak.pelajar.ulang.aspx" />
     <Content Include="commoncontrol\admin_accessright.ascx" />
     <Content Include="commoncontrol\admin_borang_markah_khas.ascx" />
     <Content Include="commoncontrol\admin_data_transkrip.ascx" />
@@ -187,6 +205,7 @@
     <Content Include="commoncontrol\borang_markah_sejarah.ascx" />
     <Content Include="commoncontrol\borang_markah_sejarah_khas.ascx" />
     <Content Include="commoncontrol\BS_arahan_penilaian_akhir.ascx" />
+    <Content Include="commoncontrol\cetak_pelajar_ulang.ascx" />
     <Content Include="commoncontrol\config_agama.ascx" />
     <Content Include="commoncontrol\config_bangsa.ascx" />
     <Content Include="commoncontrol\config_bmsetara.ascx" />
@@ -205,6 +224,7 @@
     <Content Include="commoncontrol\config_tetapan_add.ascx" />
     <Content Include="commoncontrol\config_tetapan_edit.ascx" />
     <Content Include="commoncontrol\config_tetapan_list.ascx" />
+    <Content Include="commoncontrol\config_wajaran_a.ascx" />
     <Content Include="commoncontrol\contact_us.ascx" />
     <Content Include="commoncontrol\create_user.ascx" />
     <Content Include="commoncontrol\dashboard.ascx" />
@@ -229,6 +249,7 @@
     <Content Include="commoncontrol\inden_matapelajaran_akademik.ascx" />
     <Content Include="commoncontrol\inden_matapelajaran_akademik_negeri.ascx" />
     <Content Include="commoncontrol\inden_matapelajaran_vok.ascx" />
+    <Content Include="commoncontrol\inden_sj1251.ascx" />
     <Content Include="commoncontrol\inden_svm.ascx" />
     <Content Include="commoncontrol\jana_FIK_semasa.ascx" />
     <Content Include="commoncontrol\jana_gred_BM_ulang.ascx" />
@@ -376,15 +397,21 @@
     <Content Include="commoncontrol\slip_roster_SJ1251.ascx" />
     <Content Include="commoncontrol\slip_sijilvokasionalmalaysia.ascx" />
     <Content Include="commoncontrol\slip_view.ascx" />
+    <Content Include="commoncontrol\svmu_calon_manual.ascx" />
+    <Content Include="commoncontrol\svmu_calon_manual_kemaskini.ascx" />
     <Content Include="commoncontrol\svmu_daftar_calon_ulang.ascx" />
     <Content Include="commoncontrol\svmu_format_sampul.ascx" />
     <Content Include="commoncontrol\svmu_kemaskini_calon_ulang.ascx" />
+    <Content Include="commoncontrol\svmu_maintenance.ascx" />
     <Content Include="commoncontrol\svmu_pembayaran_pendaftaran.ascx" />
     <Content Include="commoncontrol\svmu_pengakuan_calon.ascx" />
     <Content Include="commoncontrol\svmu_pusat_peperiksaan.ascx" />
     <Content Include="commoncontrol\svmu_rumusan_pendaftaran.ascx" />
     <Content Include="commoncontrol\svmu_semak_calon_ulang.ascx" />
     <Content Include="commoncontrol\svmu_senarai_calon.ascx" />
+    <Content Include="commoncontrol\svmu_senarai_calon_bm.ascx" />
+    <Content Include="commoncontrol\svmu_senarai_calon_sj.ascx" />
+    <Content Include="commoncontrol\svmu_senarai_semak_calon_ulang.ascx" />
     <Content Include="commoncontrol\svmu_tindakan_calon.ascx" />
     <Content Include="commoncontrol\svm_pengesahan.ascx" />
     <Content Include="commoncontrol\takwim_create.ascx" />
@@ -409,6 +436,9 @@
     <Content Include="commoncontrol\wajaranvokasional_search.ascx" />
     <Content Include="commoncontrol\wajaranvokasional_update.ascx" />
     <Content Include="commoncontrol\wajaranvokasional_view.ascx" />
+    <Content Include="commoncontrol\wajaran_akademik_create.ascx" />
+    <Content Include="commoncontrol\wajaran_akademik_list.ascx" />
+    <Content Include="commoncontrol\wajaran_akademik_update.ascx" />
     <Content Include="commoncontrol\wajaran_search.ascx" />
     <Content Include="config.agama.aspx" />
     <Content Include="config.bangsa.aspx" />
@@ -432,6 +462,7 @@
     <Content Include="config_tetapan_add.aspx" />
     <Content Include="config_tetapan_edit.aspx" />
     <Content Include="config_tetapan_list.aspx" />
+    <Content Include="config_wajaran_a.aspx" />
     <Content Include="create.user.aspx" />
     <Content Include="css\portal.default.css" />
     <Content Include="dashboard.view.aspx" />
@@ -466,6 +497,7 @@
     <Content Include="icons\download.gif" />
     <Content Include="icons\download.jpg" />
     <Content Include="icons\edit.png" />
+    <Content Include="icons\error.jpg" />
     <Content Include="icons\event.png" />
     <Content Include="icons\eye.png" />
     <Content Include="icons\facebook.gif" />
@@ -475,6 +507,7 @@
     <Content Include="icons\furl.gif" />
     <Content Include="icons\gear.png" />
     <Content Include="icons\groups.png" />
+    <Content Include="icons\hand-click-1299.png" />
     <Content Include="icons\heart.png" />
     <Content Include="icons\ilike.gif" />
     <Content Include="icons\lastfm.gif" />
@@ -494,6 +527,8 @@
     <Content Include="icons\plus.png" />
     <Content Include="icons\puzzle.png" />
     <Content Include="icons\reddit.gif" />
+    <Content Include="icons\refresh.png" />
+    <Content Include="icons\save.png" />
     <Content Include="icons\SemakStatusPermohonan.png" />
     <Content Include="icons\star.png" />
     <Content Include="icons\stumbleupon.gif" />
@@ -535,6 +570,7 @@
     <Content Include="inden.matapelajaran.akademik.aspx" />
     <Content Include="inden.matapelajaran.akademik.negeri.aspx" />
     <Content Include="inden.matapelajaran.vok.aspx" />
+    <Content Include="inden.sj1251.aspx" />
     <Content Include="inden.svm.aspx" />
     <Content Include="jana.FIK.semasa.aspx" />
     <Content Include="jana.gred.BM.ulang.aspx" />
@@ -678,9 +714,12 @@
     <Content Include="sskt.aspx" />
     <Content Include="svm.pengesahan.aspx" />
     <Content Include="svmu.tindakan.calon.aspx" />
+    <Content Include="svmu_calon_manual.aspx" />
+    <Content Include="svmu_calon_manual_kemaskini.aspx" />
     <Content Include="svmu_daftar_calon_ulang.aspx" />
     <Content Include="svmu_format_sampul.aspx" />
     <Content Include="svmu_kemaskini_calon_ulang.aspx" />
+    <Content Include="svmu_maintenance.aspx" />
     <Content Include="svmu_pembayaran_pendaftaran.aspx" />
     <Content Include="svmu_pengakuan_calon.aspx" />
     <Content Include="commoncontrol\svmu_pengesahan_kodpusat.ascx" />
@@ -689,6 +728,9 @@
     <Content Include="svmu_rumusan_pendaftaran.aspx" />
     <Content Include="svmu_semak_calon_ulang.aspx" />
     <Content Include="svmu_senarai_calon.aspx" />
+    <Content Include="svmu_senarai_calon_bm.aspx" />
+    <Content Include="svmu_senarai_calon_sj.aspx" />
+    <Content Include="svmu_senarai_semak_calon_ulang.aspx" />
     <Content Include="transkrip.12.14.aspx" />
     <Content Include="transkrip.sijil.vok.aspx" />
     <Content Include="UpgradeLog.htm" />
@@ -702,6 +744,9 @@
     <Content Include="wajaranvokasional.create.aspx" />
     <Content Include="wajaranvokasional.update.aspx" />
     <Content Include="wajaranvokasional.view.aspx" />
+    <Content Include="wajaran_akademik_create.aspx" />
+    <Content Include="wajaran_akademik_list.aspx" />
+    <Content Include="wajaran_akademik_update.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1015,6 +1060,14 @@
       <DependentUpon>borang_kawalan_transkrip.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="cetak.pelajar.ulang.aspx.designer.vb">
+      <DependentUpon>cetak.pelajar.ulang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cetak.pelajar.ulang.aspx.vb">
+      <DependentUpon>cetak.pelajar.ulang.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="common.function.2.vb" />
     <Compile Include="common.function.vb" />
     <Compile Include="commoncontrol\admin_accessright.ascx.designer.vb">
       <DependentUpon>admin_accessright.ascx</DependentUpon>
@@ -1170,6 +1223,13 @@
       <DependentUpon>BS_arahan_penilaian_akhir.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\cetak_pelajar_ulang.ascx.designer.vb">
+      <DependentUpon>cetak_pelajar_ulang.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\cetak_pelajar_ulang.ascx.vb">
+      <DependentUpon>cetak_pelajar_ulang.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\config_agama.ascx.designer.vb">
       <DependentUpon>config_agama.ascx</DependentUpon>
     </Compile>
@@ -1294,6 +1354,13 @@
     </Compile>
     <Compile Include="commoncontrol\config_tetapan_list.ascx.vb">
       <DependentUpon>config_tetapan_list.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\config_wajaran_a.ascx.designer.vb">
+      <DependentUpon>config_wajaran_a.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\config_wajaran_a.ascx.vb">
+      <DependentUpon>config_wajaran_a.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\contact_us.ascx.designer.vb">
@@ -1462,6 +1529,13 @@
     </Compile>
     <Compile Include="commoncontrol\inden_matapelajaran_vok.ascx.vb">
       <DependentUpon>inden_matapelajaran_vok.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\inden_sj1251.ascx.designer.vb">
+      <DependentUpon>inden_sj1251.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\inden_sj1251.ascx.vb">
+      <DependentUpon>inden_sj1251.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\inden_svm.ascx.designer.vb">
@@ -2489,6 +2563,20 @@
       <DependentUpon>slip_view.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\svmu_calon_manual.ascx.designer.vb">
+      <DependentUpon>svmu_calon_manual.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_calon_manual.ascx.vb">
+      <DependentUpon>svmu_calon_manual.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_calon_manual_kemaskini.ascx.designer.vb">
+      <DependentUpon>svmu_calon_manual_kemaskini.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_calon_manual_kemaskini.ascx.vb">
+      <DependentUpon>svmu_calon_manual_kemaskini.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\svmu_daftar_calon_ulang.ascx.designer.vb">
       <DependentUpon>svmu_daftar_calon_ulang.ascx</DependentUpon>
     </Compile>
@@ -2508,6 +2596,13 @@
     </Compile>
     <Compile Include="commoncontrol\svmu_kemaskini_calon_ulang.ascx.vb">
       <DependentUpon>svmu_kemaskini_calon_ulang.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_maintenance.ascx.designer.vb">
+      <DependentUpon>svmu_maintenance.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_maintenance.ascx.vb">
+      <DependentUpon>svmu_maintenance.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\svmu_pembayaran_pendaftaran.ascx.designer.vb">
@@ -2550,6 +2645,27 @@
     </Compile>
     <Compile Include="commoncontrol\svmu_senarai_calon.ascx.vb">
       <DependentUpon>svmu_senarai_calon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_calon_bm.ascx.designer.vb">
+      <DependentUpon>svmu_senarai_calon_bm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_calon_bm.ascx.vb">
+      <DependentUpon>svmu_senarai_calon_bm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_calon_sj.ascx.designer.vb">
+      <DependentUpon>svmu_senarai_calon_sj.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_calon_sj.ascx.vb">
+      <DependentUpon>svmu_senarai_calon_sj.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_semak_calon_ulang.ascx.designer.vb">
+      <DependentUpon>svmu_senarai_semak_calon_ulang.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_senarai_semak_calon_ulang.ascx.vb">
+      <DependentUpon>svmu_senarai_semak_calon_ulang.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\svmu_tindakan_calon.ascx.designer.vb">
@@ -2720,6 +2836,27 @@
       <DependentUpon>wajaranvokasional_view.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\wajaran_akademik_create.ascx.designer.vb">
+      <DependentUpon>wajaran_akademik_create.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\wajaran_akademik_create.ascx.vb">
+      <DependentUpon>wajaran_akademik_create.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\wajaran_akademik_list.ascx.designer.vb">
+      <DependentUpon>wajaran_akademik_list.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\wajaran_akademik_list.ascx.vb">
+      <DependentUpon>wajaran_akademik_list.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\wajaran_akademik_update.ascx.designer.vb">
+      <DependentUpon>wajaran_akademik_update.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\wajaran_akademik_update.ascx.vb">
+      <DependentUpon>wajaran_akademik_update.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\wajaran_search.ascx.designer.vb">
       <DependentUpon>wajaran_search.ascx</DependentUpon>
     </Compile>
@@ -2879,6 +3016,13 @@
     </Compile>
     <Compile Include="config_tetapan_list.aspx.vb">
       <DependentUpon>config_tetapan_list.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="config_wajaran_a.aspx.designer.vb">
+      <DependentUpon>config_wajaran_a.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="config_wajaran_a.aspx.vb">
+      <DependentUpon>config_wajaran_a.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="create.user.aspx.designer.vb">
@@ -3076,6 +3220,13 @@
     <Compile Include="inden.matapelajaran.vok.aspx.vb">
       <DependentUpon>inden.matapelajaran.vok.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inden.sj1251.aspx.designer.vb">
+      <DependentUpon>inden.sj1251.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="inden.sj1251.aspx.vb">
+      <DependentUpon>inden.sj1251.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="inden.svm.aspx.designer.vb">
       <DependentUpon>inden.svm.aspx</DependentUpon>
@@ -4056,6 +4207,27 @@
       <DependentUpon>svmu.tindakan.calon.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="svmu_calon_manual.aspx.designer.vb">
+      <DependentUpon>svmu_calon_manual.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_calon_manual.aspx.vb">
+      <DependentUpon>svmu_calon_manual.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_calon_manual_kemaskini.aspx.designer.vb">
+      <DependentUpon>svmu_calon_manual_kemaskini.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_calon_manual_kemaskini.aspx.vb">
+      <DependentUpon>svmu_calon_manual_kemaskini.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_calon_manual_kemaskini.Master.designer.vb">
+      <DependentUpon>svmu_calon_manual_kemaskini.Master</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_calon_manual_kemaskini.Master.vb">
+      <DependentUpon>svmu_calon_manual_kemaskini.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="svmu_daftar_calon_ulang.aspx.designer.vb">
       <DependentUpon>svmu_daftar_calon_ulang.aspx</DependentUpon>
     </Compile>
@@ -4075,6 +4247,13 @@
     </Compile>
     <Compile Include="svmu_kemaskini_calon_ulang.aspx.vb">
       <DependentUpon>svmu_kemaskini_calon_ulang.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_maintenance.aspx.designer.vb">
+      <DependentUpon>svmu_maintenance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_maintenance.aspx.vb">
+      <DependentUpon>svmu_maintenance.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="svmu_pembayaran_pendaftaran.aspx.designer.vb">
@@ -4131,6 +4310,27 @@
     </Compile>
     <Compile Include="svmu_senarai_calon.aspx.vb">
       <DependentUpon>svmu_senarai_calon.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_senarai_calon_bm.aspx.designer.vb">
+      <DependentUpon>svmu_senarai_calon_bm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_senarai_calon_bm.aspx.vb">
+      <DependentUpon>svmu_senarai_calon_bm.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_senarai_calon_sj.aspx.designer.vb">
+      <DependentUpon>svmu_senarai_calon_sj.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_senarai_calon_sj.aspx.vb">
+      <DependentUpon>svmu_senarai_calon_sj.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_senarai_semak_calon_ulang.aspx.designer.vb">
+      <DependentUpon>svmu_senarai_semak_calon_ulang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_senarai_semak_calon_ulang.aspx.vb">
+      <DependentUpon>svmu_senarai_semak_calon_ulang.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="transkrip.12.14.aspx.designer.vb">
@@ -4217,6 +4417,27 @@
       <DependentUpon>wajaranvokasional.view.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="wajaran_akademik_create.aspx.designer.vb">
+      <DependentUpon>wajaran_akademik_create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wajaran_akademik_create.aspx.vb">
+      <DependentUpon>wajaran_akademik_create.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="wajaran_akademik_list.aspx.designer.vb">
+      <DependentUpon>wajaran_akademik_list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wajaran_akademik_list.aspx.vb">
+      <DependentUpon>wajaran_akademik_list.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="wajaran_akademik_update.aspx.designer.vb">
+      <DependentUpon>wajaran_akademik_update.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wajaran_akademik_update.aspx.vb">
+      <DependentUpon>wajaran_akademik_update.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -4234,7 +4455,6 @@
     <Content Include="kolej.Master" />
     <Content Include="kpmkv.suo" />
     <Content Include="kpmkv.v12.suo" />
-    <Content Include="bin\apkv_v2_admin.dll.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -4256,6 +4476,7 @@
     <Content Include="sample_data\PELAJARUlang.xlsx" />
     <None Include="packages.config" />
     <Content Include="svmu.Master" />
+    <Content Include="svmu_calon_manual_kemaskini.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

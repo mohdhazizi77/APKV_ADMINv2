@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class admin_takwim_view
-    
+
     '''<summary>
     '''takwim_view1 control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class admin_takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents takwim_view1 As Global.apkv_v2_admin.takwim_view
-    
+
     '''<summary>
     '''btnUpdate control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class admin_takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnUpdate As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''btnDelete control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class admin_takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lnkList control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class admin_takwim_view
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lnkList As Global.System.Web.UI.WebControls.LinkButton
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>

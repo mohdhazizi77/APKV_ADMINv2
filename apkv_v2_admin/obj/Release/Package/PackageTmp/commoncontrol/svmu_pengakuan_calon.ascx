@@ -40,7 +40,7 @@
                     <ul>
                         <li>Salinan Kenyataan Semakan;</li>
                         <li>Salinan Resit bayaran (perbankan elektronik); dan</li>
-                        <li>2 keping Pos Laju Prabayar atau Pos Ekspres bersaiz A3  beralamat sendiri.</li>
+                        <li>1 keping sampul Pos Laju Prabayar atau Pos Ekspres bersaiz A5 dan 1 keping sampul Pos Laju Prabayar atau Pos Ekspres bersaiz A4.</li>
                     </ul>
                 </li>
                 <li>

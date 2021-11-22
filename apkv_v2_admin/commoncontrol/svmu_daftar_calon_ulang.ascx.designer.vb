@@ -32,6 +32,15 @@ Partial Public Class svmu_daftar_calon_ulang1
     Protected WithEvents lblTarikhAkhir As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''formatSampul control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents formatSampul As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''txtMYKAD control.
     '''</summary>
     '''<remarks>

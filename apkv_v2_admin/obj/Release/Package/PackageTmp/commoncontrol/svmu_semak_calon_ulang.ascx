@@ -6,41 +6,6 @@
 
     <br />
 
-    <%--<ol type="1" style="text-align: left">
-        <li>
-            <p>Peperiksaan ini ditawarkan hanya kepada <b>calon yang pernah menduduki peperiksaan SVM (calon mengulang) sahaja</b> tertakluk kepada syarat-syarat yang ditetapkan oleh Lembaga Peperiksaan.</p>
-        </li>
-        <li>
-            <p>Mata pelajaran yang ditawarkan adalah <b>Bahasa Melayu (1104) dan Sejarah (1251) sahaja</b> tertakluk kepada syarat-syarat yang ditetapkan oleh Lembaga Peperiksaan.</p>
-        </li>
-        <li>
-            <p>Pastikan semua maklumat yang diberikan adalah benar dan tepat sebelum menghantar borang permohonan. Lembaga Peperiksaan berhak membatalkan pendaftaran calon sekiranya maklumat yang diberikan tidak benar atau palsu.</p>
-        </li>
-        <li>
-            <p>Membuat permohonan pendaftaran SVMU di portal Permohonan Pendaftaran SVMU antara
-                <asp:Label ID="lblTarikhMula" runat="server"></asp:Label>
-                sehingga
-                <asp:Label ID="lblTarikhAkhir" runat="server"></asp:Label>.</p>
-        </li>
-        <li>
-            <p>Bayaran bagi permohonan pendaftaran SVMU hendaklah dilaksanakan melalui kaedah perbankan elektronik.</p>
-        </li>
-        <li>
-            <p>Setelah melaksanakan permohonan dan bayaran secara dalam talian, pemohon hendaklah mencetak dan menghantar/mengepos dokumen berikut ke Jabatan Pendidikan Negeri (JPN) tempat pemohon memilih untuk menduduki peperiksaan :</p>
-            <ul>
-                <li>Salinan Kenyataan Semakan;</li>
-                <li>Salinan Resit bayaran (perbankan elektronik); dan</li>
-                <li>2 keping <b>sampul surat PosDaftar atau Pos Laju Prabayar atau Pos Ekspres. <a href="../svmu_format_sampul.aspx">Rujuk format sampul di sini</a></b>.</li>
-            </ul>
-            <p>Kegagalan calon mengemukakan dokumen di perkara 6, akan menyebabkan calon tidak menerima maklumat penting berkaitan peperiksaan.</p>
-            <p>Alamat JPN boleh didapati di portal Lembaga Peperiksaan (<a href="http://lp.moe.gov.my">http://lp.moe.gov.my</a>) .</p>
-        </li>
-        <li>
-            <p>Pastikan borang Pernyataan Pendaftaran Peperiksaan (PPP) dicetak dan dibawa bersama-sama maklumat peribadi ke pusat peperiksaan semasa hari peperiksaan dijalankan.</p>
-        </li>
-        
-    </ol>--%>
-
     <table style="width: 100%">
 
         <tr>

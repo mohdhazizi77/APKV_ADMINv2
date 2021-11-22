@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class pendaftaran_calon_ulang_online1
 
     '''<summary>
+    '''table1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents table1 As Global.System.Web.UI.HtmlControls.HtmlTable
+
+    '''<summary>
     '''imgDaftar control.
     '''</summary>
     '''<remarks>
@@ -30,4 +39,22 @@ Partial Public Class pendaftaran_calon_ulang_online1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents imgSemak As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''table2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents table2 As Global.System.Web.UI.HtmlControls.HtmlTable
+
+    '''<summary>
+    '''Image2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Image2 As Global.System.Web.UI.WebControls.Image
 End Class

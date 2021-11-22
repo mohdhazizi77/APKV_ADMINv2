@@ -287,6 +287,16 @@ Public Class sijil_vok_malaysia1
                 strSQL = " SELECT isBMTahun FROM kpmkv_pelajar WHERE PelajarID = '" & strkey & "'"
                 Dim strIsBMTahun As String = oCommon.getFieldValue(strSQL)
 
+                If strIsBMTahun = "" Then
+
+                    strSQL = "SELECT MYKAD from kpmkv_pelajar WHERE PelajarID = '" & strkey & "'"
+                    Dim MYKAD As String = oCommon.getFieldValue(strSQL)
+
+                    strSQL = " SELECT isBMTahun FROM kpmkv_pelajar WHERE MYKAD = '" & MYKAD & "' AND Semester = '4' AND IsBMTahun IS NOT NULL"
+                    strIsBMTahun = oCommon.getFieldValue(strSQL)
+
+                End If
+
                 ''kod
                 strSQL = " SELECT Kod FROM kpmkv_tahun WHERE Tahun = '" & strIsBMTahun & "'"
                 Dim strKod As String = oCommon.getFieldValue(strSQL)
@@ -524,7 +534,7 @@ Public Class sijil_vok_malaysia1
 
         Else
 
-            myDocument = New Document(PageSize.A4)
+            myDocument = New Document(PageSize.A4, 38.5, 36, 37, 37)
 
         End If
 
@@ -941,7 +951,7 @@ Public Class sijil_vok_malaysia1
                                 MAX(CASE WHEN kpmkv_pelajar.Semester = '4' THEN kpmkv_pelajar_markah.SMP_Grade ELSE '' END) AS 'SMP4'
                                 FROM kpmkv_pelajar_markah
                                 LEFT JOIN kpmkv_pelajar ON kpmkv_pelajar.PelajarID = kpmkv_pelajar_markah.PelajarID
-                                WHERE MYKAD = '" & strmykad & "'
+                                WHERE MYKAD = '" & strmykad & "' AND StatusID = '2'
                                 GROUP BY MYKAD"
                         strRet = oCommon.getFieldValueEx(strSQL)
 
@@ -1006,14 +1016,26 @@ Public Class sijil_vok_malaysia1
 
                     ''1104
 
-                    strSQL = "SELECT GredBMSetara FROM kpmkv_SVM WHERE PelajarID = '" & strkey & "'"
+                    '' tarik data ulang if exist 19082021
+
+                    strSQL = "SELECT Gred FROM kpmkv_markah_bmsj_setara WHERE PelajarID = '" & strkey & "' AND Tahun = '" & ddlTahun.Text & "' AND MataPelajaran = 'BAHASA MELAYU'"
                     Dim strGredBMSetara As String = oCommon.getFieldValue(strSQL)
 
-                    strSQL = "SELECT GredSJSetara FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
-                    Dim strGredSJSetara As String = oCommon.getFieldValue(strSQL)
+                    If strGredBMSetara = "" Then
+                        strSQL = "SELECT GredBMSetara FROM kpmkv_SVM WHERE PelajarID = '" & strkey & "'"
+                        strGredBMSetara = oCommon.getFieldValue(strSQL)
+                    End If
 
                     strSQL = "SELECT Status FROM kpmkv_gred_bmsetara WHERE Gred = '" & strGredBMSetara & "'"
                     Dim strStatusBM As String = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Gred FROM kpmkv_markah_bmsj_setara WHERE PelajarID = '" & strkey & "' AND Tahun = '" & ddlTahun.Text & "' AND MataPelajaran = 'SEJARAH'"
+                    Dim strGredSJSetara As String = oCommon.getFieldValue(strSQL)
+
+                    If strGredSJSetara = "" Then
+                        strSQL = "SELECT GredSJSetara FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
+                        strGredSJSetara = oCommon.getFieldValue(strSQL)
+                    End If
 
                     strSQL = "SELECT Status FROM kpmkv_gred_sejarah WHERE Gred = '" & strGredSJSetara & "'"
                     Dim strStatusSJ As String = oCommon.getFieldValue(strSQL)
@@ -1059,6 +1081,8 @@ Public Class sijil_vok_malaysia1
                         myDocument.Add(table)
 
                     Else
+
+                        myDocument.Add(imgSpacing)
 
                         Kompeten = 0
 
@@ -1110,6 +1134,8 @@ Public Class sijil_vok_malaysia1
                         myDocument.Add(table)
 
                     Else
+
+                        myDocument.Add(imgSpacing)
 
                         Kompeten = 0
 
@@ -1336,7 +1362,7 @@ Public Class sijil_vok_malaysia1
                         'Dim qr As BarcodeQRCode = New BarcodeQRCode("http://apkv.moe.gov.my/apkv_v2_admin/svm.pengesahan.aspx?id=" & encryptedStrkey, 150, 150, hints)
                         'Dim qr As BarcodeQRCode = New BarcodeQRCode("http://localhost:49286/svm.pengesahan.aspx?id=" & encryptedStrkey, 150, 150, hints)
                         Dim qrImage As iTextSharp.text.Image = qr.GetImage()
-                        qrImage.SetAbsolutePosition(250, 80)
+                        qrImage.SetAbsolutePosition(250, 122)
                         qrImage.ScalePercent(45)
                         myDocument.Add(qrImage)
 
@@ -1381,6 +1407,55 @@ Public Class sijil_vok_malaysia1
                     Dim agencyFont As iTextSharp.text.Font = New iTextSharp.text.Font(bfAgency, 15)
                     '' changed fontsize from 13 to 15 21112018
 
+                    'myDocument.Add(imgSpacing)
+                    'myDocument.Add(imgSpacing)
+                    'myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                    If ddlStatus.SelectedValue = "TIDAK LAYAK" Then
+
+                        myDocument.Add(imgSpacing)
+                        myDocument.Add(imgSpacing) ''09102019
+                        myDocument.Add(imgSpacing)
+
+                    End If
+
+                    strSQL = "SELECT TahunSem FROM kpmkv_pelajar WHERE PelajarID = '" & strkey & "'"
+                    Dim strTahunSem As String = oCommon.getFieldValue(strSQL)
+
+                    If strTahunSem = "" Then
+
+                        strSQL = "SELECT MYKAD FROM kpmkv_pelajar WHERE PelajarID = '" & strkey & "'"
+                        Dim MYKAD As String = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT TahunSem FROM kpmkv_pelajar WHERE MYKAD = '" & MYKAD & "' AND Semester = '4' AND TahunSem IS NOT NULL"
+                        strTahunSem = oCommon.getFieldValue(strSQL)
+
+                    End If
+
+                    'table = New PdfPTable(2)
+                    'table.WidthPercentage = 100
+                    'table.SetWidths({0, 100})
+                    'table.DefaultCell.Border = 1
+
+                    'cell = New PdfPCell()
+                    'cetak = ""
+                    'cetak += ""
+                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    'cell.Border = 0
+                    'table.AddCell(cell)
+
+                    'cell = New PdfPCell
+                    'cetak = "PEPERIKSAAN TAHUN " & strTahunSem
+                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                    'cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                    'cell.Border = 0
+                    'table.AddCell(cell)
+
+                    'myDocument.Add(table)
+
                     table = New PdfPTable(2)
                     table.WidthPercentage = 100
                     table.SetWidths({0, 100})
@@ -1395,8 +1470,9 @@ Public Class sijil_vok_malaysia1
                     table.AddCell(cell)
 
                     cell = New PdfPCell
-                    cetak = strRunningNo & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine
-                    cetak += " "
+                    cetak = "PEPERIKSAAN TAHUN " & strTahunSem & Environment.NewLine
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                    cetak = strRunningNo & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine
                     cell.AddElement(New Paragraph(cetak, agencyFont))
                     cell.VerticalAlignment = Element.ALIGN_BOTTOM
                     cell.Border = 0
@@ -1461,7 +1537,7 @@ Public Class sijil_vok_malaysia1
 
         Else
 
-            myDocument = New Document(PageSize.A4)
+            myDocument = New Document(PageSize.A4, 38.5, 36, 37, 37)
 
         End If
 
@@ -1617,6 +1693,13 @@ Public Class sijil_vok_malaysia1
                     Dim RunNo As String = oCommon.getFieldValue(strSQL)
 
                     If RunNo = "" Then
+
+                        If isBMTahun = "" Then
+
+                            strSQL = " SELECT isBMTahun FROM kpmkv_pelajar WHERE MYKAD = '" & MYKAD & "' AND Semester = '4' AND IsBMTahun IS NOT NULL"
+                            isBMTahun = oCommon.getFieldValue(strSQL)
+
+                        End If
 
                         ''kod
                         strSQL = " SELECT Kod FROM kpmkv_tahun WHERE Tahun = '" & isBMTahun & "'"
@@ -2143,6 +2226,10 @@ Public Class sijil_vok_malaysia1
 
                         myDocument.Add(table)
 
+                    Else
+
+                        myDocument.Add(imgSpacing)
+
                     End If
 
                     myDocument.Add(imgSpacing)
@@ -2299,7 +2386,7 @@ Public Class sijil_vok_malaysia1
                         'Dim qr As BarcodeQRCode = New BarcodeQRCode("http://apkv.moe.gov.my/apkv_v2_admin/svm.pengesahan.aspx?id=" & encryptedStrkey, 150, 150, hints)
                         'Dim qr As BarcodeQRCode = New BarcodeQRCode("http://localhost:49286/svm.pengesahan.aspx?id=" & encryptedStrkey, 150, 150, hints)
                         Dim qrImage As iTextSharp.text.Image = qr.GetImage()
-                        qrImage.SetAbsolutePosition(250, 80)
+                        qrImage.SetAbsolutePosition(250, 122)
                         qrImage.ScalePercent(45)
                         myDocument.Add(qrImage)
 
@@ -2346,6 +2433,55 @@ Public Class sijil_vok_malaysia1
                     Dim agencyFont As iTextSharp.text.Font = New iTextSharp.text.Font(bfAgency, 15)
                     '' changed fontsize from 13 to 15 21112018
 
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                    If ddlStatus.SelectedValue = "TIDAK LAYAK" Then
+
+                        myDocument.Add(imgSpacing)
+                        myDocument.Add(imgSpacing) ''09102019
+                        myDocument.Add(imgSpacing)
+
+                    End If
+
+                    strSQL = "SELECT TahunSem FROM kpmkv_pelajar WHERE PelajarID = '" & PelajarID & "'"
+                    Dim strTahunSem As String = oCommon.getFieldValue(strSQL)
+
+                    If strTahunSem = "" Then
+
+                        strSQL = "SELECT MYKAD FROM kpmkv_pelajar WHERE PelajarID = '" & PelajarID & "'"
+                        Dim strMYKAD As String = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT TahunSem FROM kpmkv_pelajar WHERE MYKAD = '" & strMYKAD & "' AND Semester = '4' AND TahunSem IS NOT NULL"
+                        strTahunSem = oCommon.getFieldValue(strSQL)
+
+                    End If
+
+                    'table = New PdfPTable(2)
+                    'table.WidthPercentage = 100
+                    'table.SetWidths({0, 100})
+                    'table.DefaultCell.Border = 1
+
+                    'cell = New PdfPCell()
+                    'cetak = ""
+                    'cetak += ""
+                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    'cell.Border = 0
+                    'table.AddCell(cell)
+
+                    'cell = New PdfPCell
+                    'cetak = "PEPERIKSAAN TAHUN " & strTahunSem
+                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                    'cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                    'cell.Border = 0
+                    'table.AddCell(cell)
+
+                    'myDocument.Add(table)
+
                     table = New PdfPTable(2)
                     table.WidthPercentage = 100
                     table.SetWidths({0, 100})
@@ -2360,8 +2496,9 @@ Public Class sijil_vok_malaysia1
                     table.AddCell(cell)
 
                     cell = New PdfPCell
-                    cetak = strRunningNo & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine
-                    cetak += " "
+                    cetak = "PEPERIKSAAN TAHUN " & strTahunSem & Environment.NewLine
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                    cetak = strRunningNo & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine
                     cell.AddElement(New Paragraph(cetak, agencyFont))
                     cell.VerticalAlignment = Element.ALIGN_BOTTOM
                     cell.Border = 0

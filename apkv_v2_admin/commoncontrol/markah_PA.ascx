@@ -1,4 +1,4 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="markah_PA.ascx.vb" Inherits="apkv_v2_admin.markah_PA" %>z
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="markah_PA.ascx.vb" Inherits="apkv_v2_admin.markah_PA" %>
 <table class="fbform">
     <tr class="fbform_header">
         <td colspan="2">Vokasional >>Pemeriksa &gt;&gt;Kemasukkan Markah PA</td>
