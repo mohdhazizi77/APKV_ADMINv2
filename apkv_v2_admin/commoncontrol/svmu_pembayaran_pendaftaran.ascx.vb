@@ -31,14 +31,16 @@ Public Class svmu_pembayaran_pendaftaran
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        strSQL = "  SELECT MYKAD FROM kpmkv_svmu WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "'"
+        strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "'"
+        Dim svmu_id As String = oCommon.getFieldValue(strSQL)
+
+        strSQL = "  SELECT MYKAD FROM kpmkv_svmu WHERE svmu_id = '" & svmu_id & "'"
         lblMYKAD.Text = oCommon.getFieldValue(strSQL)
 
         strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'TAHUN_PEPERIKSAAN'"
         Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
 
-        strSQL = "  SELECT svmu_no_permohonan FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "'  AND StatusMP = '0'"
-        lblNoPermohonan.Text = oCommon.getFieldValue(strSQL)
+        lblNoPermohonan.Text = AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7)
 
     End Sub
     Sub DeserializeAndDump(json As String)
@@ -46,6 +48,9 @@ Public Class svmu_pembayaran_pendaftaran
         Dim detail As JSONdata = JsonConvert.DeserializeObject(Of JSONdata)(json)
 
         For Each ln As JSONdetails In detail.data
+
+            strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "'"
+            Dim svmu_id As String = oCommon.getFieldValue(strSQL)
 
             NamaPenuh = ln.NamaPenuh
             NoKP = ln.NoKP
@@ -65,7 +70,7 @@ Public Class svmu_pembayaran_pendaftaran
                     ,AngkaGiliran
                     FROM kpmkv_svmu
                     WHERE
-                    svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "'"
+                    svmu_id = '" & svmu_id & "'"
             strRet = oCommon.getFieldValueEx(strSQL)
 
             Dim ar_Calon As Array
@@ -75,11 +80,35 @@ Public Class svmu_pembayaran_pendaftaran
             Dim strMYKAD As String = ar_Calon(1)
             Dim strAG As String = ar_Calon(2)
 
-            strSQL = "  INSERT INTO kpmkv_svmu_payment_request
-                        (svmu_id, Jumlah, RefNo, ExternalAPP, Updated_at, Created_at, Id)
+            strSQL = "SELECT payment_request_id FROM kpmkv_svmu_payment_request WHERE RefNo = '" & RefNo & "'"
+            Dim payment_request_id As String = oCommon.getFieldValue(strSQL)
+
+            If payment_request_id = "" Then
+
+                strSQL = "  INSERT INTO kpmkv_svmu_payment_request
+                        (svmu_no_permohonan, Jumlah, RefNo, ExternalAPP, Updated_at, Created_at, Id)
                         VALUES
-                        ('" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "', '" & Jumlah & "', '" & RefNo & "', '" & ExternalApp & "', '" & updated_at & "', '" & created_at & "', '" & strid & "')"
-            strRet = oCommon.ExecuteSQL(strSQL)
+                        ('" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "', '" & Jumlah & "', '" & RefNo & "', '" & ExternalApp & "', '" & updated_at & "', '" & created_at & "', '" & strid & "')"
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+            Else
+
+                strSQL = "  UPDATE kpmkv_svmu_payment_request SET
+                            svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "',
+                            Jumlah = '" & Jumlah & "', 
+                            RefNo = '" & RefNo & "', 
+                            ExternalAPP = '" & ExternalApp & "', 
+                            Updated_at = '" & updated_at & "', 
+                            Created_at = '" & created_at & "', 
+                            Id = '" & strid & "'
+                            WHERE payment_request_id = '" & payment_request_id & "'"
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+
+
+            End If
+
+
 
         Next
 
@@ -194,12 +223,18 @@ Public Class svmu_pembayaran_pendaftaran
 
     Private Sub btnPay_Click(sender As Object, e As EventArgs) Handles btnPay.Click
 
+        strSQL = "UPDATE kpmkv_svmu_calon SET StatusMP = '2' WHERE svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "'"
+        strRet = oCommon.ExecuteSQL(strSQL)
+
+        strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "'"
+        Dim svmu_id As String = oCommon.getFieldValue(strSQL)
+
         strSQL = "  SELECT PelajarID
                     ,MYKAD
                     ,AngkaGiliran
                     FROM kpmkv_svmu
                     WHERE
-                    svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "'"
+                    svmu_id = '" & svmu_id & "'"
         strRet = oCommon.getFieldValueEx(strSQL)
 
         Dim ar_Calon As Array
@@ -209,7 +244,7 @@ Public Class svmu_pembayaran_pendaftaran
         Dim strMYKAD As String = ar_Calon(1)
         Dim strAG As String = ar_Calon(2)
 
-        strSQL = "SELECT Nama, Telefon, Email FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("No"), -19, -7) & "'"
+        strSQL = "SELECT Nama, Telefon, Email FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "'"
         strRet = oCommon.getFieldValueEx(strSQL)
 
         ar_Calon = strRet.Split("|")
@@ -240,7 +275,7 @@ Public Class svmu_pembayaran_pendaftaran
         Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
 
         ''getMPBM
-        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'BM' AND StatusMP = '0'"
+        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "' AND MataPelajaran = 'BM' AND StatusMP = '2'"
         strRet = oCommon.getFieldValue(strSQL)
 
         If strRet = "" Then
@@ -250,7 +285,7 @@ Public Class svmu_pembayaran_pendaftaran
         End If
 
         ''getMPSJ
-        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND MataPelajaran = 'SJ' AND StatusMP = '0'"
+        strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "' AND MataPelajaran = 'SJ' AND StatusMP = '2'"
         strRet = oCommon.getFieldValue(strSQL)
 
         If strRet = "" Then
@@ -266,35 +301,38 @@ Public Class svmu_pembayaran_pendaftaran
         Dim paramVal As String() = New String(6) {strNama, strMYKAD, strTelefon, strEmail, "svmu", rmTotal, strMYKAD}
         Dim result As String
 
-        ''STAGING
-        result = HttpPost("https://elp-lab.moe.gov.my/eportal/api/payment/elpportal607e54a7d74bf/apisetformrequest", paramName, paramVal)
+        strSQL = "SELECT setting_value_string FROM kpmkv_svmu_setting WHERE setting_parameter = 'TOKEN'"
+        Dim Token As String = oCommon.getFieldValue(strSQL)
 
-        ''LIVE
-        ''result = HttpPost("https://elp.moe.gov.my/eportal/api/payment/elpportal607e54a7d74bf/apisetformrequest", paramName, paramVal)
+        strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'PRODUCTION'"
+        Dim Live As String = oCommon.getFieldValue(strSQL)
 
-        ''"{""data"":{""
-        ''NamaPenuh"":""John"",""
-        ''NoKP"":""940309125873"",""
-        ''NoKPLama_Tentera"":""940309125873"",""
-        ''NoTelefon"":""111223333"",""
-        ''Email"":""mohdhazizi@gmail.com"",""
-        ''JenisPeperiksaan"":""SVM"",""
-        ''Jumlah"":""30.50"",""
-        ''RefNo"":""LPPay6088f9c968fab"",""
-        ''ExternalApp"":""APKV"",""
-        ''updated_at"":""2021-04-28 13:59:37"",""
-        ''created_at"":""2021-04-28 13:59:37"",""
-        ''id"":159}}"
+        If Live = "1" Then
+
+            ''LIVE
+            result = HttpPost("https://elp.moe.gov.my/eportal/api/payment/" & Token & "/apisetformrequest", paramName, paramVal)
+
+        Else
+
+            ''STAGING
+            result = HttpPost("https://elp-lab.moe.gov.my/eportal/api/payment/" & Token & "/apisetformrequest", paramName, paramVal)
+
+        End If
 
         DeserializeAndDump(result)
 
-        ''STAGING
-        Response.Redirect("https://elp-lab.moe.gov.my/eportal/payment/" & RefNo & "/gateway")
+        If Live = "1" Then
 
-        ''LIVE
-        ''Response.Redirect("https://elp.moe.gov.my/eportal/payment/" & RefNo & "/gateway")
+            ''LIVE
+            Response.Redirect("https://elp.moe.gov.my/eportal/payment/" & RefNo & "/gateway")
+
+        Else
+
+            ''STAGING
+            Response.Redirect("https://elp-lab.moe.gov.my/eportal/payment/" & RefNo & "/gateway")
+
+        End If
 
     End Sub
-
 
 End Class

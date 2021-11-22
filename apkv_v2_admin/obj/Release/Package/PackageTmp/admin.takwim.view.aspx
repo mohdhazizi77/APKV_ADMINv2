@@ -5,13 +5,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <table class="fbform">
-        <tr class="fbform_bread">
-            <td>Lain-Lain>Takwim>Tambah
-            </td>
-        </tr>
-    </table>
     <uc1:takwim_view ID="takwim_view1" runat="server" />
+    <b></b>
     <table class="fbform">
         <tr>
             <td>

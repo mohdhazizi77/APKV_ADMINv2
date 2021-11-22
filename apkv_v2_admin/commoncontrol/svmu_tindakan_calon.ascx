@@ -55,7 +55,7 @@
                     <p>
                         <b>Status Bayaran :
                         <asp:Label ID="lblStatusBayaran" runat="server"></asp:Label>
-                            (<a id="link" runat="server">Sila cetak resit bayaran di sini</a>)</b>
+                            (<a id="link" target="_blank" runat="server">Sila cetak resit bayaran di sini</a>)</b>
                     </p>
                 </li>
 
@@ -87,7 +87,7 @@
             <ol>
                 <li><b>Salinan Kenyataan Semakan;</b></li>
                 <li><b>Salinan Resit bayaran (perbankan elektronik); dan</b></li>
-                <li><b>2 keping sampul Pos Laju Prabayar atau Pos Ekspres bersaiz A3 beralamat sendiri.</b></li>
+                <li><b>1 keping sampul Pos Laju Prabayar atau Pos Ekspres bersaiz A5</b> dan <b>1 keping sampul Pos Laju Prabayar atau Pos Ekspres bersaiz A4</b>.</li>
             </ol>
         </td>
     </tr>

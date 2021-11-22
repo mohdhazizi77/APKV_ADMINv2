@@ -567,7 +567,7 @@ Public Class slip_BM1104
                     ''getting data end
 
                     Dim table As New PdfPTable(3)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({42, 16, 42})
                     table.DefaultCell.Border = 0
 
@@ -593,7 +593,7 @@ Public Class slip_BM1104
                     Dim cetak = Environment.NewLine & ""
 
                     table = New PdfPTable(1)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({100})
 
                     ''timesbd font
@@ -620,7 +620,7 @@ Public Class slip_BM1104
 
                     ''NAMA
                     table = New PdfPTable(3)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 3, 67})
 
                     cell = New PdfPCell()
@@ -648,7 +648,7 @@ Public Class slip_BM1104
 
                     ''NO. KAD PENGENALAN
                     table = New PdfPTable(3)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 3, 67})
 
                     cell = New PdfPCell()
@@ -676,7 +676,7 @@ Public Class slip_BM1104
 
                     ''ANGKA GILIRAN
                     table = New PdfPTable(3)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 3, 67})
 
                     cell = New PdfPCell()
@@ -704,7 +704,7 @@ Public Class slip_BM1104
 
                     ''INSTITUSI
                     table = New PdfPTable(3)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 3, 67})
 
                     cell = New PdfPCell()
@@ -732,7 +732,7 @@ Public Class slip_BM1104
 
                     ''KLUSTER
                     table = New PdfPTable(3)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 3, 67})
 
                     cell = New PdfPCell()
@@ -760,7 +760,7 @@ Public Class slip_BM1104
 
                     ''KURSUS
                     table = New PdfPTable(3)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 3, 67})
 
                     cell = New PdfPCell()
@@ -796,7 +796,7 @@ Public Class slip_BM1104
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
                     table = New PdfPTable(5)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 4, 50, 18, 1})
 
                     cell = New PdfPCell()
@@ -841,7 +841,7 @@ Public Class slip_BM1104
 
 
                     table = New PdfPTable(5)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({30, 4, 50, 18, 1})
 
                     cell = New PdfPCell()
@@ -921,14 +921,13 @@ Public Class slip_BM1104
                     ''Pernyataan ini dijeluarkan....
 
                     table = New PdfPTable(1)
-                    table.WidthPercentage = 102
+                    table.WidthPercentage = 100
                     table.SetWidths({100})
                     table.SetExtendLastRow(True, True)
                     table.DefaultCell.Border = 1
 
                     cell = New PdfPCell()
-                    cetak = "Pernyataan ini dikeluarkan kepada calon yang telah memenuhi syarat lulus Bahasa Melayu Kod 1104" & Environment.NewLine
-                    cetak += "yang setara dengan Bahasa Melayu Kod 1103 Sijil Pelajaran Malaysia."
+                    cetak = "Pernyataan ini dikeluarkan kepada calon yang telah memenuhi syarat lulus Bahasa Melayu Kod 1104 yang setara dengan Bahasa Melayu Kod 1103 Sijil Pelajaran Malaysia."
                     cell.AddElement(New Paragraph(cetak, timesbdFont))
                     cell.VerticalAlignment = Element.ALIGN_BOTTOM
                     cell.Border = 0

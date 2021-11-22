@@ -876,7 +876,15 @@ Public Class sijil_vok_msia_12_14
 
                 End If
 
+                strSQL = "SELECT signature_scale, signature_pos_x, signature_pos_y FROM tbl_signature WHERE signature_type = 'svm_12_14'"
+                strRet = oCommon.getFieldValueEx(strSQL)
 
+                Dim sign_measure As Array
+                sign_measure = strRet.Split("|")
+
+                Dim signScale As Integer = sign_measure(0)
+                Dim signX As Integer = sign_measure(1)
+                Dim signY As Integer = sign_measure(2)
 
                 strSQL = " Select FileLocation FROM kpmkv_config_pengarahPeperiksaan WHERE ID='" & ddlSign.SelectedValue & "'"
                 Dim FullFileName As String = oCommon.getFieldValue(strSQL)
@@ -885,8 +893,8 @@ Public Class sijil_vok_msia_12_14
 
                 'Dim imageHeader As String = Server.MapPath(fileSavePath)
                 Dim imgHeader As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(imageHeader)
-                imgHeader.ScalePercent(22)
-                imgHeader.SetAbsolutePosition(410, 32)
+                imgHeader.ScalePercent(signScale)
+                imgHeader.SetAbsolutePosition(signX, signY)
 
                 myDocument.Add(imgHeader)
 

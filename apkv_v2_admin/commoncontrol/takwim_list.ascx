@@ -7,6 +7,13 @@
             return false;
     }
 </script>
+
+<table class="fbform">
+    <tr class="fbform_header">
+        <td colspan="3">Daftar Takwim >> Senarai Takwim</td>
+    </tr>
+</table>
+<br />
 <table class="fbform">
     <tr class="fbform_header">
         <td colspan="4">Carian
@@ -14,16 +21,32 @@
     </tr>
     <tr>
         <td>Tahun:</td>
-        <td><asp:DropDownList ID="ddlTahun" runat="server"  Width="200px">
+        <td>
+            <asp:DropDownList ID="ddlTahun" runat="server" Width="200px">
             </asp:DropDownList>
         </td>
-       </tr>
-      <tr>
+    </tr>
+    <tr>
         <td>Kohort:</td>
-        <td><asp:DropDownList ID="ddlKohort" runat="server" Width="200px">
+        <td>
+            <asp:DropDownList ID="ddlKohort" runat="server" Width="200px">
             </asp:DropDownList>
         </td>
-       </tr>
+    </tr>
+    <tr>
+        <td>Semester:</td>
+        <td>
+            <asp:DropDownList ID="ddlSemester" runat="server" Width="200px">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td>Menu:</td>
+        <td>
+            <asp:DropDownList ID="ddlMenu" runat="server" Width="200px">
+            </asp:DropDownList>
+        </td>
+    </tr>
     <tr>
         <td colspan="4">
             <asp:Button ID="btnCari" runat="server" Text="Cari " CssClass="fbbutton" />&nbsp;
@@ -54,73 +77,88 @@
                         <ItemTemplate>
                             <asp:Label ID="Tahun" runat="server" Text='<%# Bind("Tahun")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                      <asp:TemplateField HeaderText="Kohort">
+                    <asp:TemplateField HeaderText="Kohort">
                         <ItemTemplate>
                             <asp:Label ID="Kohort" runat="server" Text='<%# Bind("Kohort")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Sesi">
+                    <asp:TemplateField HeaderText="Sesi">
                         <ItemTemplate>
                             <asp:Label ID="Sesi" runat="server" Text='<%# Bind("Sesi")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Semester">
+                    <asp:TemplateField HeaderText="Semester">
                         <ItemTemplate>
                             <asp:Label ID="Semester" runat="server" Text='<%# Bind("Semester")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Menu">
                         <ItemTemplate>
                             <asp:Label ID="HeaderCode" runat="server" Text='<%# Bind("HeaderCode")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="SubMenu">
                         <ItemTemplate>
                             <asp:Label ID="SubMenuText" runat="server" Text='<%# Bind("SubMenuText")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Mula">
                         <ItemTemplate>
                             <asp:Label ID="TarikhMula" runat="server" Text='<%# Bind("TarikhMula")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Akhir">
+                    <asp:TemplateField HeaderText="Akhir">
                         <ItemTemplate>
                             <asp:Label ID="TarikhAkhir" runat="server" Text='<%# Bind("TarikhAkhir")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                       <asp:TemplateField HeaderText="Tajuk">
+                    <asp:TemplateField HeaderText="Tajuk">
                         <ItemTemplate>
                             <asp:Label ID="Tajuk" runat="server" Text='<%# Bind("Title")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                       <asp:TemplateField HeaderText="Catatan">
+                    <asp:TemplateField HeaderText="Catatan">
                         <ItemTemplate>
                             <asp:Label ID="Catatan" runat="server" Text='<%# Bind("Catatan")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                       <asp:TemplateField HeaderText="Aktif">
+                    <asp:TemplateField HeaderText="Aktif">
                         <ItemTemplate>
                             <asp:Label ID="Aktif" runat="server" Text='<%# Bind("Aktif")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" /><ItemStyle VerticalAlign="Middle" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
-                      <asp:TemplateField HeaderText="Batal"> 
-                        <ItemTemplate> 
-                            <asp:Button ID="btnbatal" runat="server" Text="-" CommandName="Batal" CommandArgument ='<%#Eval("takwimID")%>' OnClientClick="return confirm('Anda pasti untuk BATAL?')" /></td>
-                        </ItemTemplate> 
-                    </asp:TemplateField> 
+
+                    <asp:CommandField SelectText="[PILIH]" ShowSelectButton="True" HeaderText="PILIH" />
+
+                    <asp:TemplateField HeaderText="Batal">
+                        <ItemTemplate>
+                            <asp:Button ID="btnbatal" runat="server" Text="-" CommandName="Batal" CommandArgument='<%#Eval("takwimID")%>' OnClientClick="return confirm('Anda pasti untuk BATAL?')" /></td>
+                                              
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
                 <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
@@ -132,7 +170,7 @@
             </asp:GridView>
         </td>
     </tr>
-     <tr>
+    <tr>
         <td class="fbform_sap">
             <asp:Label ID="lblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
         </td>
@@ -140,8 +178,9 @@
     <tr>
         <td>
             <asp:LinkButton ID="lnkList" runat="server">Tambah Takwim Baru</asp:LinkButton>
-        &nbsp;
-             <asp:LinkButton ID="LinkEksport" runat="server">Eksport Takwim</asp:LinkButton>
+            &nbsp;
+            
+            <asp:LinkButton ID="LinkEksport" runat="server">Eksport Takwim</asp:LinkButton>
         </td>
     </tr>
 </table>

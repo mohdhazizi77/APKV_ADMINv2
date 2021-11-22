@@ -15,10 +15,17 @@ Public Class takwim_list
         Try
             If Not IsPostBack Then
                 kpmkv_tahun_list()
-                ddlTahun.Text = Now.Year
+                ddlTahun.Text = "0"
 
                 kpmkv_kohort_list()
                 ddlKohort.Text = "0"
+
+                kpmkv_semester_list()
+                ddlKohort.Text = "0"
+
+                menu_list()
+                ddlKohort.Text = "0"
+
                 '--default
                 strRet = BindData(datRespondent)
             End If
@@ -26,6 +33,65 @@ Public Class takwim_list
         Catch ex As Exception
             lblMsg.Text = ex.Message
         End Try
+    End Sub
+
+    Private Sub menu_list()
+
+        strSQL = "SELECT * FROM tbl_menuheader_kolej ORDER BY HeaderCode"
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            Dim nCount As Integer = 1
+            Dim MyTable As DataTable = New DataTable
+            MyTable = ds.Tables(0)
+
+            ddlMenu.DataSource = ds
+            ddlMenu.DataTextField = "HeaderText"
+            ddlMenu.DataValueField = "HeaderCode"
+            ddlMenu.DataBind()
+
+            ''--add blank row
+            ddlMenu.Items.Insert(0, New ListItem("-PILIH-", "0"))
+
+
+        Catch ex As Exception
+            lblMsg.Text = "Database error!" & ex.Message
+        Finally
+            objConn.Dispose()
+        End Try
+
+    End Sub
+
+    Private Sub kpmkv_semester_list()
+        strSQL = "SELECT Semester FROM kpmkv_semester  ORDER BY SemesterID"
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            ddlSemester.DataSource = ds
+            ddlSemester.DataTextField = "Semester"
+            ddlSemester.DataValueField = "Semester"
+            ddlSemester.DataBind()
+
+            ''--add blank row
+            ddlSemester.Items.Insert(0, New ListItem("-PILIH-", "0"))
+
+        Catch ex As Exception
+
+        Finally
+            objConn.Dispose()
+        End Try
+
     End Sub
     Private Sub kpmkv_tahun_list()
         strSQL = "SELECT Tahun FROM kpmkv_tahun ORDER BY Tahun"
@@ -41,6 +107,9 @@ Public Class takwim_list
             ddlTahun.DataTextField = "Tahun"
             ddlTahun.DataValueField = "Tahun"
             ddlTahun.DataBind()
+
+            ''--add blank row
+            ddlTahun.Items.Insert(0, New ListItem("-PILIH-", "0"))
 
         Catch ex As Exception
             lblMsg.Text = "System Error:" & ex.Message
@@ -132,10 +201,22 @@ Public Class takwim_list
         Dim strOrder As String = " ORDER BY Tahun,TarikhMula ASC"
 
         tmpSQL = "SELECT * FROM kpmkv_takwim"
-        strWhere = " WHERE Tahun='" & ddlTahun.Text & "'"
+        strWhere = " WHERE TakwimID IS NOT NULL "
+
+        If Not ddlTahun.Text = "0" Then
+            strWhere += " AND Tahun = '" & ddlTahun.Text & "'"
+        End If
 
         If Not ddlKohort.Text = "0" Then
-            strWhere += "AND Kohort='" & ddlKohort.Text & "'"
+            strWhere += " AND Kohort = '" & ddlKohort.Text & "'"
+        End If
+
+        If Not ddlSemester.Text = "0" Then
+            strWhere += " AND Semester = '" & ddlSemester.Text & "'"
+        End If
+
+        If Not ddlMenu.Text = "0" Then
+            strWhere += " AND HeaderCode = '" & ddlMenu.SelectedItem.Text & "'"
         End If
 
         getSQL = tmpSQL & strWhere & strOrder
@@ -148,7 +229,7 @@ Public Class takwim_list
 
     Private Sub datRespondent_SelectedIndexChanging(sender As Object, e As GridViewSelectEventArgs) Handles datRespondent.SelectedIndexChanging
         Dim strKeyID As String = datRespondent.DataKeys(e.NewSelectedIndex).Value.ToString
-        Response.Redirect("admin.takwim.view.aspx?takwimid=" & strKeyID & "&tahun=" & ddlTahun.Text)
+        Response.Redirect("admin.takwim.update.aspx?TakwimID=" & strKeyID)
     End Sub
     Private Sub ExportToCSV(ByVal strQuery As String)
         'Get the data from database into datatable 

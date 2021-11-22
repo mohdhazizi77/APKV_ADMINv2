@@ -30,7 +30,7 @@
             <ul>
                 <li>Salinan Kenyataan Semakan;</li>
                 <li>Salinan Resit bayaran (perbankan elektronik); dan</li>
-                <li>2 keping <b>Pos Laju Prabayar atau Pos Ekspres bersaiz A3. <a href="../svmu_format_sampul.aspx">Rujuk format sampul di sini</a></b>.</li>
+                <li><b>1 keping sampul Pos Laju Prabayar atau Pos Ekspres bersaiz A5</b> dan <b>1 keping sampul Pos Laju Prabayar atau Pos Ekspres bersaiz A4</b>.<a id="formatSampul" runat="server">Rujuk format sampul di sini</a>.</li>
             </ul>
             <p>Kegagalan calon mengemukakan dokumen di perkara 6, akan menyebabkan calon tidak menerima maklumat penting berkaitan peperiksaan.</p>
             <p>Alamat JPN boleh didapati di portal Lembaga Peperiksaan (<a href="http://lp.moe.gov.my">http://lp.moe.gov.my</a>) .</p>

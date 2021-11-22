@@ -12,7 +12,43 @@ Option Explicit On
 
 
 Partial Public Class takwim_create
-    
+
+    '''<summary>
+    '''chkSelectAll control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkSelectAll As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''ddlNegeri control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlJenis control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''chkBLKolej control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkBLKolej As Global.System.Web.UI.WebControls.CheckBoxList
+
     '''<summary>
     '''ddlMenu control.
     '''</summary>
@@ -21,7 +57,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlMenu As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlSubMenu control.
     '''</summary>
@@ -30,7 +66,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlSubMenu As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlTahun control.
     '''</summary>
@@ -39,7 +75,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''chkSesi control.
     '''</summary>
@@ -48,7 +84,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkSesi As Global.System.Web.UI.WebControls.CheckBoxList
-    
+
     '''<summary>
     '''ddlSemester control.
     '''</summary>
@@ -57,7 +93,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlSemester As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''txtDate control.
     '''</summary>
@@ -66,7 +102,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtDate As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtDateTo control.
     '''</summary>
@@ -75,7 +111,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtDateTo As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtTitle control.
     '''</summary>
@@ -84,7 +120,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtTitle As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtCatatan control.
     '''</summary>
@@ -93,7 +129,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtCatatan As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''btnadd control.
     '''</summary>
@@ -102,7 +138,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnadd As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lnkList control.
     '''</summary>
@@ -111,7 +147,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lnkList As Global.System.Web.UI.WebControls.LinkButton
-    
+
     '''<summary>
     '''divMsg control.
     '''</summary>
@@ -120,7 +156,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>
@@ -129,7 +165,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''ddlTahunNotifikasi control.
     '''</summary>
@@ -138,7 +174,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTahunNotifikasi As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''txtTarikhMulaNotifikasi control.
     '''</summary>
@@ -147,7 +183,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtTarikhMulaNotifikasi As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtTarikhAkhirNotifikasi control.
     '''</summary>
@@ -156,7 +192,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtTarikhAkhirNotifikasi As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtTajukNotifikasi control.
     '''</summary>
@@ -165,7 +201,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtTajukNotifikasi As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtCatatanNotifikasi control.
     '''</summary>
@@ -174,7 +210,7 @@ Partial Public Class takwim_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtCatatanNotifikasi As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''btnTambahNotifikasi control.
     '''</summary>

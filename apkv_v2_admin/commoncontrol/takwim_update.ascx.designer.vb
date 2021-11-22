@@ -12,16 +12,43 @@ Option Explicit On
 
 
 Partial Public Class takwim_update
-    
+
     '''<summary>
-    '''ddlTahun control.
+    '''chkSelectAll control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+    Protected WithEvents chkSelectAll As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''ddlNegeri control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlJenis control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''chkBLKolej control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkBLKolej As Global.System.Web.UI.WebControls.CheckBoxList
+
     '''<summary>
     '''ddlMenu control.
     '''</summary>
@@ -30,88 +57,70 @@ Partial Public Class takwim_update
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlMenu As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
-    '''txtTarikhMula control.
+    '''ddlSubMenu control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtTarikhMula As Global.System.Web.UI.WebControls.TextBox
-    
+    Protected WithEvents ddlSubMenu As Global.System.Web.UI.WebControls.DropDownList
+
     '''<summary>
-    '''lblTarikhMula control.
+    '''ddlTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTarikhMula As Global.System.Web.UI.WebControls.Label
-    
+    Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
+
     '''<summary>
-    '''btnDateMula control.
+    '''chkSesi control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnDateMula As Global.System.Web.UI.WebControls.ImageButton
-    
+    Protected WithEvents chkSesi As Global.System.Web.UI.WebControls.CheckBoxList
+
     '''<summary>
-    '''calTarikhMula control.
+    '''ddlSemester control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents calTarikhMula As Global.System.Web.UI.WebControls.Calendar
-    
+    Protected WithEvents ddlSemester As Global.System.Web.UI.WebControls.DropDownList
+
     '''<summary>
-    '''txtTarikhAkhir control.
+    '''txtDate control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtTarikhAkhir As Global.System.Web.UI.WebControls.TextBox
-    
+    Protected WithEvents txtDate As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
-    '''lblTarikhAkhir control.
+    '''txtDateTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTarikhAkhir As Global.System.Web.UI.WebControls.Label
-    
+    Protected WithEvents txtDateTo As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
-    '''btnDateAkhir control.
+    '''txtTitle control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnDateAkhir As Global.System.Web.UI.WebControls.ImageButton
-    
-    '''<summary>
-    '''calTarikhAkhir control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents calTarikhAkhir As Global.System.Web.UI.WebControls.Calendar
-    
-    '''<summary>
-    '''txtTajuk control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtTajuk As Global.System.Web.UI.WebControls.TextBox
-    
+    Protected WithEvents txtTitle As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
     '''txtCatatan control.
     '''</summary>
@@ -120,25 +129,16 @@ Partial Public Class takwim_update
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtCatatan As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
-    '''lblMsg control.
+    '''btnKemaskini control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''btnUpdate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnUpdate As Global.System.Web.UI.WebControls.Button
-    
+    Protected WithEvents btnKemaskini As Global.System.Web.UI.WebControls.Button
+
     '''<summary>
     '''lnkList control.
     '''</summary>
@@ -147,13 +147,22 @@ Partial Public Class takwim_update
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lnkList As Global.System.Web.UI.WebControls.LinkButton
-    
+
     '''<summary>
-    '''lblTarikh control.
+    '''divMsg control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTarikh As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''lblMsg control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
 End Class

@@ -455,11 +455,9 @@ Public Class transkrip_sijil_vok1
     End Function
 
     Protected Sub btnPrintSlip_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPrintSlip.Click
-        Dim myDocument As New Document(PageSize.A4)
+        Dim myDocument As New Document(PageSize.A4, 38, 36, 37, 37)
 
         Try
-
-            myDocument.SetMargins(8.0F, 51.0F, 38.0F, 38.0F)
 
             HttpContext.Current.Response.ContentType = "application/pdf"
             HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=TranskripSijilVokMalaysia.pdf")
@@ -578,6 +576,10 @@ Public Class transkrip_sijil_vok1
                     Dim strJenisKursus As String = ds.Tables(0).Rows(i).Item(9).ToString
                     ''getting data end
 
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
                     myDocument.Add(imgSpacing)
                     myDocument.Add(imgSpacing)
                     myDocument.Add(imgSpacing)
@@ -2245,8 +2247,7 @@ Public Class transkrip_sijil_vok1
 
     Private Sub btnPrintSlipNegeri_Click(sender As Object, e As EventArgs) Handles btnPrintSlipNegeri.Click
 
-        Dim myDocument As New Document(PageSize.A4)
-        myDocument.SetMargins(8.0F, 51.0F, 38.0F, 38.0F)
+        Dim myDocument As New Document(PageSize.A4, 38, 36, 37, 37)
 
         Try
             HttpContext.Current.Response.ContentType = "application/pdf"

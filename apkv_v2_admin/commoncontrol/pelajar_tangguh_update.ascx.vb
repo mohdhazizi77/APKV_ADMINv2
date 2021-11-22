@@ -279,12 +279,18 @@ Public Class pelajar_tangguh_update
         strSQL = "SELECT KursusID FROM kpmkv_pelajar WHERE PelajarID='" & oCommon.Decrypt(Request.QueryString("PelajarID").Trim()) & "'"
         strKursusID = oCommon.getFieldValue(strSQL)
 
+        strSQL = "SELECT KodKursus FROM kpmkv_kursus WHERE KursusID = '" & strKursusID & "'"
+        Dim KodKursus As String = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT KursusID FROM kpmkv_kursus WHERE KodKursus = '" & KodKursus & "' AND Tahun = '" & ddlTahun.Text & "'"
+        strKursusID = oCommon.getFieldValue(strSQL)
+
         'insert table pelajar
-        strSQL = "INSERT INTO kpmkv_pelajar (KolejRecordID,Pengajian,KursusID,Tahun,Semester,Sesi,Nama,MYKAD,Jantina,Kaum,Agama,Email,Catatan,StatusID,JenisCalonID,AngkaGiliran,Tel,IsDeleted)"
+        strSQL = "INSERT INTO kpmkv_pelajar (KolejRecordID,Pengajian,KursusID,Tahun,Semester,Sesi,Nama,MYKAD,Jantina,Kaum,Agama,Email,Catatan,StatusID,JenisCalonID,AngkaGiliran,Tel,IsDeleted,TahunSem)"
         strSQL += "VALUES ('" & lblRecordID.Text & "','" & lblPengajian.Text & "','" & strKursusID & "','" & ddlTahun.SelectedValue & "','" & ddlSemester.SelectedValue & "',"
         strSQL += "'" & chkSesi.SelectedValue & "','" & oCommon.FixSingleQuotes(lblNama.Text.ToUpper) & "','" & oCommon.FixSingleQuotes(lblMykad.Text.ToUpper) & "','" & lblJantina.Text & "',"
         strSQL += " '" & lblkaum.Text & "','" & lblAgama.Text & "','" & oCommon.FixSingleQuotes(txtEmail.Text) & "','" & oCommon.FixSingleQuotes(txtCatatan.Text) & "','2','2',"
-        strSQL += " '" & oCommon.FixSingleQuotes(lblAngkaGiliran.Text) & "','" & oCommon.FixSingleQuotes(lbltelefon.Text) & "','N')"
+        strSQL += " '" & oCommon.FixSingleQuotes(lblAngkaGiliran.Text) & "','" & oCommon.FixSingleQuotes(lbltelefon.Text) & "','N', '" & Now.Year & "')"
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
@@ -297,7 +303,7 @@ Public Class pelajar_tangguh_update
             strSQL += "'" & ddlTahun.SelectedValue & "','" & ddlSemester.SelectedValue & "','" & chkSesi.Text & "')"
             strRet = oCommon.ExecuteSQL(strSQL)
 
-            strSQL = "UPDATE kpmkv_pelajar SET StatusID ='4' WHERE PelajarID='" & oCommon.Decrypt(Request.QueryString("PelajarID").Trim()) & "'"
+            strSQL = "UPDATE kpmkv_pelajar SET StatusID = '2', JenisCalonID = '2' WHERE MYKAD = '" & lblMykad.Text & "' AND PelajarID <> '" & oCommon.Decrypt(Request.QueryString("PelajarID").Trim()) & "'"
             strRet = oCommon.ExecuteSQL(strSQL)
 
             Return True

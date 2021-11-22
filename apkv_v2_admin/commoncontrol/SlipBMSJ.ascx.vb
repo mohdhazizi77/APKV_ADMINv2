@@ -428,7 +428,7 @@ Public Class SlipBMSJ1
     End Sub
 
     Protected Sub btnPrintSlip_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPrintSlip.Click
-        Dim myDocument As New Document(PageSize.A4)
+        Dim myDocument As New Document(PageSize.A4, 38, 36, 37, 37)
 
         Try
             HttpContext.Current.Response.ContentType = "application/pdf"

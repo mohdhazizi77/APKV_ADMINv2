@@ -163,11 +163,10 @@ Public Class svmu_pengesahan_kodpusat
     Private Sub btnProceed_Click(sender As Object, e As EventArgs) Handles btnProceed.Click
 
         strSQL = "  UPDATE kpmkv_svmu_calon
-                    SET Status = 'DISAHKAN'
+                    SET Status = 'DISAHKAN',
+                    PusatPeperiksaanJPN = '" & ddlKolej.SelectedValue & "'                    
                     WHERE svmu_calon_id = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "'"
         strRet = oCommon.ExecuteSQL(strSQL)
-
-        MsgBox("Pengesahan Kod Pusat Berjaya!", 0, "Pengesahan")
 
         Response.Redirect("svmu_senarai_calon.aspx")
 
@@ -182,7 +181,7 @@ Public Class svmu_pengesahan_kodpusat
     Private Sub btnKemaskini_Click(sender As Object, e As EventArgs) Handles btnKemaskini.Click
 
         strSQL = "  UPDATE kpmkv_svmu_calon
-                    SET PusatPeperiksaanID = '" & ddlKolej.SelectedValue & "'
+                    SET PusatPeperiksaanJPN = '" & ddlKolej.SelectedValue & "'
                     WHERE svmu_calon_id = '" & AsciiSwitchWithMod(Request.QueryString("ID"), -19, -7) & "'"
         strRet = oCommon.ExecuteSQL(strSQL)
 

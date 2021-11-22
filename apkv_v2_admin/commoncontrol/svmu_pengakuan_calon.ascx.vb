@@ -50,8 +50,10 @@ Public Class svmu_pengakuan_calon
         strSQL = " UPDATE kpmkv_svmu_setting_np SET np_akhir = '" & npAkhir & "' WHERE np_tahun = '" & TahunPeperiksaan & "'"
         strRet = oCommon.ExecuteSQL(strSQL)
 
+        strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_calon WHERE svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19, -7) & "'  AND StatusMP = '0'"
+        Dim noPermohonan As String = oCommon.getFieldValue(strSQL)
 
-        Response.Redirect("svmu_pembayaran_pendaftaran.aspx?ID=" & Request.QueryString("ID") & "&NO=" & Request.QueryString("NO"))
+        Response.Redirect("svmu_pembayaran_pendaftaran.aspx?ID=" & AsciiSwitchWithMod(noPermohonan, 19, 7))
 
     End Sub
 

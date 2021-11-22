@@ -32,6 +32,24 @@ Partial Public Class takwim_list
     Protected WithEvents ddlKohort As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''ddlSemester control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSemester As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlMenu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlMenu As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''btnCari control.
     '''</summary>
     '''<remarks>

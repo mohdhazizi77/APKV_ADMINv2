@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class sijil_vok_malaysia1
-    
+
     '''<summary>
     '''ddlNegeri control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlJenis control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlKolej control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKolej As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlTahun control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''chkSesi control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkSesi As Global.System.Web.UI.WebControls.CheckBoxList
-    
+
     '''<summary>
     '''ddlKodKursus control.
     '''</summary>
@@ -66,7 +66,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKodKursus As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlNamaKelas control.
     '''</summary>
@@ -75,7 +75,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlNamaKelas As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''txtNama control.
     '''</summary>
@@ -84,7 +84,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtNama As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtMYKAD control.
     '''</summary>
@@ -93,7 +93,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtMYKAD As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtAngkaGiliran control.
     '''</summary>
@@ -102,7 +102,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtAngkaGiliran As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''ddlStatus control.
     '''</summary>
@@ -111,7 +111,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlStatus As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''btnSearch control.
     '''</summary>
@@ -120,7 +120,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''btnKemaskini control.
     '''</summary>
@@ -129,7 +129,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnKemaskini As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''datRespondent control.
     '''</summary>
@@ -138,7 +138,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''ddlSign control.
     '''</summary>
@@ -147,7 +147,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlSign As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''printQR control.
     '''</summary>
@@ -156,7 +156,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents printQR As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''btnPrintSlip control.
     '''</summary>
@@ -165,7 +165,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnPrintSlip As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''HyPDF2 control.
     '''</summary>
@@ -174,7 +174,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents HyPDF2 As Global.System.Web.UI.WebControls.HyperLink
-    
+
     '''<summary>
     '''btnPrintbyNegeri control.
     '''</summary>
@@ -183,7 +183,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnPrintbyNegeri As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''HyperLink1 control.
     '''</summary>
@@ -192,7 +192,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents HyperLink1 As Global.System.Web.UI.WebControls.HyperLink
-    
+
     '''<summary>
     '''divMsg control.
     '''</summary>
@@ -201,7 +201,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''lblKolejID control.
     '''</summary>
@@ -210,7 +210,7 @@ Partial Public Class sijil_vok_malaysia1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblKolejID As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>
