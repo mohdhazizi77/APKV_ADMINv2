@@ -95,6 +95,42 @@ Partial Public Class create_user
     Protected WithEvents btnCreate As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''btnFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnFile As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''FlUploadcsv control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents FlUploadcsv As Global.System.Web.UI.WebControls.FileUpload
+
+    '''<summary>
+    '''regexValidator control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents regexValidator As Global.System.Web.UI.WebControls.RegularExpressionValidator
+
+    '''<summary>
+    '''btnUpload control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnUpload As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''divMsg control.
     '''</summary>
     '''<remarks>

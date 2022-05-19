@@ -15,91 +15,69 @@ Public Class borang_markah_PA_khas
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
+    Dim SubMenuText As String = "Borang Markah Khas"
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Try
             If Not IsPostBack Then
 
+                'kolejnama
+                strSQL = "SELECT Nama FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "'"
+                Dim strKolejnama As String = oCommon.getFieldValue(strSQL)
+                'kolejid
+                strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Nama='" & strKolejnama & "'"
+                lblKolejID.Text = oCommon.getFieldValue(strSQL)
+
                 '------exist takwim
-                strSQL = "SELECT * FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Borang Markah Khas' AND Aktif='1'"
+                strSQL = "SELECT * FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='" & SubMenuText & "' AND Aktif='1' AND GETDATE() BETWEEN CONVERT(date, TarikhMula, 103) AND DATEADD(day,1,CONVERT(date, TarikhAkhir, 103))"
                 If oCommon.isExist(strSQL) = True Then
 
                     'count data takwim
                     'Get the data from database into datatable
-                    Dim cmd As New SqlCommand("SELECT TakwimID FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Borang Markah Khas' AND Aktif='1'")
+                    Dim cmd As New SqlCommand("SELECT TakwimID FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='" & SubMenuText & "' AND Aktif='1' AND GETDATE() BETWEEN CONVERT(date, TarikhMula, 103) AND DATEADD(day,1,CONVERT(date, TarikhAkhir, 103))")
                     Dim dt As DataTable = GetData(cmd)
 
                     For i As Integer = 0 To dt.Rows.Count - 1
                         IntTakwim = dt.Rows(i)("TakwimID")
 
-                        strSQL = "SELECT TarikhMula,TarikhAkhir FROM kpmkv_takwim WHERE TakwimID='" & IntTakwim & "'"
-                        strRet = oCommon.getFieldValueEx(strSQL)
+                        strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
+                        lblID.Text = oCommon.getFieldValue(strSQL)
 
-                        Dim ar_user_login As Array
-                        ar_user_login = strRet.Split("|")
-                        Dim strMula As String = ar_user_login(0)
-                        Dim strAkhir As String = ar_user_login(1)
+                        strSQL = "SELECT UserType FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
+                        lblType.Text = oCommon.getFieldValue(strSQL)
 
-                        Dim strdateNow As Date = Date.Now.Date
-                        Dim startDate = DateTime.ParseExact(strMula, "dd-MM-yyyy", CultureInfo.InvariantCulture)
-                        Dim endDate = DateTime.ParseExact(strAkhir, "dd-MM-yyyy", CultureInfo.InvariantCulture)
-
-                        Dim ts As New TimeSpan
-                        ts = startDate.Subtract(strdateNow)
-                        Dim dayDiffMula = ts.Days
-                        ts = endDate.Subtract(strdateNow)
-                        Dim dayDiffAkhir = ts.Days
-
-                        If strMula IsNot Nothing And dayDiffMula <= 0 Then
-                            If strAkhir IsNot Nothing And dayDiffAkhir >= 0 Then
-
-                                lblMsg.Text = ""
-
-                                strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
-                                lblID.Text = oCommon.getFieldValue(strSQL)
-
-                                strSQL = "SELECT UserType FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
-                                lblType.Text = oCommon.getFieldValue(strSQL)
-
-
-                                If lblType.Text = "ADMIN" Then
-                                Else
-                                    strSQL = " SELECT Semester,Sesi FROM  kpmkv_pemeriksa "
-                                    strSQL += " WHERE UserID='" & lblID.Text & "' AND Tahun='" & Now.Year & "'"
-                                    strRet = oCommon.getFieldValueEx(strSQL)
-
-                                    Dim ar_pemeriksa As Array
-                                    ar_pemeriksa = strRet.Split("|")
-                                    lblPAT.Text = ar_pemeriksa(0)
-                                    lblSemester.Text = ar_pemeriksa(0)
-                                    lblSesi.Text = ar_pemeriksa(0)
-                                End If
-
-                                loadStores()
-
-                                'checkinbox
-                                strSQL = "SELECT Sesi FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Kohort ASC"
-                                strRet = oCommon.getFieldValue(strSQL)
-
-                                If strRet = 1 Then
-                                    'chkSesi.Items(0).Enabled = True
-                                    'chkSesi.Items(0).Selected = True
-                                    ' chkSesi.Items(1).Enabled = False
-                                Else
-                                    ' chkSesi.Items(0).Enabled = False
-                                    'chkSesi.Items(1).Enabled = True
-                                End If
-
-                                btnPrint.Enabled = True
-                                lblMsg.Text = ""
-
-                            End If
-
-
+                        If lblType.Text = "ADMIN" Then
                         Else
+                            strSQL = " SELECT Semester,Sesi FROM  kpmkv_pemeriksa "
+                            strSQL += " WHERE UserID='" & lblID.Text & "' AND Tahun='" & Now.Year & "'"
+                            strRet = oCommon.getFieldValueEx(strSQL)
 
-                            lblMsg.Text = "Borang Markah Khas telah ditutup!"
-
+                            Dim ar_pemeriksa As Array
+                            ar_pemeriksa = strRet.Split("|")
+                            lblPAT.Text = ar_pemeriksa(0)
+                            lblSemester.Text = ar_pemeriksa(0)
+                            lblSesi.Text = ar_pemeriksa(0)
                         End If
+
+                        loadStores()
+
+                        'checkinbox
+                        strSQL = "SELECT Sesi FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Kohort ASC"
+                        strRet = oCommon.getFieldValue(strSQL)
+
+                        If strRet = 1 Then
+                            'chkSesi.Items(0).Enabled = True
+                            'chkSesi.Items(0).Selected = True
+                            ' chkSesi.Items(1).Enabled = False
+                        Else
+                            ' chkSesi.Items(0).Enabled = False
+                            'chkSesi.Items(1).Enabled = True
+                        End If
+
+                        btnPrint.Enabled = True
+                        lblMsg.Text = ""
+
+
                     Next
                 Else
                     lblMsg.Text = "Borang Markah Khas telah ditutup!"

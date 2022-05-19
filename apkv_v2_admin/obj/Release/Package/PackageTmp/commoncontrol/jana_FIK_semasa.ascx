@@ -35,6 +35,7 @@
     </tr>
 
     <tr>
+        <td></td>
         <td colspan="2">
             <asp:Button ID="btnCari" runat="server" Text="Eksport" CssClass="fbbutton" />&nbsp;</td>
     </tr>
@@ -159,7 +160,7 @@
                     </asp:TemplateField>
 
 
-                    
+
 
                 </Columns>
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />

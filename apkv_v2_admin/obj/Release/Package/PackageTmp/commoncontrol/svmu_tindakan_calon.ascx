@@ -55,7 +55,7 @@
                     <p>
                         <b>Status Bayaran :
                         <asp:Label ID="lblStatusBayaran" runat="server"></asp:Label>
-                            (<a id="link" target="_blank" runat="server">Sila cetak resit bayaran di sini</a>)</b>
+                            <a visible="true" id="link" target="_blank" runat="server">(Sila cetak resit bayaran di sini)</a></b>
                     </p>
                 </li>
 
@@ -104,7 +104,9 @@
     </tr>
 
     <tr>
-        <td><p><b>Nota:</b></p></td>
+        <td>
+            <p><b>Nota:</b></p>
+        </td>
     </tr>
 
     <tr>
@@ -124,7 +126,10 @@
         </td>
     </tr>
     <tr>
-        <td style="text-align:center"><p><asp:Button ID="btnBack" runat="server" Text="Ke Halaman Utama" /></p></td>
+        <td style="text-align: center">
+            <p>
+                <asp:Button ID="btnBack" runat="server" Text="Ke Halaman Utama" /></p>
+        </td>
     </tr>
 
 </table>

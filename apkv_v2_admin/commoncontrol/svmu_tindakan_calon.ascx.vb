@@ -18,6 +18,8 @@ Public Class svmu_tindakan_calon1
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
     Dim pendingcount As Integer = 0
+    Dim Type As String
+    Dim svmu_calon_id As String
     Dim RefNo As String
     Dim Amount As String
     Dim Email As String
@@ -34,48 +36,59 @@ Public Class svmu_tindakan_calon1
 
         If Not IsPostBack Then
 
-            getTahun()
+            Type = Request.QueryString("Type")
 
-            getPaymentStatus()
+            If Type = "M" Then
 
-            getNama()
+                svmu_calon_id = Request.QueryString("ID")
 
-            getMYKAD()
+                getTahun()
 
-            getStatusPermohonan()
+                'getPaymentStatus()
 
-            getTarikhSemakanPermohonan()
+                getNamaManual()
 
-        End If
+                getMYKADManual()
 
-    End Sub
+                getStatusPermohonanManual()
 
-    Private Sub getStatusPermohonan()
+                getTarikhSemakanPermohonan()
 
-        strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_payment_request WHERE RefNo = '" & RefNo & "'"
-        Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
+            Else
 
-        strSQL = "SELECT Status FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & svmu_no_permohonan & "'"
+                RefNo = Request.QueryString("RefNo")
 
-        If oCommon.getFieldValue(strSQL) = "BELUM DISAHKAN" Then
+                getTahun()
 
-            lblStatusPermohonan.Text = "SEDANG DIPROSES"
+                getPaymentStatus()
+
+                getNama()
+
+                getMYKAD()
+
+                getStatusPermohonan()
+
+                getTarikhSemakanPermohonan()
+
+            End If
 
         Else
 
-            lblStatusPermohonan.Text = "BERJAYA"
+            Type = Request.QueryString("Type")
+
+            If Type = "M" Then
+
+                svmu_calon_id = Request.QueryString("ID")
+
+            Else
+
+                RefNo = Request.QueryString("RefNo")
+
+            End If
 
         End If
 
-    End Sub
 
-    Private Sub getNama()
-
-        strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_payment_request WHERE RefNo = '" & RefNo & "'"
-        Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
-
-        strSQL = "SELECT Nama FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & svmu_no_permohonan & "'"
-        lblNama.Text = oCommon.getFieldValue(strSQL)
 
     End Sub
 
@@ -85,6 +98,8 @@ Public Class svmu_tindakan_calon1
         lblTahun.Text = oCommon.getFieldValue(strSQL)
 
     End Sub
+
+
 
     Private Sub getPaymentStatus()
 
@@ -171,6 +186,60 @@ Public Class svmu_tindakan_calon1
 
     End Sub
 
+    Private Sub getStatusPermohonan()
+
+        strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_payment_request WHERE RefNo = '" & RefNo & "'"
+        Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT Status FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & svmu_no_permohonan & "'"
+
+        If oCommon.getFieldValue(strSQL) = "BELUM DISAHKAN" Then
+
+            lblStatusPermohonan.Text = "SEDANG DIPROSES"
+
+        Else
+
+            lblStatusPermohonan.Text = "BERJAYA"
+
+        End If
+
+    End Sub
+
+    Private Sub getStatusPermohonanManual()
+
+        strSQL = "SELECT Status FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+
+        If oCommon.getFieldValue(strSQL) = "BELUM DISAHKAN" Then
+
+            lblStatusPermohonan.Text = "SEDANG DIPROSES"
+
+        Else
+
+            lblStatusPermohonan.Text = "BERJAYA"
+
+        End If
+
+    End Sub
+
+    Private Sub getNama()
+
+        strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_payment_request WHERE RefNo = '" & RefNo & "'"
+        Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT Nama FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & svmu_no_permohonan & "'"
+        lblNama.Text = oCommon.getFieldValue(strSQL)
+
+    End Sub
+
+    Private Sub getNamaManual()
+
+        strSQL = "SELECT Nama FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+        lblNama.Text = oCommon.getFieldValue(strSQL)
+
+    End Sub
+
+
+
     Private Sub getMYKAD()
 
         strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_payment_request WHERE RefNo = '" & RefNo & "'"
@@ -186,6 +255,26 @@ Public Class svmu_tindakan_calon1
         Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
 
         lblNoPermohonan.Text = svmu_no_permohonan
+
+    End Sub
+
+    Private Sub getMYKADManual()
+
+        strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+        Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+        Dim svmu_id As String = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT MYKAD FROM kpmkv_svmu WHERE svmu_id = '" & svmu_id & "'"
+        lblMYKAD.Text = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'TAHUN_PEPERIKSAAN'"
+        Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
+
+        lblNoPermohonan.Text = svmu_no_permohonan
+        lblStatusBayaran.Text = "TELAH BAYAR"
+        link.Visible = False
 
     End Sub
 
@@ -501,7 +590,13 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT TarikhLahir FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE MYKAD = '" & lblMYKAD.Text & "'"
+            Dim svmu_id As String = oCommon.getFieldValue(strSQL)
+
+            strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_id = '" & svmu_id & "'"
+            Dim svmu_calon_id As String = oCommon.getFieldValue(strSQL)
+
+            strSQL = "SELECT TarikhLahir FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -521,7 +616,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Jantina FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Jantina FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -551,7 +646,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Bangsa FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Bangsa FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -571,7 +666,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Agama FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Agama FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -601,7 +696,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT KolejNama FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT KolejNama FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -631,7 +726,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Kohort FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Kohort FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -661,7 +756,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Alamat FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Alamat FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -691,7 +786,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Poskod FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Poskod FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -711,7 +806,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Bandar FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Bandar FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -741,7 +836,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Negeri FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Negeri FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -761,7 +856,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Telefon FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Telefon FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -791,7 +886,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT Email FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT Email FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
 
             cell = New PdfPCell()
             cetak = oCommon.getFieldValue(strSQL)
@@ -821,7 +916,7 @@ Public Class svmu_tindakan_calon1
             cell.Border = 0
             table.AddCell(cell)
 
-            strSQL = "SELECT PusatPeperiksaanID FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "'"
+            strSQL = "SELECT PusatPeperiksaanID FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
             Dim ppID As String = oCommon.getFieldValue(strSQL)
 
             strSQL = "SELECT Kod FROM kpmkv_kolej WHERE RecordID = '" & ppID & "'"
@@ -881,7 +976,7 @@ Public Class svmu_tindakan_calon1
 
             Dim count As Integer = 0
 
-            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
 
             If Not oCommon.getFieldValue(strSQL) = "" Then
 
@@ -913,7 +1008,7 @@ Public Class svmu_tindakan_calon1
 
             End If
 
-            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
 
             If Not oCommon.getFieldValue(strSQL) = "" Then
 
@@ -997,7 +1092,7 @@ Public Class svmu_tindakan_calon1
             rmSJ = oCommon.getFieldValue(strSQL)
 
             ''getMPBM
-            strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+            strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
             strRet = oCommon.getFieldValue(strSQL)
 
             If strRet = "" Then
@@ -1007,7 +1102,7 @@ Public Class svmu_tindakan_calon1
             End If
 
             ''getMPSJ
-            strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+            strSQL = "SELECT svmu_calon_id FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
             strRet = oCommon.getFieldValue(strSQL)
 
             If strRet = "" Then
@@ -1267,33 +1362,44 @@ Public Class svmu_tindakan_calon1
 
     Private Sub PPP_ServerClick(sender As Object, e As EventArgs) Handles PPP.ServerClick
 
-        Dim myDocument As New Document(PageSize.A4)
+        If Type = "M" Then
 
-        Try
-            HttpContext.Current.Response.ContentType = "application/pdf"
-            HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=slipPelajarUlang.pdf")
-            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache)
+            Dim myDocument As New Document(PageSize.A4)
 
-            PdfWriter.GetInstance(myDocument, HttpContext.Current.Response.OutputStream)
+            Try
+                HttpContext.Current.Response.ContentType = "application/pdf"
+                HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=slipPelajarUlang.pdf")
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
-            ''--draw spacing
-            Dim imgdrawSpacing As String = Server.MapPath("~/img/spacing.png")
-            Dim imgSpacing As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(imgdrawSpacing)
-            imgSpacing.Alignment = iTextSharp.text.Image.LEFT_ALIGN  'left
-            imgSpacing.Border = 0
+                PdfWriter.GetInstance(myDocument, HttpContext.Current.Response.OutputStream)
 
-            myDocument.Open()
+                ''--draw spacing
+                Dim imgdrawSpacing As String = Server.MapPath("~/img/spacing.png")
+                Dim imgSpacing As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(imgdrawSpacing)
+                imgSpacing.Alignment = iTextSharp.text.Image.LEFT_ALIGN  'left
+                imgSpacing.Border = 0
 
-            myDocument.NewPage()
+                myDocument.Open()
+
+                myDocument.NewPage()
 
 
-            strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_payment_request WHERE RefNo = '" & Request.QueryString("RefNo") & "'"
-            Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
+                strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+                Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
 
-            strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & svmu_no_permohonan & "'"
-            Dim svmu_id As String = oCommon.getFieldValue(strSQL)
+                If svmu_no_permohonan = "" Then
 
-            strSQL = "
+                    strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+
+                Else
+
+                    strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & svmu_no_permohonan & "'"
+
+                End If
+
+                Dim svmu_id As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "
                     SELECT 
                     kpmkv_svmu_calon.KolejNama, 
                     kpmkv_svmu_calon.Nama,
@@ -1305,21 +1411,21 @@ Public Class svmu_tindakan_calon1
                     LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
                     WHERE kpmkv_svmu.svmu_id = '" & svmu_id & "'"
 
-            strRet = oCommon.getFieldValueEx(strSQL)
+                strRet = oCommon.getFieldValueEx(strSQL)
 
-            Dim ar_info As Array
-            ar_info = strRet.Split("|")
+                Dim ar_info As Array
+                ar_info = strRet.Split("|")
 
-            Dim strkolejnama As String = ar_info(0)
-            Dim strname As String = ar_info(1)
-            Dim strtahun As String = ar_info(2)
-            Dim strmykad As String = ar_info(3)
-            Dim strag As String = ar_info(4)
+                Dim strkolejnama As String = ar_info(0)
+                Dim strname As String = ar_info(1)
+                Dim strtahun As String = ar_info(2)
+                Dim strmykad As String = ar_info(3)
+                Dim strag As String = ar_info(4)
 
-            strSQL = "SELECT DatabaseName FROM kpmkv_svmu WHERE svmu_id = '" & svmu_id & "'"
-            Dim DatabaseName As String = oCommon.getFieldValue(strSQL)
+                strSQL = "SELECT DatabaseName FROM kpmkv_svmu WHERE svmu_id = '" & svmu_id & "'"
+                Dim DatabaseName As String = oCommon.getFieldValue(strSQL)
 
-            strSQL = "  SELECT 
+                strSQL = "  SELECT 
                         kpmkv_kursus.KodKursus, kpmkv_kursus.NamaKursus,
                         kpmkv_kluster.NamaKluster
                         FROM
@@ -1328,473 +1434,1098 @@ Public Class svmu_tindakan_calon1
                         LEFT JOIN kpmkv_kluster ON kpmkv_kluster.KlusterID = kpmkv_kursus.KlusterID
                         WHERE kpmkv_pelajar.MYKAD = '" & strmykad & "' AND kpmkv_pelajar.Semester = '4'"
 
-            If DatabaseName = "APKV" Then
+                If DatabaseName = "APKV" Then
+
+                    strRet = oCommon.getFieldValueEx(strSQL)
+
+                Else
+
+                    strRet = oCommon2.getFieldValueEx(strSQL)
+
+                End If
+
+                ar_info = strRet.Split("|")
+
+                Dim strkodKursus As String = ar_info(0)
+                Dim strnamakursus As String = ar_info(1)
+                Dim strnamakluster As String = ar_info(2)
+
+                strSQL = "SELECT PusatPeperiksaanID FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+                Dim ppID As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "SELECT Kod FROM kpmkv_kolej WHERE RecordID = '" & ppID & "'"
+                Dim KodPusat As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "SELECT Nama FROM kpmkv_kolej WHERE RecordID = '" & ppID & "'"
+                Dim NamaPusat As String = oCommon.getFieldValue(strSQL)
+
+                ''getting data end
+
+                Dim table As New PdfPTable(2)
+                table.WidthPercentage = 100
+                table.SetWidths({80, 20})
+                table.DefaultCell.Border = 0
+
+                Dim cell As New PdfPCell()
+                Dim cetak As String
+                Dim myPara001 As New Paragraph()
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cetak = "SALINAN CALON"
+
+                cell = New PdfPCell()
+                Debug.Write(cetak)
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 7))
+                myPara001.Alignment = Element.ALIGN_RIGHT
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_RIGHT
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+
+                cetak = "LEMBAGA PEPERIKSAAN"
+                cetak += Environment.NewLine & "KEMENTERIAN PENDIDIKAN MALAYSIA"
+                cetak += Environment.NewLine & "PERNYATAAN PENDAFTARAN PEPERIKSAAN (SVM ULANGAN)"
+                cetak += Environment.NewLine & "TAHUN PEPERIKSAAN : SEMESTER 4, SESI 01, TAHUN " & strtahun & Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 10))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                myDocument.Add(myPara001)
+                Debug.WriteLine(cetak)
+
+                ''PROFILE STARTS HERE
+
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(2)
+                table.WidthPercentage = 100
+                table.SetWidths({20, 80})
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & "Nama Sekolah / Pusat"
+                cetak += Environment.NewLine & "Angka Giliran"
+                cetak += Environment.NewLine & "Nama Calon"
+                cetak += Environment.NewLine & "No. Pengenalan Diri"
+                cetak += Environment.NewLine & "Nama Bidang"
+                cetak += Environment.NewLine & "Program"
+                cetak += Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & ": " & NamaPusat
+                cetak += Environment.NewLine & ": " & strag
+                cetak += Environment.NewLine & ": " & strname
+                cetak += Environment.NewLine & ": " & strmykad
+                cetak += Environment.NewLine & ": " & strnamakluster
+                cetak += Environment.NewLine & ": " & strnamakursus
+                cetak += Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+                Debug.WriteLine(cetak)
+
+                myDocument.Add(table)
+
+                ''profile ends here
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                ''mata pelajaran yang didaftarkan
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths({96, 1, 1, 1, 1})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "Mata Pelajaran Yang Didaftarkan"
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, Font.UNDERLINE)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+
+                ''table matapelajaran
+
+                table = New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths({10, 35, 1, 10, 45})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = ""
+                Dim cetakNum As String = ""
+                Dim countsubj As Integer = 0
+                Dim strJenisKursusMT As String = ""
+
+                Dim count As Integer = 0
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                End If
+
+
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A01401, A01402, A01403 - BAHASA MELAYU 1104"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                End If
+
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A05401 - SEJARAH 1251"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If count = 1 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                ElseIf count = 2 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                End If
+
+                table = New PdfPTable(3)
+                table.WidthPercentage = 100
+                table.SetWidths({35, 30, 35})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Calon"
+                cetak += Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & Environment.NewLine
+                cetak += Environment.NewLine & Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Ibubapa / Penjaga"
+                cetak += Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+                cetak = ""
+                cetak += Environment.NewLine
+                cetak += Environment.NewLine
+                cetak += "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                cetak += Environment.NewLine
+                cetak += Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                myDocument.Add(myPara001)
+                Debug.WriteLine(cetak)
+
+                table = New PdfPTable(2)
+                table.WidthPercentage = 100
+                table.SetWidths({80, 20})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cetak = "SALINAN SEKOLAH/JPN"
+
+                cell = New PdfPCell()
+                Debug.Write(cetak)
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 7))
+                myPara001.Alignment = Element.ALIGN_RIGHT
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_RIGHT
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+
+                cetak = "LEMBAGA PEPERIKSAAN"
+                cetak += Environment.NewLine & "KEMENTERIAN PENDIDIKAN MALAYSIA"
+                cetak += Environment.NewLine & "PERNYATAAN PENDAFTARAN PEPERIKSAAN (SVM ULANGAN)"
+                cetak += Environment.NewLine & "TAHUN PEPERIKSAAN : SEMESTER 4, SESI 01, TAHUN " & strtahun & Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 10))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                myDocument.Add(myPara001)
+                Debug.WriteLine(cetak)
+
+                ''PROFILE STARTS HERE
+
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(2)
+                table.WidthPercentage = 100
+                table.SetWidths({20, 80})
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & "Nama Sekolah / Pusat"
+                cetak += Environment.NewLine & "Angka Giliran"
+                cetak += Environment.NewLine & "Nama Calon"
+                cetak += Environment.NewLine & "No. Pengenalan Diri"
+                cetak += Environment.NewLine & "Nama Bidang"
+                cetak += Environment.NewLine & "Program"
+                cetak += Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & ": " & NamaPusat
+                cetak += Environment.NewLine & ": " & strag
+                cetak += Environment.NewLine & ": " & strname
+                cetak += Environment.NewLine & ": " & strmykad
+                cetak += Environment.NewLine & ": " & strnamakluster
+                cetak += Environment.NewLine & ": " & strnamakursus
+                cetak += Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+                Debug.WriteLine(cetak)
+
+                myDocument.Add(table)
+
+                ''profile ends here
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                ''mata pelajaran yang didaftarkan
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths({96, 1, 1, 1, 1})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "Mata Pelajaran Yang Didaftarkan"
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, Font.UNDERLINE)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+
+                ''table matapelajaran
+
+                table = New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths({10, 35, 1, 10, 45})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = ""
+                count = 0
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                End If
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A01401, A01402, A01403 - BAHASA MELAYU 1104"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                End If
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A05401 - SEJARAH 1251"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If count = 1 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                ElseIf count = 2 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                End If
+
+                table = New PdfPTable(3)
+                table.WidthPercentage = 100
+                table.SetWidths({35, 30, 35})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Calon"
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & Environment.NewLine
+                cetak += Environment.NewLine & Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Ibubapa / Penjaga"
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+
+                myDocument.Close()
+
+                HttpContext.Current.Response.Write(myDocument)
+                HttpContext.Current.Response.End()
+
+            Catch ex As Exception
+
+
+            End Try
+
+
+        Else
+
+            Dim myDocument As New Document(PageSize.A4)
+
+            Try
+                HttpContext.Current.Response.ContentType = "application/pdf"
+                HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=slipPelajarUlang.pdf")
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache)
+
+                PdfWriter.GetInstance(myDocument, HttpContext.Current.Response.OutputStream)
+
+                ''--draw spacing
+                Dim imgdrawSpacing As String = Server.MapPath("~/img/spacing.png")
+                Dim imgSpacing As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(imgdrawSpacing)
+                imgSpacing.Alignment = iTextSharp.text.Image.LEFT_ALIGN  'left
+                imgSpacing.Border = 0
+
+                myDocument.Open()
+
+                myDocument.NewPage()
+
+
+                strSQL = "SELECT svmu_no_permohonan FROM kpmkv_svmu_payment_request WHERE RefNo = '" & Request.QueryString("RefNo") & "'"
+                Dim svmu_no_permohonan As String = oCommon.getFieldValue(strSQL)
+
+                If svmu_no_permohonan = "" Then
+
+                    strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+
+                Else
+
+                    strSQL = "SELECT svmu_id FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & svmu_no_permohonan & "'"
+
+                End If
+
+                Dim svmu_id As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "
+                    SELECT 
+                    kpmkv_svmu_calon.KolejNama, 
+                    kpmkv_svmu_calon.Nama,
+                    kpmkv_svmu_calon.TahunPeperiksaan,
+                    kpmkv_svmu.MYKAD, 
+                    kpmkv_svmu.AngkaGiliran
+                    FROM
+                    kpmkv_svmu
+                    LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
+                    WHERE kpmkv_svmu.svmu_id = '" & svmu_id & "'"
 
                 strRet = oCommon.getFieldValueEx(strSQL)
 
-            Else
+                Dim ar_info As Array
+                ar_info = strRet.Split("|")
 
-                strRet = oCommon2.getFieldValueEx(strSQL)
+                Dim strkolejnama As String = ar_info(0)
+                Dim strname As String = ar_info(1)
+                Dim strtahun As String = ar_info(2)
+                Dim strmykad As String = ar_info(3)
+                Dim strag As String = ar_info(4)
 
-            End If
+                strSQL = "SELECT DatabaseName FROM kpmkv_svmu WHERE svmu_id = '" & svmu_id & "'"
+                Dim DatabaseName As String = oCommon.getFieldValue(strSQL)
 
-            ar_info = strRet.Split("|")
+                strSQL = "  SELECT 
+                        kpmkv_kursus.KodKursus, kpmkv_kursus.NamaKursus,
+                        kpmkv_kluster.NamaKluster
+                        FROM
+                        kpmkv_pelajar
+                        LEFT JOIN kpmkv_kursus ON kpmkv_kursus.KursusID = kpmkv_pelajar.KursusID
+                        LEFT JOIN kpmkv_kluster ON kpmkv_kluster.KlusterID = kpmkv_kursus.KlusterID
+                        WHERE kpmkv_pelajar.MYKAD = '" & strmykad & "' AND kpmkv_pelajar.Semester = '4'"
 
-            Dim strkodKursus As String = ar_info(0)
-            Dim strnamakursus As String = ar_info(1)
-            Dim strnamakluster As String = ar_info(2)
-            ''getting data end
+                If DatabaseName = "APKV" Then
 
-            Dim table As New PdfPTable(2)
-            table.WidthPercentage = 100
-            table.SetWidths({80, 20})
-            table.DefaultCell.Border = 0
+                    strRet = oCommon.getFieldValueEx(strSQL)
 
-            Dim cell As New PdfPCell()
-            Dim cetak As String
-            Dim myPara001 As New Paragraph()
-            cell.AddElement(myPara001)
-            cell.Border = 0
-            table.AddCell(cell)
+                Else
 
-            cetak = "SALINAN CALON"
+                    strRet = oCommon2.getFieldValueEx(strSQL)
 
-            cell = New PdfPCell()
-            Debug.Write(cetak)
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 7))
-            myPara001.Alignment = Element.ALIGN_RIGHT
-            cell.AddElement(myPara001)
-            cell.Border = 0
-            cell.VerticalAlignment = Element.ALIGN_RIGHT
-            table.AddCell(cell)
+                End If
 
-            myDocument.Add(table)
+                ar_info = strRet.Split("|")
 
-            cetak = "LEMBAGA PEPERIKSAAN"
-            cetak += Environment.NewLine & "KEMENTERIAN PENDIDIKAN MALAYSIA"
-            cetak += Environment.NewLine & "PERNYATAAN PENDAFTARAN PEPERIKSAAN (SVM ULANGAN)"
-            cetak += Environment.NewLine & "TAHUN PEPERIKSAAN : SEMESTER 4, SESI 01, TAHUN " & strtahun & Environment.NewLine
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 10))
-            myPara001.Alignment = Element.ALIGN_CENTER
-            myDocument.Add(myPara001)
-            Debug.WriteLine(cetak)
+                Dim strkodKursus As String = ar_info(0)
+                Dim strnamakursus As String = ar_info(1)
+                Dim strnamakluster As String = ar_info(2)
 
-            ''PROFILE STARTS HERE
+                strSQL = "SELECT PusatPeperiksaanID FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "'"
+                Dim ppID As String = oCommon.getFieldValue(strSQL)
 
-            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                strSQL = "SELECT Kod FROM kpmkv_kolej WHERE RecordID = '" & ppID & "'"
+                Dim KodPusat As String = oCommon.getFieldValue(strSQL)
 
-            table = New PdfPTable(2)
-            table.WidthPercentage = 100
-            table.SetWidths({20, 80})
+                strSQL = "SELECT Nama FROM kpmkv_kolej WHERE RecordID = '" & ppID & "'"
+                Dim NamaPusat As String = oCommon.getFieldValue(strSQL)
 
-            cell = New PdfPCell()
-            cetak = Environment.NewLine & "Nama Sekolah / Pusat"
-            cetak += Environment.NewLine & "Angka Giliran"
-            cetak += Environment.NewLine & "Nama Calon"
-            cetak += Environment.NewLine & "No. Pengenalan Diri"
-            cetak += Environment.NewLine & "Nama Bidang"
-            cetak += Environment.NewLine & "Program"
-            cetak += Environment.NewLine
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-            cell.Border = 0
-            table.AddCell(cell)
+                ''getting data end
 
-            cell = New PdfPCell()
-            cetak = Environment.NewLine & ": " & strkolejnama
-            cetak += Environment.NewLine & ": " & strag
-            cetak += Environment.NewLine & ": " & strname
-            cetak += Environment.NewLine & ": " & strmykad
-            cetak += Environment.NewLine & ": " & strnamakluster
-            cetak += Environment.NewLine & ": " & strnamakursus
-            cetak += Environment.NewLine
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-            cell.Border = 0
-            table.AddCell(cell)
-            Debug.WriteLine(cetak)
-
-            myDocument.Add(table)
-
-            ''profile ends here
-            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-            ''mata pelajaran yang didaftarkan
-            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-            table = New PdfPTable(5)
-            table.WidthPercentage = 100
-            table.SetWidths({96, 1, 1, 1, 1})
-            table.DefaultCell.Border = 0
-
-            cell = New PdfPCell()
-            cetak = "Mata Pelajaran Yang Didaftarkan"
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, Font.UNDERLINE)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            myDocument.Add(table)
-
-            ''table matapelajaran
-
-            table = New PdfPTable(5)
-            table.WidthPercentage = 100
-            table.SetWidths({10, 35, 1, 10, 45})
-            table.DefaultCell.Border = 0
-
-            cell = New PdfPCell()
-            cetak = ""
-            Dim cetakNum As String = ""
-            Dim countsubj As Integer = 0
-            Dim strJenisKursusMT As String = ""
-
-            Dim count As Integer = 0
-
-            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
-
-            If Not oCommon.getFieldValue(strSQL) = "" Then
-
-                count = count + 1
-
-                table = New PdfPTable(1)
+                Dim table As New PdfPTable(2)
                 table.WidthPercentage = 100
-                table.SetWidths({100})
+                table.SetWidths({80, 20})
+                table.DefaultCell.Border = 0
+
+                Dim cell As New PdfPCell()
+                Dim cetak As String
+                Dim myPara001 As New Paragraph()
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cetak = "SALINAN CALON"
 
                 cell = New PdfPCell()
-                cetak = count & ". A01401, A01402, A01403 - BAHASA MELAYU 1104"
+                Debug.Write(cetak)
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 7))
+                myPara001.Alignment = Element.ALIGN_RIGHT
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_RIGHT
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+
+                cetak = "LEMBAGA PEPERIKSAAN"
+                cetak += Environment.NewLine & "KEMENTERIAN PENDIDIKAN MALAYSIA"
+                cetak += Environment.NewLine & "PERNYATAAN PENDAFTARAN PEPERIKSAAN (SVM ULANGAN)"
+                cetak += Environment.NewLine & "TAHUN PEPERIKSAAN : SEMESTER 4, SESI 01, TAHUN " & strtahun & Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 10))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                myDocument.Add(myPara001)
+                Debug.WriteLine(cetak)
+
+                ''PROFILE STARTS HERE
+
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(2)
+                table.WidthPercentage = 100
+                table.SetWidths({20, 80})
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & "Nama Sekolah / Pusat"
+                cetak += Environment.NewLine & "Angka Giliran"
+                cetak += Environment.NewLine & "Nama Calon"
+                cetak += Environment.NewLine & "No. Pengenalan Diri"
+                cetak += Environment.NewLine & "Nama Bidang"
+                cetak += Environment.NewLine & "Program"
+                cetak += Environment.NewLine
                 cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & ": " & NamaPusat
+                cetak += Environment.NewLine & ": " & strag
+                cetak += Environment.NewLine & ": " & strname
+                cetak += Environment.NewLine & ": " & strmykad
+                cetak += Environment.NewLine & ": " & strnamakluster
+                cetak += Environment.NewLine & ": " & strnamakursus
+                cetak += Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+                Debug.WriteLine(cetak)
+
+                myDocument.Add(table)
+
+                ''profile ends here
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                ''mata pelajaran yang didaftarkan
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths({96, 1, 1, 1, 1})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "Mata Pelajaran Yang Didaftarkan"
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, Font.UNDERLINE)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
                 cell.Border = 0
                 table.AddCell(cell)
 
                 myDocument.Add(table)
 
-            End If
+                ''table matapelajaran
 
-            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
-
-            If Not oCommon.getFieldValue(strSQL) = "" Then
-
-                count = count + 1
-
-                table = New PdfPTable(1)
+                table = New PdfPTable(5)
                 table.WidthPercentage = 100
-                table.SetWidths({100})
+                table.SetWidths({10, 35, 1, 10, 45})
+                table.DefaultCell.Border = 0
 
                 cell = New PdfPCell()
-                cetak = count & ". A05401 - SEJARAH 1251"
+                cetak = ""
+                Dim cetakNum As String = ""
+                Dim countsubj As Integer = 0
+                Dim strJenisKursusMT As String = ""
+
+                Dim count As Integer = 0
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                End If
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A01401, A01402, A01403 - BAHASA MELAYU 1104"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                End If
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A05401 - SEJARAH 1251"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If count = 1 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                ElseIf count = 2 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                End If
+
+                table = New PdfPTable(3)
+                table.WidthPercentage = 100
+                table.SetWidths({35, 30, 35})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Calon"
+                cetak += Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & Environment.NewLine
+                cetak += Environment.NewLine & Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Ibubapa / Penjaga"
+                cetak += Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+                cetak = ""
+                cetak += Environment.NewLine
+                cetak += Environment.NewLine
+                cetak += "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                cetak += Environment.NewLine
+                cetak += Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                myDocument.Add(myPara001)
+                Debug.WriteLine(cetak)
+
+                table = New PdfPTable(2)
+                table.WidthPercentage = 100
+                table.SetWidths({80, 20})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cetak = "SALINAN SEKOLAH/JPN"
+
+                cell = New PdfPCell()
+                Debug.Write(cetak)
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 7))
+                myPara001.Alignment = Element.ALIGN_RIGHT
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_RIGHT
+                table.AddCell(cell)
+
+                myDocument.Add(table)
+
+                cetak = "LEMBAGA PEPERIKSAAN"
+                cetak += Environment.NewLine & "KEMENTERIAN PENDIDIKAN MALAYSIA"
+                cetak += Environment.NewLine & "PERNYATAAN PENDAFTARAN PEPERIKSAAN (SVM ULANGAN)"
+                cetak += Environment.NewLine & "TAHUN PEPERIKSAAN : SEMESTER 4, SESI 01, TAHUN " & strtahun & Environment.NewLine
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 10))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                myDocument.Add(myPara001)
+                Debug.WriteLine(cetak)
+
+                ''PROFILE STARTS HERE
+
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(2)
+                table.WidthPercentage = 100
+                table.SetWidths({20, 80})
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & "Nama Sekolah / Pusat"
+                cetak += Environment.NewLine & "Angka Giliran"
+                cetak += Environment.NewLine & "Nama Calon"
+                cetak += Environment.NewLine & "No. Pengenalan Diri"
+                cetak += Environment.NewLine & "Nama Bidang"
+                cetak += Environment.NewLine & "Program"
+                cetak += Environment.NewLine
                 cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & ": " & NamaPusat
+                cetak += Environment.NewLine & ": " & strag
+                cetak += Environment.NewLine & ": " & strname
+                cetak += Environment.NewLine & ": " & strmykad
+                cetak += Environment.NewLine & ": " & strnamakluster
+                cetak += Environment.NewLine & ": " & strnamakursus
+                cetak += Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cell.Border = 0
+                table.AddCell(cell)
+                Debug.WriteLine(cetak)
+
+                myDocument.Add(table)
+
+                ''profile ends here
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                ''mata pelajaran yang didaftarkan
+                ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                table = New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths({96, 1, 1, 1, 1})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "Mata Pelajaran Yang Didaftarkan"
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, Font.UNDERLINE)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = ""
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
                 cell.Border = 0
                 table.AddCell(cell)
 
                 myDocument.Add(table)
 
-            End If
+                ''table matapelajaran
 
-            If count = 1 Then
-
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-
-            ElseIf count = 2 Then
-
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-
-            End If
-
-            table = New PdfPTable(3)
-            table.WidthPercentage = 100
-            table.SetWidths({35, 30, 35})
-            table.DefaultCell.Border = 0
-
-            cell = New PdfPCell()
-            cetak = "______________________________"
-            cetak += Environment.NewLine
-            cetak += "Tandatangan Calon"
-            cetak += Environment.NewLine
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
-            myPara001.Alignment = Element.ALIGN_CENTER
-            cell.AddElement(myPara001)
-            cell.Border = 0
-            cell.VerticalAlignment = Element.ALIGN_BOTTOM
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = Environment.NewLine & Environment.NewLine
-            cetak += Environment.NewLine & Environment.NewLine
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = "______________________________"
-            cetak += Environment.NewLine
-            cetak += "Tandatangan Ibubapa / Penjaga"
-            cetak += Environment.NewLine
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
-            myPara001.Alignment = Element.ALIGN_CENTER
-            cell.AddElement(myPara001)
-            cell.Border = 0
-            cell.VerticalAlignment = Element.ALIGN_BOTTOM
-            table.AddCell(cell)
-
-            myDocument.Add(table)
-            cetak = ""
-            cetak += Environment.NewLine
-            cetak += Environment.NewLine
-            cetak += "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
-            cetak += Environment.NewLine
-            cetak += Environment.NewLine
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
-            myPara001.Alignment = Element.ALIGN_CENTER
-            myDocument.Add(myPara001)
-            Debug.WriteLine(cetak)
-
-            table = New PdfPTable(2)
-            table.WidthPercentage = 100
-            table.SetWidths({80, 20})
-            table.DefaultCell.Border = 0
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cetak = "SALINAN SEKOLAH/JPN"
-
-            cell = New PdfPCell()
-            Debug.Write(cetak)
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 7))
-            myPara001.Alignment = Element.ALIGN_RIGHT
-            cell.AddElement(myPara001)
-            cell.Border = 0
-            cell.VerticalAlignment = Element.ALIGN_RIGHT
-            table.AddCell(cell)
-
-            myDocument.Add(table)
-
-            cetak = "LEMBAGA PEPERIKSAAN"
-            cetak += Environment.NewLine & "KEMENTERIAN PENDIDIKAN MALAYSIA"
-            cetak += Environment.NewLine & "PERNYATAAN PENDAFTARAN PEPERIKSAAN (SVM ULANGAN)"
-            cetak += Environment.NewLine & "TAHUN PEPERIKSAAN : SEMESTER 4, SESI 01, TAHUN " & strtahun & Environment.NewLine
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 10))
-            myPara001.Alignment = Element.ALIGN_CENTER
-            myDocument.Add(myPara001)
-            Debug.WriteLine(cetak)
-
-            ''PROFILE STARTS HERE
-
-            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-            table = New PdfPTable(2)
-            table.WidthPercentage = 100
-            table.SetWidths({20, 80})
-
-            cell = New PdfPCell()
-            cetak = Environment.NewLine & "Nama Sekolah / Pusat"
-            cetak += Environment.NewLine & "Angka Giliran"
-            cetak += Environment.NewLine & "Nama Calon"
-            cetak += Environment.NewLine & "No. Pengenalan Diri"
-            cetak += Environment.NewLine & "Nama Bidang"
-            cetak += Environment.NewLine & "Program"
-            cetak += Environment.NewLine
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = Environment.NewLine & ": " & strkolejnama
-            cetak += Environment.NewLine & ": " & strag
-            cetak += Environment.NewLine & ": " & strname
-            cetak += Environment.NewLine & ": " & strmykad
-            cetak += Environment.NewLine & ": " & strnamakluster
-            cetak += Environment.NewLine & ": " & strnamakursus
-            cetak += Environment.NewLine
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-            cell.Border = 0
-            table.AddCell(cell)
-            Debug.WriteLine(cetak)
-
-            myDocument.Add(table)
-
-            ''profile ends here
-            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-            ''mata pelajaran yang didaftarkan
-            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-            table = New PdfPTable(5)
-            table.WidthPercentage = 100
-            table.SetWidths({96, 1, 1, 1, 1})
-            table.DefaultCell.Border = 0
-
-            cell = New PdfPCell()
-            cetak = "Mata Pelajaran Yang Didaftarkan"
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, Font.UNDERLINE)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = ""
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 8)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            myDocument.Add(table)
-
-            ''table matapelajaran
-
-            table = New PdfPTable(5)
-            table.WidthPercentage = 100
-            table.SetWidths({10, 35, 1, 10, 45})
-            table.DefaultCell.Border = 0
-
-            cell = New PdfPCell()
-            cetak = ""
-            count = 0
-
-            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
-
-            If Not oCommon.getFieldValue(strSQL) = "" Then
-
-                count = count + 1
-
-                table = New PdfPTable(1)
+                table = New PdfPTable(5)
                 table.WidthPercentage = 100
-                table.SetWidths({100})
+                table.SetWidths({10, 35, 1, 10, 45})
+                table.DefaultCell.Border = 0
 
                 cell = New PdfPCell()
-                cetak = count & ". A01401, A01402, A01403 - BAHASA MELAYU 1104"
-                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                cetak = ""
+                count = 0
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'BM' AND StatusMP = '1'"
+
+                End If
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A01401, A01402, A01403 - BAHASA MELAYU 1104"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If lblNoPermohonan.Text = "" Then
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & svmu_calon_id & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                Else
+
+                    strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+
+                End If
+
+                If Not oCommon.getFieldValue(strSQL) = "" Then
+
+                    count = count + 1
+
+                    table = New PdfPTable(1)
+                    table.WidthPercentage = 100
+                    table.SetWidths({100})
+
+                    cell = New PdfPCell()
+                    cetak = count & ". A05401 - SEJARAH 1251"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    myDocument.Add(table)
+
+                End If
+
+                If count = 1 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                ElseIf count = 2 Then
+
+                    myDocument.Add(imgSpacing)
+                    myDocument.Add(imgSpacing)
+
+                End If
+
+                table = New PdfPTable(3)
+                table.WidthPercentage = 100
+                table.SetWidths({35, 30, 35})
+                table.DefaultCell.Border = 0
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Calon"
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
                 cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = Environment.NewLine & Environment.NewLine
+                cetak += Environment.NewLine & Environment.NewLine
+                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
+                cell.Border = 0
+                table.AddCell(cell)
+
+                cell = New PdfPCell()
+                cetak = "______________________________"
+                cetak += Environment.NewLine
+                cetak += "Tandatangan Ibubapa / Penjaga"
+                myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
+                myPara001.Alignment = Element.ALIGN_CENTER
+                cell.AddElement(myPara001)
+                cell.Border = 0
+                cell.VerticalAlignment = Element.ALIGN_BOTTOM
                 table.AddCell(cell)
 
                 myDocument.Add(table)
 
-            End If
+                myDocument.Close()
 
-            strSQL = "SELECT MataPelajaran FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & lblNoPermohonan.Text & "' AND MataPelajaran = 'SJ' AND StatusMP = '1'"
+                HttpContext.Current.Response.Write(myDocument)
+                HttpContext.Current.Response.End()
 
-            If Not oCommon.getFieldValue(strSQL) = "" Then
-
-                count = count + 1
-
-                table = New PdfPTable(1)
-                table.WidthPercentage = 100
-                table.SetWidths({100})
-
-                cell = New PdfPCell()
-                cetak = count & ". A05401 - SEJARAH 1251"
-                cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                cell.Border = 0
-                table.AddCell(cell)
-
-                myDocument.Add(table)
-
-            End If
-
-            If count = 1 Then
-
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-
-            ElseIf count = 2 Then
-
-                myDocument.Add(imgSpacing)
-                myDocument.Add(imgSpacing)
-
-            End If
-
-            table = New PdfPTable(3)
-            table.WidthPercentage = 100
-            table.SetWidths({35, 30, 35})
-            table.DefaultCell.Border = 0
-
-            cell = New PdfPCell()
-            cetak = "______________________________"
-            cetak += Environment.NewLine
-            cetak += "Tandatangan Calon"
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
-            myPara001.Alignment = Element.ALIGN_CENTER
-            cell.AddElement(myPara001)
-            cell.Border = 0
-            cell.VerticalAlignment = Element.ALIGN_BOTTOM
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = Environment.NewLine & Environment.NewLine
-            cetak += Environment.NewLine & Environment.NewLine
-            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-            cell.Border = 0
-            table.AddCell(cell)
-
-            cell = New PdfPCell()
-            cetak = "______________________________"
-            cetak += Environment.NewLine
-            cetak += "Tandatangan Ibubapa / Penjaga"
-            myPara001 = New Paragraph(cetak, FontFactory.GetFont("Arial", 9))
-            myPara001.Alignment = Element.ALIGN_CENTER
-            cell.AddElement(myPara001)
-            cell.Border = 0
-            cell.VerticalAlignment = Element.ALIGN_BOTTOM
-            table.AddCell(cell)
-
-            myDocument.Add(table)
-
-            myDocument.Close()
-
-            HttpContext.Current.Response.Write(myDocument)
-            HttpContext.Current.Response.End()
-
-        Catch ex As Exception
+            Catch ex As Exception
 
 
-        End Try
+            End Try
+
+
+        End If
+
 
     End Sub
 

@@ -503,13 +503,13 @@
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V1502">
+                   <%-- <asp:TemplateField HeaderText="V1502">
                         <ItemTemplate>
                             <asp:Label ID="V1502" runat="server" Text='<%# Bind("V1502")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="V1602">
                         <ItemTemplate>
                             <asp:Label ID="V1602" runat="server" Text='<%# Bind("V1602")%>'></asp:Label>
@@ -517,13 +517,13 @@
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V1702">
+                   <%-- <asp:TemplateField HeaderText="V1702">
                         <ItemTemplate>
                             <asp:Label ID="V1702" runat="server" Text='<%# Bind("V1702")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="V1802">
                         <ItemTemplate>
                             <asp:Label ID="V1802" runat="server" Text='<%# Bind("V1802")%>'></asp:Label>
@@ -636,21 +636,21 @@
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3402">
+                    <asp:TemplateField HeaderText="V4202">
                         <ItemTemplate>
-                            <asp:Label ID="V3402" runat="server" Text='<%# Bind("V3402")%>'></asp:Label>
+                            <asp:Label ID="V4202" runat="server" Text='<%# Bind("V4202")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3502">
+                    <asp:TemplateField HeaderText="V4302">
                         <ItemTemplate>
-                            <asp:Label ID="V3502" runat="server" Text='<%# Bind("V3502")%>'></asp:Label>
+                            <asp:Label ID="V4302" runat="server" Text='<%# Bind("V4302")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3602">
+                  <%--  <asp:TemplateField HeaderText="V3602">
                         <ItemTemplate>
                             <asp:Label ID="V3602" runat="server" Text='<%# Bind("V3602")%>'></asp:Label>
                         </ItemTemplate>
@@ -684,7 +684,7 @@
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Jumlah_Calon">
                         <ItemTemplate>
                             <asp:Label ID="Jumlah_Calon" runat="server" Text='<%# Bind("Jumlah_Calon")%>'></asp:Label>
@@ -1167,13 +1167,13 @@
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V1504">
+                   <%-- <asp:TemplateField HeaderText="V1504">
                         <ItemTemplate>
                             <asp:Label ID="V1504" runat="server" Text='<%# Bind("V1504")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="V1604">
                         <ItemTemplate>
                             <asp:Label ID="V1604" runat="server" Text='<%# Bind("V1604")%>'></asp:Label>
@@ -1181,13 +1181,13 @@
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V1704">
+                    <%--<asp:TemplateField HeaderText="V1704">
                         <ItemTemplate>
                             <asp:Label ID="V1704" runat="server" Text='<%# Bind("V1704")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="V1804">
                         <ItemTemplate>
                             <asp:Label ID="V1804" runat="server" Text='<%# Bind("V1804")%>'></asp:Label>
@@ -1300,55 +1300,58 @@
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3404">
+
+
+
+                    <asp:TemplateField HeaderText="V4204">
                         <ItemTemplate>
-                            <asp:Label ID="V3404" runat="server" Text='<%# Bind("V3404")%>'></asp:Label>
+                            <asp:Label ID="V4204" runat="server" Text='<%# Bind("V4204")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3504">
+                    <asp:TemplateField HeaderText="V4304">
                         <ItemTemplate>
-                            <asp:Label ID="V3504" runat="server" Text='<%# Bind("V3504")%>'></asp:Label>
+                            <asp:Label ID="V4304" runat="server" Text='<%# Bind("V4304")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3604">
+                    <%--<asp:TemplateField HeaderText="V3604">
                         <ItemTemplate>
                             <asp:Label ID="V3604" runat="server" Text='<%# Bind("V3604")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3704">
+                    </asp:TemplateField>--%>
+                   <%-- <asp:TemplateField HeaderText="V3704">
                         <ItemTemplate>
                             <asp:Label ID="V3704" runat="server" Text='<%# Bind("V3704")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3804">
+                    </asp:TemplateField>--%>
+                    <%--<asp:TemplateField HeaderText="V3804">
                         <ItemTemplate>
                             <asp:Label ID="V3804" runat="server" Text='<%# Bind("V3804")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V3904">
+                    </asp:TemplateField>--%>
+                 <%--   <asp:TemplateField HeaderText="V3904">
                         <ItemTemplate>
                             <asp:Label ID="V3904" runat="server" Text='<%# Bind("V3904")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="V4004">
+                    </asp:TemplateField>--%>
+                   <%-- <asp:TemplateField HeaderText="V4004">
                         <ItemTemplate>
                             <asp:Label ID="V4004" runat="server" Text='<%# Bind("V4004")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="3%" />
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Jumlah_Calon">
                         <ItemTemplate>
                             <asp:Label ID="Jumlah_Calon" runat="server" Text='<%# Bind("Jumlah_Calon")%>'></asp:Label>

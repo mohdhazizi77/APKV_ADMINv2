@@ -19,39 +19,16 @@ Public Class takwim_update
                 '--refresh
 
                 kpmkv_negeri_list()
+                ddlNegeri.Text = "0"
                 kpmkv_jenis_list()
+                ddlJenis.Text = "0"
+
                 kpmkv_kolej_list()
 
                 strSQL = "SELECT TakwimKVID FROM kpmkv_takwim_kv WHERE TakwimID = '" & Request.QueryString("TakwimID") & "'"
-                Dim TakwimKVID As String = oCommon.getFieldValue(strSQL)
                 Dim countTakwimKVID As Integer = oCommon.getCount(strSQL)
 
-                If strRet = True Then
-
-                    ddlNegeri.Enabled = True
-                    ddlJenis.Enabled = True
-                    chkBLKolej.Enabled = True
-
-                    strSQL = "SELECT KolejRecordID FROM kpmkv_takwim_kv WHERE TakwimKVID = '" & TakwimKVID & "'"
-                    Dim KolejRecordID As String = oCommon.getFieldValue(strSQL)
-
-                    strSQL = "SELECT Negeri FROM kpmkv_kolej WHERE RecordID = '" & KolejRecordID & "'"
-                    Dim Negeri As String = oCommon.getFieldValue(strSQL)
-
-                    ddlNegeri.Text = Negeri
-
-                    strSQL = "SELECT Jenis FROM kpmkv_kolej WHERE RecordID = '" & KolejRecordID & "'"
-                    Dim Jenis As String = oCommon.getFieldValue(strSQL)
-
-                    ddlJenis.Text = Jenis
-
-                    For i = 0 To chkBLKolej.Items.Count - 1
-
-
-
-                    Next
-
-                Else
+                If countTakwimKVID = 0 Then
 
                     chkSelectAll.Checked = True
 
@@ -61,11 +38,19 @@ Public Class takwim_update
                     ddlJenis.Enabled = False
                     chkBLKolej.Enabled = False
 
+                Else
+
+                    chkSelectAll.Checked = False
+
+                    ddlNegeri.Text = "0"
+                    ddlNegeri.Enabled = True
+                    ddlJenis.Text = "0"
+                    ddlJenis.Enabled = True
+                    chkBLKolej.Enabled = True
+
                 End If
 
-                kpmkv_negeri_list()
-                kpmkv_jenis_list()
-                kpmkv_kolej_list()
+
 
                 menu_list()
 
@@ -73,8 +58,11 @@ Public Class takwim_update
 
                 kpmkv_semester_list()
 
-                txtDate.Text = Format(CDate(Date.Now), "dd-MM-yyyy")
-                txtDateTo.Text = Format(CDate(Date.Now), "dd-MM-yyyy")
+                strSQL = "SELECT TarikhMula FROM kpmkv_takwim WHERE TakwimID = '" & Request.QueryString("TakwimID") & "'"
+                txtDate.Text = oCommon.getFieldValue(strSQL)
+
+                strSQL = "SELECT TarikhAkhir FROM kpmkv_takwim WHERE TakwimID = '" & Request.QueryString("TakwimID") & "'"
+                txtDateTo.Text = oCommon.getFieldValue(strSQL)
 
                 strSQL = "SELECT HeaderCode FROM kpmkv_takwim WHERE TakwimID = '" & Request.QueryString("TakwimID") & "'"
                 Dim HeaderText As String = oCommon.getFieldValue(strSQL)
@@ -193,9 +181,33 @@ Public Class takwim_update
             chkBLKolej.DataValueField = "RecordID"
             chkBLKolej.DataBind()
 
+            If Not ddlNegeri.Text = "0" And Not ddlJenis.Text = "0" Then
+
+                For i = 0 To chkBLKolej.Items.Count - 1
+
+                    strSQL = "  SELECT kpmkv_takwim_kv.KolejRecordID FROM kpmkv_takwim_kv
+                                LEFT JOIN kpmkv_kolej ON kpmkv_kolej.RecordID = kpmkv_takwim_kv.KolejRecordID
+                                WHERE kpmkv_kolej.Negeri = '" & ddlNegeri.SelectedItem.Value & "'
+                                AND kpmkv_kolej.Jenis = '" & ddlJenis.SelectedValue & "'
+                                AND kpmkv_takwim_kv.TakwimID = '" & Request.QueryString("TakwimID") & "'
+                                AND KolejRecordID LIKE '%" & chkBLKolej.Items(i).Value & "%'"
+
+                    If oCommon.isExist(strSQL) = True Then
+
+                        chkBLKolej.Items(i).Selected = True
+
+                    Else
+
+                        chkBLKolej.Items(i).Selected = False
+
+                    End If
+
+                Next
+
+            End If
+
         Catch ex As Exception
             lblMsg.Text = "System Error:" & ex.Message
-
         Finally
             objConn.Dispose()
         End Try
@@ -348,7 +360,47 @@ Public Class takwim_update
                         WHERE TakwimID = '" & Request.QueryString("TakwimID") & "'"
             strRet = oCommon.ExecuteSQL(strSQL)
             If strRet = "0" Then
+
+                If chkSelectAll.Checked = False Then
+
+
+
+                    For i = 0 To chkBLKolej.Items.Count - 1
+
+                        If chkBLKolej.Items(i).Selected = True Then
+
+                            strSQL = "SELECT TakwimKVID FROM kpmkv_takwim_kv WHERE TakwimID = '" & Request.QueryString("TakwimID") & "' AND KolejRecordID = '" & chkBLKolej.Items(i).Value & "'"
+                            If Not oCommon.isExist(strSQL) = True Then
+                                strSQL = "INSERT INTO kpmkv_takwim_kv (TakwimID, KolejRecordID) "
+                                strSQL += " VALUES ('" & Request.QueryString("TakwimID") & "', '" & chkBLKolej.Items(i).Value & "')"
+                                strRet = oCommon.ExecuteSQL(strSQL)
+                            End If
+
+                        Else
+
+                            strSQL = "SELECT TakwimKVID FROM kpmkv_takwim_kv WHERE TakwimID = '" & Request.QueryString("TakwimID") & "' AND KolejRecordID = '" & chkBLKolej.Items(i).Value & "'"
+                            Dim TakwimKVID As String = oCommon.getFieldValue(strSQL)
+
+                            If oCommon.isExist(strSQL) = True Then
+                                strSQL = "DELETE FROM kpmkv_takwim_kv WHERE TakwimKVID = '" & TakwimKVID & "'"
+                                strRet = oCommon.ExecuteSQL(strSQL)
+                            End If
+
+                        End If
+
+                    Next
+
+                Else
+
+                    strSQL = "DELETE FROM kpmkv_takwim_kv WHERE TakwimID = '" & Request.QueryString("TakwimID") & "'"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                End If
+
                 lblMsg.Text = "Kemaskini berjaya!"
+
+
+
             Else
                 lblMsg.Text = "Tidak berjaya. " & strRet
             End If
@@ -365,19 +417,27 @@ Public Class takwim_update
 
     Private Sub ddlJenis_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenis.SelectedIndexChanged
         kpmkv_kolej_list()
+
+
     End Sub
 
     Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
         If chkSelectAll.Checked = True Then
 
             ddlNegeri.Enabled = False
+            ddlNegeri.Text = "0"
             ddlJenis.Enabled = False
+            ddlJenis.Text = "0"
+            kpmkv_kolej_list()
             chkBLKolej.Enabled = False
 
         Else
 
             ddlNegeri.Enabled = True
+            ddlNegeri.Text = "0"
             ddlJenis.Enabled = True
+            ddlJenis.Text = "0"
+            kpmkv_kolej_list()
             chkBLKolej.Enabled = True
 
         End If

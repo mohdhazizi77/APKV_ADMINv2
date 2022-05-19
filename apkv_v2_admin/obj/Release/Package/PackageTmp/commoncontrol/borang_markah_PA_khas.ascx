@@ -164,6 +164,7 @@
 </table>
 
 <div class="info" id="divMsg" runat="server">
+    <asp:Label ID="lblKolejID" runat="server" Text="" Visible="false"></asp:Label>
     <asp:Label ID="lblID" runat="server" Text="" Visible="false"></asp:Label>
     <asp:Label ID="lblType" runat="server" Text="" Visible="false"></asp:Label>
     <asp:Label ID="lblTahun" runat="server" Text="" Visible="false"></asp:Label>

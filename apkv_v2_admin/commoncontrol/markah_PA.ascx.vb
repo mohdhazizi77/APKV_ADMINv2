@@ -12,94 +12,46 @@ Public Class markah_PA
 
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
+
+    Dim SubMenuText As String = "Pemeriksa Borang Markah PA"
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Try
             If Not IsPostBack Then
 
+                'kolejnama
+                strSQL = "SELECT Nama FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "'"
+                Dim strKolejnama As String = oCommon.getFieldValue(strSQL)
+                'kolejid
+                strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Nama='" & strKolejnama & "'"
+                lblKolejID.Text = oCommon.getFieldValue(strSQL)
+
                 '------exist takwim
-                strSQL = "SELECT * FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Pemeriksa Borang Markah PA' AND Aktif='1'"
+                strSQL = "SELECT * FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='" & SubMenuText & "' AND Aktif='1' AND GETDATE() BETWEEN CONVERT(date, TarikhMula, 103) AND DATEADD(day,1,CONVERT(date, TarikhAkhir, 103))"
                 If oCommon.isExist(strSQL) = True Then
 
-                    'count data takwim
-                    'Get the data from database into datatable
-                    Dim cmd As New SqlCommand("SELECT TakwimID FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Pemeriksa Borang Markah PA' AND Aktif='1'")
-                    Dim dt As DataTable = GetData(cmd)
-
-                    For i As Integer = 0 To dt.Rows.Count - 1
-                        IntTakwim = dt.Rows(i)("TakwimID")
-
-                        strSQL = "SELECT TarikhMula,TarikhAkhir FROM kpmkv_takwim WHERE TakwimID='" & IntTakwim & "'"
-                        strRet = oCommon.getFieldValueEx(strSQL)
-
-                        Dim ar_user_login As Array
-                        ar_user_login = strRet.Split("|")
-                        Dim strMula As String = ar_user_login(0)
-                        Dim strAkhir As String = ar_user_login(1)
-
-                        Dim strdateNow As Date = Date.Now.Date
-                        Dim startDate = DateTime.ParseExact(strMula, "dd-MM-yyyy", CultureInfo.InvariantCulture)
-                        Dim endDate = DateTime.ParseExact(strAkhir, "dd-MM-yyyy", CultureInfo.InvariantCulture)
-
-                        Dim ts As New TimeSpan
-                        ts = startDate.Subtract(strdateNow)
-                        Dim dayDiffMula = ts.Days
-                        ts = endDate.Subtract(strdateNow)
-                        Dim dayDiffAkhir = ts.Days
-
-                        If strMula IsNot Nothing And dayDiffMula <= 0 Then
-                            If strAkhir IsNot Nothing And dayDiffAkhir >= 0 Then
-
-                                strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
-                                lblUserId.Text = oCommon.getFieldValue(strSQL)
-
-                                strSQL = "SELECT UserType FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
-                                lblUserType.Text = oCommon.getFieldValue(strSQL)
-
-                                kpmkv_Kohort()
-
-                                kpmkv_kolej_list()
+                    kpmkv_tahun_list()
+                    kpmkv_kolej_list()
+                    kpmkv_semester_list()
 
 
-                                kpmkv_semester_list()
+                    btnCari.Enabled = True
+                    ddlTahun.Enabled = True
+                    ddlSemester.Enabled = True
+                    ddlKodPusat.Enabled = True
+                    lblMsg.Text = ""
 
-                                'checkinbox
-                                strSQL = "SELECT Sesi FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Kohort ASC"
-                                strRet = oCommon.getFieldValue(strSQL)
-
-                                If strRet = 1 Then
-                                    chkSesi.Items(0).Enabled = True
-                                    chkSesi.Items(0).Selected = True
-                                    ' chkSesi.Items(1).Enabled = False
-                                Else
-                                    ' chkSesi.Items(0).Enabled = False
-                                    chkSesi.Items(1).Enabled = True
-                                End If
-                                btnCari.Enabled = True
-                                ddlTahun.Enabled = True
-                                ddlKodPusat.Enabled = True
-                                ddlSemester.Enabled = True
-                                lblMsg.Text = ""
-
-                            End If
-                        Else
-                            btnCari.Enabled = False
-                            ddlTahun.Enabled = False
-                            ddlKodPusat.Enabled = False
-                            ddlSemester.Enabled = False
-                            lblMsg.Text = "Pemeriksa Borang Markah PA telah ditutup!"
-                        End If
-                    Next
                 Else
+
                     btnCari.Enabled = False
                     ddlTahun.Enabled = False
-                    ddlKodPusat.Enabled = False
                     ddlSemester.Enabled = False
+                    ddlKodPusat.Enabled = False
                     lblMsg.Text = "Pemeriksa Borang Markah PA telah ditutup!"
+
                 End If
-                RepoveDuplicate(ddlTahun)
-                RepoveDuplicate(ddlKodPusat)
-                RepoveDuplicate(ddlSemester)
             End If
+
 
         Catch ex As Exception
             lblMsg.Text = ex.Message
@@ -117,8 +69,29 @@ Public Class markah_PA
         Return ddl
     End Function
 
-    Private Sub kpmkv_Kohort()
-        strSQL = "SELECT Kohort FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Kohort ASC"
+    Private Sub kpmkv_tahun_list()
+
+        strSQL = "  SELECT DISTINCT kpmkv_takwim.Kohort FROM kpmkv_takwim
+                    LEFT JOIN kpmkv_takwim_kv ON kpmkv_takwim_kv.TakwimID = kpmkv_takwim.TakwimID
+                    WHERE
+                    kpmkv_takwim.SubMenuText = '" & SubMenuText & "'
+                    AND kpmkv_takwim.Aktif = '1'
+                    AND kpmkv_takwim.Tahun = '" & Now.Year & "'
+                    AND kpmkv_takwim_kv.TakwimKVID IS NULL
+                    AND GETDATE() BETWEEN CONVERT(date, TarikhMula, 103) AND DATEADD(day,1,CONVERT(date, TarikhAkhir, 103))
+
+                    UNION
+
+                    SELECT DISTINCT kpmkv_takwim.Kohort FROM kpmkv_takwim
+                    LEFT JOIN kpmkv_takwim_kv ON kpmkv_takwim_kv.TakwimID = kpmkv_takwim.TakwimID
+                    WHERE
+                    kpmkv_takwim.SubMenuText = '" & SubMenuText & "'
+                    AND kpmkv_takwim.Aktif = '1'
+                    AND kpmkv_takwim.Tahun = '" & Now.Year & "'
+                    AND kpmkv_takwim_kv.TakwimKVID IS NOT NULL
+                    AND kpmkv_takwim_kv.KolejRecordID = '" & lblKolejID.Text & "'
+                    AND GETDATE() BETWEEN CONVERT(date, TarikhMula, 103) AND DATEADD(day,1,CONVERT(date, TarikhAkhir, 103))"
+
         Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
         Dim objConn As SqlConnection = New SqlConnection(strConn)
         Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
@@ -132,9 +105,6 @@ Public Class markah_PA
             ddlTahun.DataValueField = "Kohort"
             ddlTahun.DataBind()
 
-            '--ALL
-            ddlTahun.Items.Add(New ListItem("-Pilih-", ""))
-
         Catch ex As Exception
             lblMsg.Text = "System Error:" & ex.Message
 
@@ -145,6 +115,14 @@ Public Class markah_PA
     End Sub
 
     Private Sub kpmkv_kolej_list()
+
+        strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
+        lblUserId.Text = oCommon.getFieldValue(strSQL)
+
+        strSQL = "SELECT UserType FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
+        lblUserType.Text = oCommon.getFieldValue(strSQL)
+
+
         If lblUserType.Text = "ADMIN" Then
             strSQL = " SELECT KodKolej FROM kpmkv_pemeriksa WHERE Tahun='" & Now.Year & "' ORDER By KodKolej"
         Else
@@ -179,99 +157,33 @@ Public Class markah_PA
 
     Private Sub kpmkv_semester_list()
 
-        strSQL = "SELECT * FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Pemeriksa Borang Markah PA' AND Aktif='1'"
-        If oCommon.isExist(strSQL) = True Then
+        strSQL = "  SELECT DISTINCT  Semester FROM kpmkv_takwim 
+                    WHERE 
+                    SubMenuText = '" & SubMenuText & "' 
+                    AND Aktif = '1'
+                    AND Tahun = '" & Now.Year & "'
+                    AND Kohort = '" & ddlTahun.Text & "'
+                    AND GETDATE() BETWEEN CONVERT(date, TarikhMula, 103) AND DATEADD(day,1,CONVERT(date, TarikhAkhir, 103))"
 
-            'count data takwim
-            'Get the data from database into datatable
-            Dim cmd As New SqlCommand("SELECT TakwimID FROM kpmkv_takwim WHERE Tahun='" & Now.Year & "' AND SubMenuText='Pemeriksa Borang Markah PA' AND Aktif='1'")
-            Dim dt As DataTable = GetData(cmd)
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
 
-            For i As Integer = 0 To dt.Rows.Count - 1
-                IntTakwim = dt.Rows(i)("TakwimID")
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
 
-                strSQL = "SELECT TarikhMula,TarikhAkhir FROM kpmkv_takwim WHERE TakwimID='" & IntTakwim & "'"
-                strRet = oCommon.getFieldValueEx(strSQL)
+            ddlSemester.DataSource = ds
+            ddlSemester.DataTextField = "Semester"
+            ddlSemester.DataValueField = "Semester"
+            ddlSemester.DataBind()
 
-                Dim ar_user_login As Array
-                ar_user_login = strRet.Split("|")
-                Dim strMula As String = ar_user_login(0)
-                Dim strAkhir As String = ar_user_login(1)
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
 
-                Dim strdateNow As Date = Date.Now.Date
-                Dim startDate = DateTime.ParseExact(strMula, "dd-MM-yyyy", CultureInfo.InvariantCulture)
-                Dim endDate = DateTime.ParseExact(strAkhir, "dd-MM-yyyy", CultureInfo.InvariantCulture)
-
-                Dim ts As New TimeSpan
-                ts = startDate.Subtract(strdateNow)
-                Dim dayDiffMula = ts.Days
-                ts = endDate.Subtract(strdateNow)
-                Dim dayDiffAkhir = ts.Days
-
-                If strMula IsNot Nothing And dayDiffMula <= 0 Then
-                    If strAkhir IsNot Nothing And dayDiffAkhir >= 0 Then
-
-                        strSQL = "SELECT UserID FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
-                        lblUserId.Text = oCommon.getFieldValue(strSQL)
-
-                        strSQL = "SELECT UserType FROM kpmkv_users WHERE LoginID='" & Session("LoginID") & "' AND Pwd = '" & Session("Password") & "'"
-                        lblUserType.Text = oCommon.getFieldValue(strSQL)
-
-                        strSQL = "SELECT Semester FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Semester ASC"
-                        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
-                        Dim objConn As SqlConnection = New SqlConnection(strConn)
-                        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
-
-                        Try
-                            Dim ds As DataSet = New DataSet
-                            sqlDA.Fill(ds, "AnyTable")
-
-                            ddlSemester.DataSource = ds
-                            ddlSemester.DataTextField = "Semester"
-                            ddlSemester.DataValueField = "Semester"
-                            ddlSemester.DataBind()
-
-                        Catch ex As Exception
-                            lblMsg.Text = "System Error:" & ex.Message
-
-                        Finally
-                            objConn.Dispose()
-                        End Try
-
-                        'checkinbox
-                        strSQL = "SELECT Sesi FROM kpmkv_takwim WHERE TakwimId='" & IntTakwim & "'ORDER BY Kohort ASC"
-                        strRet = oCommon.getFieldValue(strSQL)
-
-                        If strRet = 1 Then
-                            chkSesi.Items(0).Enabled = True
-                            chkSesi.Items(0).Selected = True
-                            ' chkSesi.Items(1).Enabled = False
-                        Else
-                            ' chkSesi.Items(0).Enabled = False
-                            chkSesi.Items(1).Enabled = True
-                        End If
-                        btnCari.Enabled = True
-                        ddlTahun.Enabled = True
-                        ddlKodPusat.Enabled = True
-                        ddlSemester.Enabled = True
-                        lblMsg.Text = ""
-
-                    End If
-                Else
-                    btnCari.Enabled = False
-                    ddlTahun.Enabled = False
-                    ddlKodPusat.Enabled = False
-                    ddlSemester.Enabled = False
-                    lblMsg.Text = "Pemeriksa Borang Markah PA telah ditutup!"
-                End If
-            Next
-        Else
-            btnCari.Enabled = False
-            ddlTahun.Enabled = False
-            ddlKodPusat.Enabled = False
-            ddlSemester.Enabled = False
-            lblMsg.Text = "Pemeriksa Borang Markah PA telah ditutup!"
-        End If
+        Finally
+            objConn.Dispose()
+        End Try
 
     End Sub
 

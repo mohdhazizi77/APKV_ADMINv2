@@ -119,6 +119,27 @@ Public Class svmu_senarai_calon_sj
                     AND kpmkv_svmu_calon.MataPelajaran = 'SJ'
                     AND kpmkv_svmu_payment_status.PaymentStatus = 'success'
                     AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
+                    AND kpmkv_svmu_calon.Status = 'DISAHKAN'
+
+                    UNION
+
+                    SELECT
+                    kpmkv_svmu.svmu_id, kpmkv_svmu.MYKAD, kpmkv_svmu.AngkaGiliran,
+                    kpmkv_svmu_calon.svmu_calon_id, kpmkv_svmu_calon.Nama, kpmkv_svmu_calon.Status, kpmkv_svmu_calon.MataPelajaran,
+                    A.Kod AS 'KodPusatPilihan',
+					B.Kod AS 'KodPusatJPN',
+                    kpmkv_svmu_payment_status.PaymentStatus
+                    FROM kpmkv_svmu
+                    LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
+                    LEFT JOIN kpmkv_kolej A ON A.RecordID = kpmkv_svmu_calon.PusatPeperiksaanID
+					LEFT JOIN kpmkv_kolej B ON B.RecordID = kpmkv_svmu_calon.PusatPeperiksaanJPN
+					LEFT JOIN kpmkv_svmu_payment_status ON kpmkv_svmu_payment_status.RefNo = kpmkv_svmu_calon.RefNo
+                    WHERE
+                    A.Negeri = '" & Negeri & "'
+					AND B.Negeri = '" & Negeri & "'
+                    AND kpmkv_svmu_calon.MataPelajaran = 'SJ'
+                    AND kpmkv_svmu_calon.JenisDaftar = 'MANUAL'
+                    AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
                     AND kpmkv_svmu_calon.Status = 'DISAHKAN'"
 
             strSQL += " ORDER BY A.Kod, kpmkv_svmu_calon.Nama"
@@ -139,6 +160,25 @@ Public Class svmu_senarai_calon_sj
                     WHERE
                     kpmkv_svmu_calon.MataPelajaran = 'SJ'
                     AND kpmkv_svmu_payment_status.PaymentStatus = 'success'
+                    AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
+                    AND kpmkv_svmu_calon.Status = 'DISAHKAN'
+
+                    UNION 
+
+                    SELECT
+                    kpmkv_svmu.svmu_id, kpmkv_svmu.MYKAD, kpmkv_svmu.AngkaGiliran,
+                    kpmkv_svmu_calon.svmu_calon_id, kpmkv_svmu_calon.Nama, kpmkv_svmu_calon.Status, kpmkv_svmu_calon.MataPelajaran,
+                    A.Kod AS 'KodPusatPilihan',
+                    B.Kod AS 'KodPusatJPN',
+                    kpmkv_svmu_payment_status.PaymentStatus
+                    FROM kpmkv_svmu
+                    LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
+                    LEFT JOIN kpmkv_kolej A ON A.RecordID = kpmkv_svmu_calon.PusatPeperiksaanID
+                    LEFT JOIN kpmkv_kolej B ON B.RecordID = kpmkv_svmu_calon.PusatPeperiksaanJPN
+                    LEFT JOIN kpmkv_svmu_payment_status ON kpmkv_svmu_payment_status.RefNo = kpmkv_svmu_calon.RefNo
+                    WHERE
+                    kpmkv_svmu_calon.MataPelajaran = 'SJ'
+                    AND kpmkv_svmu_calon.JenisDaftar = 'MANUAL'
                     AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
                     AND kpmkv_svmu_calon.Status = 'DISAHKAN'"
 
@@ -403,6 +443,27 @@ Public Class svmu_senarai_calon_sj
                     AND kpmkv_svmu_calon.MataPelajaran = 'SJ'
                     AND kpmkv_svmu_payment_status.PaymentStatus = 'success'
                     AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
+                    AND kpmkv_svmu_calon.Status = 'DISAHKAN'
+
+                    UNION
+
+                    SELECT
+                    kpmkv_svmu.svmu_id, kpmkv_svmu.MYKAD, kpmkv_svmu.AngkaGiliran,
+                    kpmkv_svmu_calon.svmu_calon_id, kpmkv_svmu_calon.Nama, kpmkv_svmu_calon.Status, kpmkv_svmu_calon.MataPelajaran,
+                    A.Kod AS 'KodPusatPilihan',
+					B.Kod AS 'KodPusatJPN',
+                    kpmkv_svmu_payment_status.PaymentStatus
+                    FROM kpmkv_svmu
+                    LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
+                    LEFT JOIN kpmkv_kolej A ON A.RecordID = kpmkv_svmu_calon.PusatPeperiksaanID
+					LEFT JOIN kpmkv_kolej B ON B.RecordID = kpmkv_svmu_calon.PusatPeperiksaanJPN
+					LEFT JOIN kpmkv_svmu_payment_status ON kpmkv_svmu_payment_status.RefNo = kpmkv_svmu_calon.RefNo
+                    WHERE
+                    A.Negeri = '" & Negeri & "'
+					AND B.Negeri = '" & Negeri & "'
+                    AND kpmkv_svmu_calon.MataPelajaran = 'SJ'
+                    AND kpmkv_svmu_calon.JenisDaftar = 'MANUAL'
+                    AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
                     AND kpmkv_svmu_calon.Status = 'DISAHKAN'"
 
                 strSQL += " ORDER BY A.Kod, kpmkv_svmu_calon.Nama"
@@ -423,6 +484,25 @@ Public Class svmu_senarai_calon_sj
                     WHERE
                     kpmkv_svmu_calon.MataPelajaran = 'SJ'
                     AND kpmkv_svmu_payment_status.PaymentStatus = 'success'
+                    AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
+                    AND kpmkv_svmu_calon.Status = 'DISAHKAN'
+
+                    UNION 
+
+                    SELECT
+                    kpmkv_svmu.svmu_id, kpmkv_svmu.MYKAD, kpmkv_svmu.AngkaGiliran,
+                    kpmkv_svmu_calon.svmu_calon_id, kpmkv_svmu_calon.Nama, kpmkv_svmu_calon.Status, kpmkv_svmu_calon.MataPelajaran,
+                    A.Kod AS 'KodPusatPilihan',
+                    B.Kod AS 'KodPusatJPN',
+                    kpmkv_svmu_payment_status.PaymentStatus
+                    FROM kpmkv_svmu
+                    LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
+                    LEFT JOIN kpmkv_kolej A ON A.RecordID = kpmkv_svmu_calon.PusatPeperiksaanID
+                    LEFT JOIN kpmkv_kolej B ON B.RecordID = kpmkv_svmu_calon.PusatPeperiksaanJPN
+                    LEFT JOIN kpmkv_svmu_payment_status ON kpmkv_svmu_payment_status.RefNo = kpmkv_svmu_calon.RefNo
+                    WHERE
+                    kpmkv_svmu_calon.MataPelajaran = 'SJ'
+                    AND kpmkv_svmu_calon.JenisDaftar = 'MANUAL'
                     AND kpmkv_svmu_calon.TahunPeperiksaan = '" & TahunPeperiksaan & "'
                     AND kpmkv_svmu_calon.Status = 'DISAHKAN'"
 

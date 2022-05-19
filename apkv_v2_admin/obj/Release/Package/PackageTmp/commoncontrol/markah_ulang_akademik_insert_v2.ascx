@@ -144,6 +144,11 @@
                             <asp:TextBox ID="MarkahPA" runat="server" Width="30px" MaxLength="3" Text='<%# Bind("MarkahPA")%>'></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
+                     <asp:TemplateField HeaderText="PA2" Visible="true">
+                        <ItemTemplate>
+                            <asp:TextBox ID="MarkahPA2" runat="server" Width="30px" MaxLength="3" Text='<%# Bind("MarkahPA2")%>'></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Gred Ulang">
                         <ItemTemplate>
                             <asp:Label ID="Gred" runat="server" Width="30px" MaxLength="3" Text='<%# Bind("Gred")%>'></asp:Label>

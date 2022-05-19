@@ -395,7 +395,8 @@ Public Class jana_FIK_semasa1
                         LEFT JOIN kpmkv_negeri ON kpmkv_negeri.Negeri = kpmkv_kolej.Negeri
                         LEFT JOIN kpmkv_status ON kpmkv_status.StatusID = kpmkv_pelajar.StatusID
                         WHERE
-                        kpmkv_pelajar_markah.Tahun = '" & ddlTahun.SelectedValue & "'
+                        kpmkv_pelajar.PelajarID IS NOT NULL
+                        AND kpmkv_pelajar_markah.Tahun = '" & ddlTahun.SelectedValue & "'
                         AND kpmkv_pelajar_markah.Semester = '" & ddlSemester.SelectedValue & "'
                         AND kpmkv_pelajar_markah.Sesi = '" & chkSesi.Text & "'
                         ORDER BY
@@ -436,6 +437,8 @@ Public Class jana_FIK_semasa1
     Protected Sub btnCari_Click(sender As Object, e As EventArgs) Handles btnCari.Click
         lblMsg.Text = ""
 
+        updateNULL()
+
         If Not ddlSemester.SelectedValue = "4" Then
 
             ExportToCSV(getSQLsemasaSem123)
@@ -445,6 +448,50 @@ Public Class jana_FIK_semasa1
             ExportToCSV(getSQLsemasaSem4)
 
         End If
+
+    End Sub
+
+    Private Sub updateNULL()
+
+        '' update empty field to NULL
+
+        For i = 1 To 8
+
+            strSQL = "  UPDATE kpmkv_pelajar_markah
+                        SET B_Amali" & i & " = NULL
+                        WHERE B_Amali" & i & " = ''
+                        AND kpmkv_pelajar_markah.Tahun = '" & ddlTahun.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Semester = '" & ddlSemester.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Sesi = '" & chkSesi.Text & "'"
+            strRet = oCommon.ExecuteSQL(strSQL)
+
+            strSQL = "  UPDATE kpmkv_pelajar_markah
+                        SET B_Teori" & i & " = NULL
+                        WHERE B_Teori" & i & " = ''
+                        AND kpmkv_pelajar_markah.Tahun = '" & ddlTahun.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Semester = '" & ddlSemester.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Sesi = '" & chkSesi.Text & "'"
+            strRet = oCommon.ExecuteSQL(strSQL)
+
+            strSQL = "  UPDATE kpmkv_pelajar_markah
+                        SET A_Amali" & i & " = NULL
+                        WHERE A_Amali" & i & " = ''
+                        AND kpmkv_pelajar_markah.Tahun = '" & ddlTahun.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Semester = '" & ddlSemester.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Sesi = '" & chkSesi.Text & "'"
+            strRet = oCommon.ExecuteSQL(strSQL)
+
+            strSQL = "  UPDATE kpmkv_pelajar_markah
+                        SET A_Teori" & i & " = NULL
+                        WHERE A_Teori" & i & " = ''
+                        AND kpmkv_pelajar_markah.Tahun = '" & ddlTahun.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Semester = '" & ddlSemester.SelectedValue & "'
+                        AND kpmkv_pelajar_markah.Sesi = '" & chkSesi.Text & "'"
+            strRet = oCommon.ExecuteSQL(strSQL)
+
+
+        Next
+
 
     End Sub
 

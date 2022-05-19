@@ -73,14 +73,14 @@
     <tr>
         <td>Menu:</td>
         <td>
-            <asp:DropDownList ID="ddlMenu" runat="server" Width="150px" AutoPostBack="true">
+            <asp:DropDownList ID="ddlMenu" runat="server" Width="250px" AutoPostBack="true">
             </asp:DropDownList>
         </td>
     </tr>
     <tr>
         <td>SubMenu:</td>
         <td>
-            <asp:DropDownList ID="ddlSubMenu" runat="server" Width="150px">
+            <asp:DropDownList ID="ddlSubMenu" runat="server" Width="250px">
             </asp:DropDownList>
         </td>
     </tr>

@@ -31,7 +31,7 @@
         <td colspan="2"></td>
     </tr>
     <tr>
-        <td>Kohort:</td>
+        <td style="width: 20%;">Kohort:</td>
         <td>
             <asp:DropDownList ID="ddlTahun" runat="server" AutoPostBack="true" Width="350px"></asp:DropDownList>
         </td>
@@ -58,6 +58,7 @@
         </td>
     </tr>
     <tr>
+        <td></td>
         <td colspan="2">
             <asp:Button ID="btnCari" runat="server" Text="Cari" CssClass="fbbutton" />&nbsp;</td>
     </tr>

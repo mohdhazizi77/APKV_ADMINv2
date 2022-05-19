@@ -290,6 +290,8 @@ Public Class semak_semula_kes_t
                 datRespondent2.Columns.Item("20").Visible = False
 
             Case "3"
+                datRespondent2.Columns.Item("9").Visible = True
+                datRespondent2.Columns.Item("10").Visible = True
                 datRespondent2.Columns.Item("11").Visible = False
                 datRespondent2.Columns.Item("12").Visible = False
                 datRespondent2.Columns.Item("13").Visible = False
@@ -302,6 +304,10 @@ Public Class semak_semula_kes_t
                 datRespondent2.Columns.Item("20").Visible = False
 
             Case "4"
+                datRespondent2.Columns.Item("9").Visible = True
+                datRespondent2.Columns.Item("10").Visible = True
+                datRespondent2.Columns.Item("11").Visible = True
+                datRespondent2.Columns.Item("12").Visible = True
                 datRespondent2.Columns.Item("13").Visible = False
                 datRespondent2.Columns.Item("14").Visible = False
                 datRespondent2.Columns.Item("15").Visible = False
@@ -312,6 +318,12 @@ Public Class semak_semula_kes_t
                 datRespondent2.Columns.Item("20").Visible = False
 
             Case "5"
+                datRespondent2.Columns.Item("9").Visible = True
+                datRespondent2.Columns.Item("10").Visible = True
+                datRespondent2.Columns.Item("11").Visible = True
+                datRespondent2.Columns.Item("12").Visible = True
+                datRespondent2.Columns.Item("13").Visible = True
+                datRespondent2.Columns.Item("14").Visible = True
                 datRespondent2.Columns.Item("15").Visible = False
                 datRespondent2.Columns.Item("16").Visible = False
                 datRespondent2.Columns.Item("17").Visible = False
@@ -320,6 +332,14 @@ Public Class semak_semula_kes_t
                 datRespondent2.Columns.Item("20").Visible = False
 
             Case "6"
+                datRespondent2.Columns.Item("9").Visible = True
+                datRespondent2.Columns.Item("10").Visible = True
+                datRespondent2.Columns.Item("11").Visible = True
+                datRespondent2.Columns.Item("12").Visible = True
+                datRespondent2.Columns.Item("13").Visible = True
+                datRespondent2.Columns.Item("14").Visible = True
+                datRespondent2.Columns.Item("15").Visible = True
+                datRespondent2.Columns.Item("16").Visible = True
                 datRespondent2.Columns.Item("17").Visible = False
                 datRespondent2.Columns.Item("18").Visible = False
                 datRespondent2.Columns.Item("19").Visible = False

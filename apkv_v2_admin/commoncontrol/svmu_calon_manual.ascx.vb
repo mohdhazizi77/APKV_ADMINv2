@@ -316,7 +316,7 @@ Public Class svmu_calon_manual1
             strSQL = "SELECT setting_value_int FROM kpmkv_svmu_setting WHERE setting_parameter = 'TAHUN_PEPERIKSAAN'"
             Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
 
-            strSQL = "SELECT PelajarID FROM kpmkv_pelajar WHERE MYKAD = '" & strMYKAD & "' AND AngkaGiliran = '" & strAG & "' AND Semester = '4'"
+            strSQL = "SELECT MAX(PelajarID) AS PelajarID FROM kpmkv_pelajar WHERE MYKAD = '" & strMYKAD & "' AND AngkaGiliran = '" & strAG & "' AND Semester = '4'"
             Dim strPelajarID As String = oCommon.getFieldValue(strSQL)
 
             If strPelajarID.Length = 0 Then
@@ -334,10 +334,18 @@ Public Class svmu_calon_manual1
                     strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "' AND Tahun = '" & TahunPeperiksaan & "'"
                     svmuID = oCommon.getFieldValue(strSQL)
 
+                    If svmuID = "" Then
+
+                        strSQL = "  INSERT INTO kpmkv_svmu (DatabaseName, PelajarID, MYKAD, AngkaGiliran, create_timestamp, Tahun)
+                                VALUES ('KPMKV', '" & strPelajarID & "', '" & strMYKAD & "', '" & strAG & "', CURRENT_TIMESTAMP, '" & TahunPeperiksaan & "')"
+                        strRet = oCommon.ExecuteSQL(strSQL)
+
+                    End If
 
                     strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "' AND Tahun = '" & TahunPeperiksaan & "'"
                     svmuID = oCommon.getFieldValue(strSQL)
-                    Response.Redirect("svmu_calon_manual_kemaskini.aspx?ID=" & AsciiSwitchWithMod(strPelajarID, 19, 7) & "&NO=" & AsciiSwitchWithMod(svmuID, 19, 7) & "&RefNo=" & AsciiSwitchWithMod(txtRujukan.Text, 19, 7))
+
+                    Response.Redirect("svmu_calon_manual_daftar.aspx?ID=" & AsciiSwitchWithMod(strPelajarID, 19, 7) & "&NO=" & AsciiSwitchWithMod(svmuID, 19, 7))
 
                 End If
 
@@ -346,7 +354,18 @@ Public Class svmu_calon_manual1
                 strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "' AND Tahun = '" & TahunPeperiksaan & "'"
                 svmuID = oCommon.getFieldValue(strSQL)
 
-                Response.Redirect("svmu_calon_manual_kemaskini.aspx?ID=" & AsciiSwitchWithMod(strPelajarID, 19, 7) & "&NO=" & AsciiSwitchWithMod(svmuID, 19, 7) & "&RefNo=" & AsciiSwitchWithMod(txtRujukan.Text, 19, 7))
+                If svmuID = "" Then
+
+                    strSQL = "  INSERT INTO kpmkv_svmu (DatabaseName, PelajarID, MYKAD, AngkaGiliran, create_timestamp, Tahun)
+                                VALUES ('APKV', '" & strPelajarID & "', '" & strMYKAD & "', '" & strAG & "', CURRENT_TIMESTAMP, '" & TahunPeperiksaan & "')"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                End If
+
+                strSQL = "SELECT svmu_id FROM kpmkv_svmu WHERE PelajarID = '" & strPelajarID & "' AND Tahun = '" & TahunPeperiksaan & "'"
+                svmuID = oCommon.getFieldValue(strSQL)
+
+                Response.Redirect("svmu_calon_manual_daftar.aspx?ID=" & AsciiSwitchWithMod(strPelajarID, 19, 7) & "&NO=" & AsciiSwitchWithMod(svmuID, 19, 7))
 
             End If
 
@@ -355,4 +374,5 @@ Public Class svmu_calon_manual1
         End Try
 
     End Sub
+
 End Class
