@@ -26,6 +26,8 @@ Public Class takwim_create
 
                 submenu_list()
                 ddlSubMenu.Text = "0"
+                kpmkv_tahunsemasa_list()
+                ddlTahunSemasa.Text = Now.Year
                 kpmkv_tahun_list()
                 ddlTahun.Text = Now.Year
 
@@ -188,6 +190,30 @@ Public Class takwim_create
         End Try
 
     End Sub
+
+    Private Sub kpmkv_tahunsemasa_list()
+        strSQL = "SELECT Tahun FROM kpmkv_tahun  ORDER BY Tahun"
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            ddlTahunSemasa.DataSource = ds
+            ddlTahunSemasa.DataTextField = "Tahun"
+            ddlTahunSemasa.DataValueField = "Tahun"
+            ddlTahunSemasa.DataBind()
+
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
+
+        Finally
+            objConn.Dispose()
+        End Try
+
+    End Sub
     Private Sub kpmkv_tahun_list()
         strSQL = "SELECT Tahun FROM kpmkv_tahun  ORDER BY Tahun"
         Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
@@ -269,7 +295,7 @@ Public Class takwim_create
         Try
             '-insert into course list
             strSQL = "INSERT INTO kpmkv_takwim(Tahun,Kohort,Sesi,Semester,HeaderCode,SubMenuText,TarikhMula,TarikhAkhir,Title,Catatan,Aktif) "
-            strSQL += " VALUES ('" & Now.Year & "','" & ddlTahun.Text & "','" & chkSesi.Text & "','" & ddlSemester.Text & "','" & ddlMenu.SelectedItem.Text & "','" & ddlSubMenu.Text & "','" & Request.Form(txtDate.UniqueID) & "','" & Request.Form(txtDateTo.UniqueID) & "','" & txtTitle.Text & "','" & txtCatatan.Text & "','1')"
+            strSQL += " VALUES ('" & ddlTahunSemasa.Text & "','" & ddlTahun.Text & "','" & chkSesi.Text & "','" & ddlSemester.Text & "','" & ddlMenu.SelectedItem.Text & "','" & ddlSubMenu.Text & "','" & Request.Form(txtDate.UniqueID) & "','" & Request.Form(txtDateTo.UniqueID) & "','" & txtTitle.Text & "','" & txtCatatan.Text & "','1')"
             strRet = oCommon.ExecuteSQL(strSQL)
 
             If strRet = "0" Then
@@ -349,13 +375,19 @@ Public Class takwim_create
         If chkSelectAll.Checked = True Then
 
             ddlNegeri.Enabled = False
+            ddlNegeri.Text = "0"
             ddlJenis.Enabled = False
+            ddlJenis.Text = "0"
+            kpmkv_kolej_list()
             chkBLKolej.Enabled = False
 
         Else
 
             ddlNegeri.Enabled = True
+            ddlNegeri.Text = "0"
             ddlJenis.Enabled = True
+            ddlJenis.Text = "0"
+            kpmkv_kolej_list()
             chkBLKolej.Enabled = True
 
         End If

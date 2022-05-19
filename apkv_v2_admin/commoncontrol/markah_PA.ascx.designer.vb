@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class markah_PA
-    
+
     '''<summary>
     '''ddlTahun control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlKodPusat control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKodPusat As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlSemester control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlSemester As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''chkSesi control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkSesi As Global.System.Web.UI.WebControls.CheckBoxList
-    
+
     '''<summary>
     '''btnCari control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''divMsgResult control.
     '''</summary>
@@ -66,7 +66,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsgResult As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''lblMsgResult control.
     '''</summary>
@@ -75,7 +75,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMsgResult As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''datRespondent control.
     '''</summary>
@@ -84,7 +84,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''divMsg control.
     '''</summary>
@@ -93,7 +93,16 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
+    '''<summary>
+    '''lblKolejID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblKolejID As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
     '''lblUserId control.
     '''</summary>
@@ -102,7 +111,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblUserId As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblUserType control.
     '''</summary>
@@ -111,7 +120,7 @@ Partial Public Class markah_PA
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblUserType As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>

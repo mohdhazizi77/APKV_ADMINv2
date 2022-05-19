@@ -34,7 +34,7 @@
 
 <table class="fbform" style ="width :100%">
     <tr class="fbform_header">
-        <td colspan="3">Maklumat Perician Carian</td>
+        <td colspan="3">Maklumat Perincian Carian</td>
     </tr>
     <tr>
         <td style ="width :15%">Kohort</td>
@@ -71,6 +71,7 @@
     </tr>
     <tr><td colspan ="3"></td></tr>
     <tr>
+        <td></td>
         <td colspan ="3"><asp:Button ID="btnCari" runat="server" Text="Cari" CssClass="fbbutton" Width ="150px" /></td>      
     </tr>
       </table>
@@ -217,6 +218,38 @@
     </tr>
 </table>
 <br />
+
+<table class="fbform">
+    <tr class="fbform_header">
+        <td colspan="2">Import Pemeriksa
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 200px">MuatNaik Format Fail Excel : </td>
+        <td>
+            <asp:Button ID="btnFile" runat="server" Text="Excel" CssClass="fbbutton" Height="25px" Width="100px" /></td>
+    </tr>
+    <tr>
+        <td>Pilih Fail Excel:</td>
+
+        <td>
+            <asp:FileUpload ID="FlUploadcsv" runat="server" />&nbsp;
+           
+            <asp:RegularExpressionValidator ID="regexValidator" runat="server" ErrorMessage="Only XLSX file are allowed"
+                ValidationExpression="(.*\.([Xx][Ll][Ss][Xx])$)" ControlToValidate="FlUploadcsv"></asp:RegularExpressionValidator>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan="2">
+            <asp:Button ID="btnUpload" runat="server" Text="Muatnaik" CssClass="fbbutton" Style="height: 26px; width: 100px" />
+        </td>
+    </tr>
+</table>
+
 <div class="info" id="divMsg" runat="server">
  <asp:Label ID="lblmsg" runat="server" Text=""></asp:Label>
 </div>

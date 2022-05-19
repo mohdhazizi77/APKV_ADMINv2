@@ -354,6 +354,10 @@ Public Class markah_create_PAA
         If Not ddlKelas.Text = "" Then
             strWhere += " AND kpmkv_pelajar.KelasID ='" & ddlKelas.SelectedValue & "'"
         End If
+
+        If Not txtMYKAD.Text.Length = 0 Then
+            strWhere += " AND kpmkv_pelajar.MYKAD = '" & txtMYKAD.Text & "'"
+        End If
         getSQL = tmpSQL & strWhere & strOrder
         ''--debug
         ''Response.Write(getSQL)
@@ -924,7 +928,7 @@ Public Class markah_create_PAA
             Dim BM_Science1 As Integer
             Dim AM_Science1 As Integer
             Dim AM_Science2 As Integer
-            Dim BerterusanSc As Integer
+            Dim BerterusanSC As Integer
             Dim AkhiranSC1 As Integer
             Dim AkhiranSC2 As Integer
             Dim B_Science1 As Double
@@ -939,7 +943,7 @@ Public Class markah_create_PAA
             'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
             '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
             strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'SC' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
-            BerterusanSc = oCommon.getFieldValue(strSQL)
+            BerterusanSC = oCommon.getFieldValue(strSQL)
 
             'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
             'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
@@ -965,7 +969,7 @@ Public Class markah_create_PAA
             A_Science2 = Math.Ceiling(A_Science2)
 
             'check sem 3 n 4 ada  kertas 1
-            BM_Science1 = Math.Ceiling((B_Science1 / 100) * BerterusanSc)
+            BM_Science1 = Math.Ceiling((B_Science1 / 100) * BerterusanSC)
 
             '-- PERTUKARAN PADA 10 NOV 2021 - PENGIRAAN MARKAH SAMA UNTUK SEMUA SEMESTER
 
@@ -1222,9 +1226,9 @@ Public Class markah_create_PAA
             'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A07'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
             'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
             '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
-            strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'PI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+            strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'PM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
             AkhiranPM1 = oCommon.getFieldValue(strSQL)
-            strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'PI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+            strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'PM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
             AkhiranPM2 = oCommon.getFieldValue(strSQL)
 
             strSQL = "Select B_PendidikanMoral from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"

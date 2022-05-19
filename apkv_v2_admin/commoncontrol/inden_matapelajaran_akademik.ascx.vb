@@ -240,19 +240,19 @@ Public Class inden_matapelajaran_akademik
     Protected Sub btnSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSearch.Click
         lblMsg.Text = ""
 
-        If ddlSemester.Text = "1" Or ddlSemester.Text = "2" Then
+        'If ddlSemester.Text = "1" Or ddlSemester.Text = "2" Then
 
-            strRet = BindData(datRespondent)
-            datRespondent.Visible = True
-            datRespondent2.Visible = False
+        strRet = BindData(datRespondent)
+        datRespondent.Visible = True
+        datRespondent2.Visible = False
 
-        Else
+        'Else
 
-            strRet = BindData2(datRespondent2)
-            datRespondent.Visible = False
-            datRespondent2.Visible = True
+        '    strRet = BindData2(datRespondent2)
+        '    datRespondent.Visible = False
+        '    datRespondent2.Visible = True
 
-        End If
+        'End If
 
     End Sub
 

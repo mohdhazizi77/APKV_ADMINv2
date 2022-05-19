@@ -786,19 +786,73 @@ Public Class pentaksiran_vokasional
                                 strNamaMT = strNamaMT
                             Case "3"
                                 If strJenisKursusMT = "SOCIAL" Then
-                                    strNamaMT = "MATHEMATIC FOR SOCIAL"
-                                    strKodMT = "AMT3101"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaMT = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodMT = oCommon.getFieldValue(strSQL)
+
                                 Else
-                                    strNamaMT = "MATHEMATIC FOR TECHNOLOGY"
-                                    strKodMT = "AMT3091"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaMT = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodMT = oCommon.getFieldValue(strSQL)
                                 End If
                             Case "4"
                                 If strJenisKursusMT = "SOCIAL" Then
-                                    strNamaMT = "MATHEMATIC FOR SOCIAL"
-                                    strKodMT = "AMT4101"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaMT = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodMT = oCommon.getFieldValue(strSQL)
+
                                 Else
-                                    strNamaMT = "MATHEMATIC FOR TECHNOLOGY"
-                                    strKodMT = "AMT4091"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaMT = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredMT'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodMT = oCommon.getFieldValue(strSQL)
                                 End If
                         End Select
                         Dim myTableMP3 As New PdfPTable(7)
@@ -855,19 +909,72 @@ Public Class pentaksiran_vokasional
                                 strNamaSC = strNamaSC
                             Case "3"
                                 If strJenisKursus = "SOCIAL" Then
-                                    strNamaSC = "SCIENCE FOR SOCIAL"
-                                    strKodSC = "AMT3131"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaSC = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodSC = oCommon.getFieldValue(strSQL)
                                 Else
-                                    strNamaSC = "SCIENCE FOR TECHNOLOGY"
-                                    strKodSC = "AMT3121"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaSC = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodSC = oCommon.getFieldValue(strSQL)
                                 End If
                             Case "4"
                                 If strJenisKursus = "SOCIAL" Then
-                                    strNamaSC = "SCIENCE FOR SOCIAL"
-                                    strKodSC = "AMT4131"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaSC = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis ='SOCIAL' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodSC = oCommon.getFieldValue(strSQL)
+
                                 Else
-                                    strNamaSC = "SCIENCE FOR TECHNOLOGY"
-                                    strKodSC = "AMT4121"
+                                    strSQL = "  SELECT NamaMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strNamaSC = oCommon.getFieldValue(strSQL)
+
+                                    strSQL = "  SELECT KodMataPelajaran FROM kpmkv_matapelajaran
+                                                WHERE
+                                                Tahun = '" & ddlTahun.Text & "'
+                                                AND Semester = '" & ddlSemester.Text & "'
+                                                AND PelajarMarkahGred = 'GredSC'
+                                                AND (Jenis = 'TEKNOLOGI' OR Jenis IS NULL OR Jenis ='')"
+                                    strKodSC = oCommon.getFieldValue(strSQL)
                                 End If
                         End Select
 

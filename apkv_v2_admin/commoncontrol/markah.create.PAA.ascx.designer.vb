@@ -86,6 +86,15 @@ Partial Public Class markah_create_PAA
     Protected WithEvents ddlKelas As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''txtMYKAD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtMYKAD As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''btnCari control.
     '''</summary>
     '''<remarks>

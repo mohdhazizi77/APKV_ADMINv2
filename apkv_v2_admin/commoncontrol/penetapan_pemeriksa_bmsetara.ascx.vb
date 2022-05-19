@@ -11,6 +11,21 @@ Public Class penetapan_pemeriksa_bmsetara
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
+    Dim No As String = ""
+    Dim NamaKolej As String = ""
+    Dim LoginID As String = ""
+    Dim Password As String = ""
+    Dim Nama As String = ""
+    Dim MYKAD As String = ""
+    Dim Negeri As String = ""
+
+    Dim NamaPemeriksa As String = ""
+    Dim Tahun As String = ""
+    Dim Semester As String = ""
+    Dim Sesi As String = ""
+    Dim KodKolej As String = ""
+    Dim KodKursus As String = ""
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Try
             If Not IsPostBack Then
@@ -243,4 +258,527 @@ Public Class penetapan_pemeriksa_bmsetara
         strSQL = "SELECT Nama FROM kpmkv_kolej WHERE RecordID='" & ddlKodPusat.Text & "'"
         lblNamaKolej.Text = oCommon.getFieldValue(strSQL)
     End Sub
+
+    Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnFile.Click
+        lblmsg.Text = ""
+        Response.ContentType = "Application/xlsx"
+        Response.AppendHeader("Content-Disposition", "attachment; filename=IMPORT_PEMERIKSA.xlsx")
+        Response.TransmitFile(Server.MapPath("~/sample_data/IMPORT_PEMERIKSA.xlsx"))
+        Response.End()
+    End Sub
+
+    Private Sub btnUpload_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnUpload.Click
+        lblmsg.Text = ""
+        Try
+            '--upload excel
+            If ImportExcel1() = True Then
+                divMsg.Attributes("class") = "info"
+            Else
+            End If
+
+            If ImportExcel2() = True Then
+                divMsg.Attributes("class") = "info"
+            Else
+            End If
+
+        Catch ex As Exception
+            lblmsg.Text = "System Error:" & ex.Message
+
+        End Try
+
+    End Sub
+
+    Private Function ImportExcel1() As Boolean
+        Dim path As String = String.Concat(Server.MapPath("~/inbox/"))
+
+        If FlUploadcsv.HasFile Then
+            Dim rand As Random = New Random()
+            Dim randNum = rand.Next(1000)
+            Dim fullFileName As String = path + oCommon.getRandom + "-" + FlUploadcsv.FileName
+            FlUploadcsv.PostedFile.SaveAs(fullFileName)
+
+            '--required ms access engine
+            Dim excelConnectionString As String = ("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & fullFileName & ";Extended Properties=Excel 12.0;")
+            Dim connection As OleDbConnection = New OleDbConnection(excelConnectionString)
+            Dim command As OleDbCommand = New OleDbCommand("SELECT * FROM [PENGGUNA$]", connection)
+            Dim da As OleDbDataAdapter = New OleDbDataAdapter(command)
+            Dim ds As DataSet = New DataSet
+
+            Try
+                connection.Open()
+                da.Fill(ds)
+                Dim validationMessage As String = ValidateSiteData1(ds)
+                If validationMessage = "" Then
+                    SaveSiteData1(ds)
+
+                Else
+                    'lblMsgTop.Text = "Muatnaik GAGAL!. Lihat mesej dibawah."
+                    divMsg.Attributes("class") = "error"
+                    lblmsg.Text = "Kesalahan Kemasukkan Maklumat Pengguna:<br />" & validationMessage
+                    Return False
+                End If
+
+                da.Dispose()
+                connection.Close()
+                command.Dispose()
+
+            Catch ex As Exception
+                lblmsg.Text = "System Error:" & ex.Message
+                Return False
+            Finally
+                If connection.State = ConnectionState.Open Then
+                    connection.Close()
+                End If
+            End Try
+
+        Else
+            divMsg.Attributes("class") = "error"
+            lblmsg.Text = "Please select file to upload!"
+            Return False
+        End If
+
+        Return True
+
+    End Function
+
+    Private Sub refreshVar1()
+
+        No = ""
+        NamaKolej = ""
+        LoginID = ""
+        Password = ""
+        Nama = ""
+        MYKAD = ""
+        Negeri = ""
+
+    End Sub
+
+    Protected Function ValidateSiteData1(ByVal SiteData As DataSet) As String
+        Try
+            'Loop through DataSet and validate data
+            'If data is bad, bail out, otherwise continue on with the bulk copy
+
+            Dim strMsg As String = ""
+            Dim sb As StringBuilder = New StringBuilder()
+            For i As Integer = 0 To SiteData.Tables(0).Rows.Count - SiteData.Tables(0).Rows(i).Item("No")
+
+                refreshVar1()
+                strMsg = ""
+
+                'No
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("No")) Then
+                    No = SiteData.Tables(0).Rows(i).Item("No")
+                Else
+                    strMsg += " Sila isi No|"
+                End If
+
+                'Nama Kolej
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Nama Kolej")) Then
+
+                    NamaKolej = SiteData.Tables(0).Rows(i).Item("Nama Kolej")
+
+                    strSQL = " SELECT RecordID FROM kpmkv_kolej WHERE Nama = '" & NamaKolej & "'"
+                    Dim RecordID As String = oCommon.getFieldValue(strSQL)
+
+                    If RecordID = "" Then
+
+                        strMsg += " Sila masukkan Nama Kolej yang betul|"
+
+                    End If
+
+                Else
+
+                    strMsg += " Sila isi Nama Kolej|"
+
+                End If
+
+                'Login ID
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("ID Pengguna")) Then
+                    LoginID = SiteData.Tables(0).Rows(i).Item("ID Pengguna")
+                Else
+                    strMsg += " Sila isi ID Pengguna|"
+                End If
+
+                'Password
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Kata Laluan Pengguna")) Then
+                    Password = SiteData.Tables(0).Rows(i).Item("Kata Laluan Pengguna")
+                Else
+                    strMsg += " Sila isi Kata Laluan Pengguna|"
+                End If
+
+                'Nama
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Nama")) Then
+                    Nama = SiteData.Tables(0).Rows(i).Item("Nama")
+                Else
+                    strMsg += " Sila isi Nama|"
+                End If
+
+                'MYKAD
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("MYKAD")) Then
+                    MYKAD = SiteData.Tables(0).Rows(i).Item("MYKAD")
+
+                    If Not MYKAD.Length = 12 Then
+
+                        strMsg += " Sila isi MYKAD dengan format: ############|"
+
+                    End If
+
+                Else
+                    strMsg += " Sila isi MYKAD dengan format: ############|"
+                End If
+
+                'Jantina
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Negeri")) Then
+                    Negeri = SiteData.Tables(0).Rows(i).Item("Negeri")
+
+                    strSQL = "SELECT NegeriID FROM kpmkv_negeri WHERE Negeri = '" & Negeri & "'"
+                    Dim NegeriID As String = oCommon.getFieldValue(strSQL)
+
+                    If NegeriID = "" Then
+
+                        strMsg += " Sila masukkan Negeri yang betul|"
+
+                    End If
+
+                Else
+                    strMsg += " Sila isi Negeri|"
+                End If
+
+                If Not strMsg.Length = 0 Then
+                    strMsg = "No. " & No & " :" & strMsg
+                    strMsg += "<br/>"
+                End If
+
+                sb.Append(strMsg)
+
+            Next
+            Return sb.ToString()
+        Catch ex As Exception
+            Return ex.Message
+        End Try
+
+    End Function
+
+    Private Function SaveSiteData1(ByVal SiteData As DataSet) As String
+        lblmsg.Text = ""
+
+        'Dim str As String
+        Try
+
+            Dim sb As StringBuilder = New StringBuilder()
+
+            For i As Integer = 0 To SiteData.Tables(0).Rows.Count - SiteData.Tables(0).Rows(i).Item("No")
+
+                No = SiteData.Tables(0).Rows(i).Item("No")
+                NamaKolej = SiteData.Tables(0).Rows(i).Item("Nama Kolej")
+                LoginID = SiteData.Tables(0).Rows(i).Item("ID Pengguna")
+                Password = SiteData.Tables(0).Rows(i).Item("Kata Laluan Pengguna")
+                Nama = UCase(SiteData.Tables(0).Rows(i).Item("Nama"))
+                MYKAD = SiteData.Tables(0).Rows(i).Item("MYKAD")
+                Negeri = SiteData.Tables(0).Rows(i).Item("Negeri")
+
+                strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Nama = '" & NamaKolej & "'"
+                Dim RecordID As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "SELECT UserID FROM kpmkv_users WHERE Nama = '" & Nama & "' AND UserType = 'PEMERIKSA'"
+                Dim UserID As String = oCommon.getFieldValue(strSQL)
+
+                If UserID = "" Then
+
+                    strSQL = "INSERT INTO kpmkv_users (RecordID, LoginID, Pwd, UserType, Nama, Mykad, Negeri)"
+                    strSQL += " VALUES ('" & RecordID & "', '" & LoginID & "', '" & Password & "', 'PEMERIKSA', '" & Nama & "', '" & MYKAD & "', '" & Negeri & "')"
+
+                Else
+
+                    strSQL = "  UPDATE kpmkv_users SET 
+                                RecordID = '" & RecordID & "',
+                                LoginID = '" & LoginID & "',
+                                Pwd = '" & Password & "',
+                                Nama = '" & Nama & "',
+                                Mykad = '" & MYKAD & "',
+                                Negeri = '" & Negeri & "'
+                                WHERE UserID = '" & UserID & "'"
+
+                End If
+
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+                If strRet = "0" Then
+
+                    divMsg.Attributes("class") = "info"
+                    lblmsg.Text = "Pengguna berjaya didaftarkan"
+
+                Else
+
+                    divMsg.Attributes("class") = "error"
+                    lblmsg.Text = "Pengguna tidak berjaya didaftarkan"
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+            divMsg.Attributes("class") = "error"
+            lblmsg.Text = "Pengguna tidak berjaya didaftarkan"
+            Return False
+        End Try
+
+        Return True
+
+    End Function
+
+    Private Function ImportExcel2() As Boolean
+        Dim path As String = String.Concat(Server.MapPath("~/inbox/"))
+
+        If FlUploadcsv.HasFile Then
+            Dim rand As Random = New Random()
+            Dim randNum = rand.Next(1000)
+            Dim fullFileName As String = path + oCommon.getRandom + "-" + FlUploadcsv.FileName
+            FlUploadcsv.PostedFile.SaveAs(fullFileName)
+
+            '--required ms access engine
+            Dim excelConnectionString As String = ("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & fullFileName & ";Extended Properties=Excel 12.0;")
+            Dim connection As OleDbConnection = New OleDbConnection(excelConnectionString)
+            Dim command As OleDbCommand = New OleDbCommand("SELECT * FROM [PEMERIKSA$]", connection)
+            Dim da As OleDbDataAdapter = New OleDbDataAdapter(command)
+            Dim ds As DataSet = New DataSet
+
+            Try
+                connection.Open()
+                da.Fill(ds)
+                Dim validationMessage As String = ValidateSiteData2(ds)
+                If validationMessage = "" Then
+                    SaveSiteData2(ds)
+
+                Else
+                    'lblMsgTop.Text = "Muatnaik GAGAL!. Lihat mesej dibawah."
+                    divMsg.Attributes("class") = "error"
+                    lblmsg.Text = "Kesalahan Kemasukkan Maklumat Pemeriksa:<br />" & validationMessage
+                    Return False
+                End If
+
+                da.Dispose()
+                connection.Close()
+                command.Dispose()
+
+            Catch ex As Exception
+                lblmsg.Text = "System Error:" & ex.Message
+                Return False
+            Finally
+                If connection.State = ConnectionState.Open Then
+                    connection.Close()
+                End If
+            End Try
+
+        Else
+            divMsg.Attributes("class") = "error"
+            lblmsg.Text = "Please select file to upload!"
+            Return False
+        End If
+
+        Return True
+
+    End Function
+
+    Private Sub refreshVar2()
+
+        No = ""
+        NamaPemeriksa = ""
+        Tahun = ""
+        Semester = ""
+        Sesi = ""
+        KodKolej = ""
+        KodKursus = ""
+
+    End Sub
+
+    Protected Function ValidateSiteData2(ByVal SiteData As DataSet) As String
+        Try
+            'Loop through DataSet and validate data
+            'If data is bad, bail out, otherwise continue on with the bulk copy
+
+            No = ""
+            NamaPemeriksa = ""
+            Tahun = ""
+            Semester = ""
+            Sesi = ""
+            KodKolej = ""
+            KodKursus = ""
+
+            Dim strMsg As String = ""
+            Dim sb As StringBuilder = New StringBuilder()
+            For i As Integer = 0 To SiteData.Tables(0).Rows.Count - SiteData.Tables(0).Rows(i).Item("No")
+
+                refreshVar2()
+                strMsg = ""
+
+                'No
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("No")) Then
+                    No = SiteData.Tables(0).Rows(i).Item("No")
+                Else
+                    strMsg += " Sila isi No|"
+                End If
+
+                'Nama Kolej
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Nama Pemeriksa")) Then
+
+                    NamaPemeriksa = SiteData.Tables(0).Rows(i).Item("Nama Pemeriksa")
+
+                    strSQL = " SELECT UserID FROM kpmkv_users WHERE Nama = '" & NamaPemeriksa & "' AND UserType = 'PEMERIKSA'"
+                    Dim UserID As String = oCommon.getFieldValue(strSQL)
+
+                    If UserID = "" Then
+
+                        strMsg += " Sila masukkan Nama Pemeriksa yang betul|"
+
+                    End If
+
+                Else
+
+                    strMsg += " Sila isi Nama Pemeriksa|"
+
+                End If
+
+                'Login ID
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Tahun")) Then
+                    Tahun = SiteData.Tables(0).Rows(i).Item("Tahun")
+                Else
+                    strMsg += " Sila isi Tahun|"
+                End If
+
+                'Password
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Semester")) Then
+                    Semester = SiteData.Tables(0).Rows(i).Item("Semester")
+                Else
+                    strMsg += " Sila isi Semester|"
+                End If
+
+                'UserType
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Sesi")) Then
+                    Sesi = SiteData.Tables(0).Rows(i).Item("Sesi")
+                Else
+                    strMsg += " Sila isi Sesi|"
+                End If
+
+                'Nama
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Kod Kolej")) Then
+                    KodKolej = SiteData.Tables(0).Rows(i).Item("Kod Kolej")
+                    strSQL = "SELECT KolejID FROM kpmkv_kolej WHERE Kod = '" & KodKolej & "'"
+                    If oCommon.getFieldValue(strSQL) = "" Then
+                        strMsg += " Sila isi Kod Kolej yang betul|"
+                    End If
+                Else
+                    strMsg += " Sila isi Kod Kolej|"
+                End If
+
+                'MYKAD
+                If Not IsDBNull(SiteData.Tables(0).Rows(i).Item("Kod Kursus")) Then
+                    KodKursus = SiteData.Tables(0).Rows(i).Item("Kod Kursus")
+                    strSQL = "SELECT KursusID FROM kpmkv_kursus WHERE KodKursus = '" & KodKursus & "' AND Tahun = '" & Tahun & "'"
+                    If oCommon.getFieldValue(strSQL) = "" Then
+                        strMsg += " Sila isi Kod Kursus yang betul|"
+                    End If
+                Else
+                    strMsg += " Sila isi Kod Kursus|"
+                End If
+
+                If Not strMsg.Length = 0 Then
+                    strMsg = "No " & No & " :" & strMsg
+                    strMsg += "<br/>"
+                End If
+
+                sb.Append(strMsg)
+
+            Next
+            Return sb.ToString()
+        Catch ex As Exception
+            Return ex.Message
+        End Try
+
+    End Function
+
+    Private Function SaveSiteData2(ByVal SiteData As DataSet) As String
+        lblmsg.Text = ""
+
+        'Dim str As String
+        Try
+
+            Dim sb As StringBuilder = New StringBuilder()
+
+            No = ""
+            NamaPemeriksa = ""
+            Tahun = ""
+            Semester = ""
+            Sesi = ""
+            KodKolej = ""
+            KodKursus = ""
+
+            For i As Integer = 0 To SiteData.Tables(0).Rows.Count - SiteData.Tables(0).Rows(i).Item("No")
+
+                No = SiteData.Tables(0).Rows(i).Item("No")
+                NamaPemeriksa = UCase(SiteData.Tables(0).Rows(i).Item("Nama Pemeriksa"))
+                Tahun = SiteData.Tables(0).Rows(i).Item("Tahun")
+                Semester = SiteData.Tables(0).Rows(i).Item("Semester")
+                Sesi = SiteData.Tables(0).Rows(i).Item("Sesi")
+                KodKolej = SiteData.Tables(0).Rows(i).Item("Kod Kolej")
+                KodKursus = SiteData.Tables(0).Rows(i).Item("Kod Kursus")
+
+                strSQL = "SELECT UserID FROM kpmkv_users WHERE Nama = '" & NamaPemeriksa & "'"
+                Dim UserID As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "SELECT PemeriksaID FROM kpmkv_pemeriksa WHERE NamaPemeriksa = '" & NamaPemeriksa & "' AND UserID = '" & UserID & "' AND Tahun = '" & Tahun & "' AND  Semester = '" & Semester & "' AND Sesi = '" & Sesi & "' AND KodKolej = '" & KodKolej & "' AND KodKursus = '" & KodKursus & "' AND Jenis = 'BM'"
+
+                If oCommon.getFieldValue(strSQL) = "" Then
+
+                    strSQL = "INSERT INTO kpmkv_pemeriksa (NamaPemeriksa, UserID, Tahun, Semester, Sesi, KodKolej, KodKursus,Jenis) "
+                    strSQL += " VALUES ('" & NamaPemeriksa & "', '" & UserID & "', '" & Tahun & "','" & Semester & "','" & Sesi & "','" & KodKolej & "', '" & KodKursus & "', 'BM')"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                    If strRet = "0" Then
+
+                        divMsg.Attributes("class") = "info"
+                        lblmsg.Text = "Pemeriksa berjaya didaftarkan"
+
+                    Else
+
+                        divMsg.Attributes("class") = "error"
+                        lblmsg.Text = "Pemeriksa tidak berjaya didaftarkan"
+
+                    End If
+
+                Else
+
+                    divMsg.Attributes("class") = "info"
+                    lblmsg.Text = "Pemeriksa berjaya didaftarkan"
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+            divMsg.Attributes("class") = "error"
+            lblmsg.Text = "Pemeriksa tidak berjaya didaftarkan"
+            Return False
+        End Try
+
+        Return True
+
+    End Function
+
+    Public Function FileIsLocked(ByVal strFullFileName As String) As Boolean
+        Dim blnReturn As Boolean = False
+        Dim fs As System.IO.FileStream
+
+        Try
+            fs = System.IO.File.Open(strFullFileName, IO.FileMode.OpenOrCreate, IO.FileAccess.Read, IO.FileShare.None)
+            fs.Close()
+        Catch ex As System.IO.IOException
+            divMsg.Attributes("class") = "error"
+            lblmsg.Text = "Error Message FileIsLocked:" & ex.Message
+            blnReturn = True
+        End Try
+
+        Return blnReturn
+    End Function
+
 End Class

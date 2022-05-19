@@ -64,6 +64,10 @@
             <asp:DropDownList ID="ddlKelas" runat="server" AutoPostBack="false" Width="350px"></asp:DropDownList></td>
     </tr>
     <tr>
+        <td>MYKAD:</td>
+        <td><asp:TextBox ID="txtMYKAD" runat="server" Width="350px"></asp:TextBox></td>
+    </tr>
+    <tr>
         <td></td>
         <td>
             <asp:Button ID="btnCari" runat="server" Text="Cari" CssClass="fbbutton" />&nbsp;</td>

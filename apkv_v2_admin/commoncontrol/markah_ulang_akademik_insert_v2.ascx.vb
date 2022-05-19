@@ -330,7 +330,7 @@ Public Class markah_ulang_akademik_insert_v21
         Dim strWhere As String = ""
         Dim strOrder As String = " ORDER BY kpmkv_pelajar.Nama"
 
-        tmpSQL = "SELECT kpmkv_pelajar_ulang.PelajarUlangID, kpmkv_pelajar_ulang.Tahun, kpmkv_pelajar_ulang.Semester, kpmkv_pelajar_ulang.Sesi, kpmkv_pelajar_ulang.NamaMataPelajaran, kpmkv_pelajar_ulang.MarkahPB, kpmkv_pelajar_ulang.MarkahPA, "
+        tmpSQL = "SELECT kpmkv_pelajar_ulang.PelajarUlangID, kpmkv_pelajar_ulang.Tahun, kpmkv_pelajar_ulang.Semester, kpmkv_pelajar_ulang.Sesi, kpmkv_pelajar_ulang.NamaMataPelajaran, kpmkv_pelajar_ulang.MarkahPB, kpmkv_pelajar_ulang.MarkahPA, kpmkv_pelajar_ulang.MarkahPA2, "
         tmpSQL += " kpmkv_pelajar_ulang.Gred, kpmkv_pelajar.Tahun, kpmkv_pelajar.Nama, kpmkv_pelajar.Mykad, kpmkv_pelajar.AngkaGiliran, kpmkv_kursus.KodKursus, kpmkv_kelas.NamaKelas FROM  kpmkv_pelajar_ulang LEFT OUTER JOIN"
         tmpSQL += " kpmkv_pelajar ON kpmkv_pelajar.PelajarID = kpmkv_pelajar_ulang.PelajarID LEFT OUTER JOIN"
         tmpSQL += " kpmkv_kursus ON kpmkv_kursus.KursusID = kpmkv_pelajar_ulang.KursusID LEFT OUTER JOIN"
@@ -451,10 +451,25 @@ Public Class markah_ulang_akademik_insert_v21
     End Sub
     Private Sub hiddencolumn()
 
+        strSQL = " SELECT NamaMataPelajaran FROM kpmkv_matapelajaran WHERE KodMataPelajaran = '" & ddlMatapelajaran.SelectedValue & "'"
+        Dim strNamaMP As String = oCommon.getFieldValue(strSQL)
+
+        If strNamaMP = "PENDIDIKAN ISLAM" Then
+
+            datRespondent.Columns.Item("9").Visible = True
+
+        Else
+
+            datRespondent.Columns.Item("9").Visible = False
+
+        End If
+
         For i As Integer = 0 To datRespondent.Rows.Count - 1
+
             Dim row As GridViewRow = datRespondent.Rows(i)
             Dim strPB As TextBox = CType(row.FindControl("MarkahPB"), TextBox)
             Dim strPA As TextBox = CType(row.FindControl("MarkahPA"), TextBox)
+            Dim strPA2 As TextBox = CType(row.FindControl("MarkahPA2"), TextBox)
 
             strSQL = "SELECT PB FROM kpmkv_pelajar_ulang WHERE PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
             Dim strPBHide As String = oCommon.getFieldValue(strSQL)
@@ -487,13 +502,15 @@ Public Class markah_ulang_akademik_insert_v21
                 Dim row As GridViewRow = datRespondent.Rows(i)
                 Dim strPBA As TextBox = datRespondent.Rows(i).FindControl("MarkahPB")
                 Dim strPAA As TextBox = datRespondent.Rows(i).FindControl("MarkahPA")
+                Dim strPAA2 As TextBox = datRespondent.Rows(i).FindControl("MarkahPA2")
 
 
                 'assign value to integer
                 Dim strPB As Integer = strPBA.Text
                 Dim strPA As Integer = strPAA.Text
+                Dim strPA2 As Integer = strPAA2.Text
 
-                strSQL = "UPDATE kpmkv_pelajar_ulang SET MarkahPB='" & strPB & "', MarkahPA='" & strPA & "' WHERE PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
+                strSQL = "UPDATE kpmkv_pelajar_ulang SET MarkahPB='" & strPB & "', MarkahPA='" & strPA & "', MarkahPA2 = '" & strPA2 & "' WHERE PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                 strRet = oCommon.ExecuteSQL(strSQL)
                 If strRet = "0" Then
                     divMsg.Attributes("class") = "info"
@@ -519,6 +536,7 @@ Public Class markah_ulang_akademik_insert_v21
             Dim row As GridViewRow = datRespondent.Rows(i)
             Dim strPB As TextBox = CType(row.FindControl("MarkahPB"), TextBox)
             Dim strPA As TextBox = CType(row.FindControl("MarkahPA"), TextBox)
+            Dim strPA2 As TextBox = CType(row.FindControl("MarkahPA2"), TextBox)
 
             If Not strPB.Text.Length = 0 Then
                 If oCommon.IsCurrency(strPB.Text) = False Then
@@ -540,6 +558,17 @@ Public Class markah_ulang_akademik_insert_v21
                 End If
             Else
                 strPA.Text = "0"
+            End If
+
+            If Not strPA2.Text.Length = 0 Then
+                If oCommon.IsCurrency(strPA2.Text) = False Then
+                    Return False
+                End If
+                If CInt(strPA2.Text) > 100 Then
+                    Return False
+                End If
+            Else
+                strPA2.Text = "0"
             End If
         Next
 
@@ -564,20 +593,24 @@ Public Class markah_ulang_akademik_insert_v21
             Dim row As GridViewRow = datRespondent.Rows(i)
             Dim strPB As TextBox = CType(row.FindControl("MarkahPB"), TextBox)
             Dim strPA As TextBox = CType(row.FindControl("MarkahPA"), TextBox)
+            Dim strPA2 As TextBox = CType(row.FindControl("MarkahPA2"), TextBox)
             Dim strNamaMataPelajaran As Label = CType(row.FindControl("NamaMataPelajaran"), Label)
             'assign value to integer
             Dim PB1 As Integer = strPB.Text
-            Dim PA2 As Integer = strPA.Text
+            Dim PA1 As Integer = strPA.Text
+            Dim PA2 As Integer = strPA2.Text
             Dim strGredNama As String = ""
             Dim strpointerNama As String = ""
             Dim strGredMarkah As String = ""
             Dim strMP As String = strNamaMataPelajaran.Text
 
             Dim strPelajarID As Integer
-            Dim PB As String
-            Dim PA As String
+            Dim Berterusan As String
+            Dim Akhir1 As String
+            Dim Akhir2 As String
             Dim PBMarkah As Integer
             Dim PAMarkah As Integer
+            Dim PAMarkah2 As Integer
             Dim Pointer As Integer
 
             Select Case strNamaMataPelajaran.Text
@@ -606,8 +639,6 @@ Public Class markah_ulang_akademik_insert_v21
 
             'get pelajarid from kpmkv_pelajar_ulang
             strSQL = "SELECT PelajarID FROM kpmkv_pelajar_ulang Where  PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-            strSQL += " AND Tahun='" & ddlTahun.Text & "' AND Semester='" & ddlSemester.Text & "'"
-            strSQL += " AND Sesi='" & chkSesi.Text & "' AND KursusID='" & ddlKodKursus.SelectedValue & "' AND NamaMataPelajaran='" & strMP & "'"
             strPelajarID = oCommon.getFieldValue(strSQL)
 
             'get gred from kpmkv_pelajar_markah
@@ -616,42 +647,73 @@ Public Class markah_ulang_akademik_insert_v21
                 strGredMarkah = oCommon.getFieldValue(strSQL)
             End If
 
+            strSQL = "SELECT TahunSem FROM kpmkv_pelajar_ulang WHERE PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
+            Dim TahunSem As String = oCommon.getFieldValue(strSQL)
+
             ''get pointer for gred lama
             Dim strPointerGredLama As String
             strSQL = "SELECT Pointer FROM kpmkv_gred WHERE Gred = '" & strGredMarkah & "' AND Jenis = 'AKADEMIK_ULANG'"
             strPointerGredLama = oCommon.getFieldValue(strSQL)
 
-            'strSQL = "SELECT PB FROM kpmkv_matapelajaran WHERE NamaMataPelajaran='" & strMP & "' AND SUBSTRING(KodMataPelajaran,4,3)='" & strKodMP & "' AND Tahun='" & ddlTahun.Text & "'"
-            strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
-            PB = oCommon.getFieldValue(strSQL)
+            'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+            'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+            '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+            strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = '" & strGredNama & "' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunSem & "' AND Semester = '" & ddlSemester.Text & "'"
+            Berterusan = oCommon.getFieldValue(strSQL)
 
-            'strSQL = "SELECT PA FROM kpmkv_matapelajaran WHERE NamaMataPelajaran='" & strMP & "' AND SUBSTRING(KodMataPelajaran,4,3)='" & strKodMP & "' AND Tahun='" & ddlTahun.Text & "'"
-            strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
-            PA = oCommon.getFieldValue(strSQL)
+            'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+            'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+            '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+            strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = '" & strGredNama & "' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunSem & "' AND Semester = '" & ddlSemester.Text & "'"
+            Akhir1 = oCommon.getFieldValue(strSQL)
+
+            strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = '" & strGredNama & "' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunSem & "' AND Semester = '" & ddlSemester.Text & "'"
+            Akhir2 = oCommon.getFieldValue(strSQL)
+
+            ''strSQL = "SELECT PB FROM kpmkv_matapelajaran WHERE NamaMataPelajaran='" & strMP & "' AND SUBSTRING(KodMataPelajaran,4,3)='" & strKodMP & "' AND Tahun='" & ddlTahun.Text & "'"
+            'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+            'PB = oCommon.getFieldValue(strSQL)
+
+            ''strSQL = "SELECT PA FROM kpmkv_matapelajaran WHERE NamaMataPelajaran='" & strMP & "' AND SUBSTRING(KodMataPelajaran,4,3)='" & strKodMP & "' AND Tahun='" & ddlTahun.Text & "'"
+            'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+            'PA = oCommon.getFieldValue(strSQL)
 
             If Not String.IsNullOrEmpty(PB1) Then
-                PBMarkah = oCommon.DoConvertN((PB1 / 100) * CInt(PB), 2)
-            End If
-            If Not String.IsNullOrEmpty(PA2) Then
-                PAMarkah = oCommon.DoConvertN((PA2 / 100) * CInt(PA), 2)
+                PBMarkah = oCommon.DoConvertN((PB1 / 100) * CInt(Berterusan), 2)
             End If
 
-            Pointer = PBMarkah + PAMarkah
+            If strGredNama = "PI" Then
+
+                If Not String.IsNullOrEmpty(PA1) Then
+                    PAMarkah = oCommon.DoConvertN((PA1 / 100) * CInt(Akhir1), 2)
+                End If
+
+                If Not String.IsNullOrEmpty(PA1) Then
+                    PAMarkah2 = oCommon.DoConvertN((PA2 / 100) * CInt(Akhir2), 2)
+                End If
+
+            Else
+
+                If Not String.IsNullOrEmpty(PA1) Then
+                    PAMarkah = oCommon.DoConvertN((PA1 / 100) * CInt(Akhir1), 2)
+                End If
+
+                PAMarkah2 = 0
+
+            End If
+
+            Pointer = PBMarkah + PAMarkah + PAMarkah2
 
             'untuk tidak hadir sahaja
             If PB1 = -1 Then
                 strSQL = "UPDATE kpmkv_pelajar_ulang SET Gred='T' Where PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                strSQL += " AND Tahun='" & ddlTahun.Text & "' AND Semester='" & ddlSemester.Text & "'"
-                strSQL += " AND Sesi='" & chkSesi.Text & "' AND KursusID='" & ddlKodKursus.SelectedValue & "' AND NamaMataPelajaran='" & strMP & "'"
                 strRet = oCommon.ExecuteSQL(strSQL)
 
                 strSQL = "UPDATE kpmkv_pelajar_markah SET Gred" & strGredNama & "='" & strGredMarkah & "' Where PelajarID='" & strPelajarID & "'"
                 strRet = oCommon.ExecuteSQL(strSQL)
 
-            ElseIf PA2 = -1 Then
+            ElseIf PA1 = -1 Then
                 strSQL = "UPDATE kpmkv_pelajar_ulang SET Gred='T' Where PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                strSQL += " AND Tahun='" & ddlTahun.Text & "' AND Semester='" & ddlSemester.Text & "'"
-                strSQL += " AND Sesi='" & chkSesi.Text & "' AND KursusID='" & ddlKodKursus.SelectedValue & "' AND NamaMataPelajaran='" & strMP & "'"
                 strRet = oCommon.ExecuteSQL(strSQL)
 
                 strSQL = "UPDATE kpmkv_pelajar_markah SET Gred" & strGredNama & "='" & strGredMarkah & "' Where PelajarID='" & strPelajarID & "'"
@@ -665,8 +727,6 @@ Public Class markah_ulang_akademik_insert_v21
                 If Not String.IsNullOrEmpty(Pointer) Then
 
                     strSQL = "SELECT Gred FROM kpmkv_pelajar_ulang WHERE PelajarUlangID = '" & datRespondent.DataKeys(i).Value.ToString & "'"
-                    strSQL += " AND Tahun='" & ddlTahun.Text & "' AND Semester='" & ddlSemester.Text & "'"
-                    strSQL += " AND Sesi='" & chkSesi.Text & "' AND KursusID='" & ddlKodKursus.SelectedValue & "' AND NamaMataPelajaran='" & strMP & "'"
                     Dim strGredPelajarUlang As String = oCommon.getFieldValue(strSQL)
 
                     strSQL = "SELECT Pointer FROM kpmkv_gred WHERE Gred = '" & strGredPelajarUlang & "' AND Jenis = 'AKADEMIK_ULANG'"
@@ -678,17 +738,20 @@ Public Class markah_ulang_akademik_insert_v21
                     If strGredPelajarUlang = "" Then
 
                         strSQL = "UPDATE kpmkv_pelajar_ulang SET Gred='" & Gred & "' Where PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                        strSQL += " AND Tahun='" & ddlTahun.Text & "' AND Semester='" & ddlSemester.Text & "'"
-                        strSQL += " AND Sesi='" & chkSesi.Text & "' AND KursusID='" & ddlKodKursus.SelectedValue & "' AND NamaMataPelajaran='" & strMP & "'"
                         strRet = oCommon.ExecuteSQL(strSQL)
 
                     Else
 
+                        If strGredPelajarUlang = "T" And Not Gred = "T" Then
+
+                            strSQL = "UPDATE kpmkv_pelajar_ulang SET Gred='" & Gred & "' Where PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
+                            strRet = oCommon.ExecuteSQL(strSQL)
+
+                        End If
+
                         If strPointerPelajarUlangBaru > strPointerPelajarUlang Then
 
                             strSQL = "UPDATE kpmkv_pelajar_ulang SET Gred='" & Gred & "' Where PelajarUlangID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                            strSQL += " AND Tahun='" & ddlTahun.Text & "' AND Semester='" & ddlSemester.Text & "'"
-                            strSQL += " AND Sesi='" & chkSesi.Text & "' AND KursusID='" & ddlKodKursus.SelectedValue & "' AND NamaMataPelajaran='" & strMP & "'"
                             strRet = oCommon.ExecuteSQL(strSQL)
 
                         End If
@@ -714,7 +777,8 @@ Public Class markah_ulang_akademik_insert_v21
                 '------BM SETARA ULANG 09112016
                 If ddlSemester.Text = "4" And strpointerNama = "BahasaMelayu" Then
                     Dim BerterusanBM As Integer
-                    Dim AkhiranBM As Integer
+                    Dim AkhiranBM1 As Integer
+                    Dim AkhiranBM2 As Integer
                     Dim PB4 As Integer
                     Dim PABmSetara As Integer
                     Dim PAPB4 As Integer
@@ -726,13 +790,20 @@ Public Class markah_ulang_akademik_insert_v21
                     Dim A_BahasaMelayuSem4 As Integer
                     Dim PointerBMSetara As Integer
 
-                    ' strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A04'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
-                    strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = '" & strGredNama & "' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunSem & "' AND Semester = '" & ddlSemester.Text & "'"
                     BerterusanBM = oCommon.getFieldValue(strSQL)
 
-                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A04'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
-                    strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
-                    AkhiranBM = oCommon.getFieldValue(strSQL)
+                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = '" & strGredNama & "' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunSem & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranBM1 = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = '" & strGredNama & "' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunSem & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranBM2 = oCommon.getFieldValue(strSQL)
 
                     'get mykad
                     strSQL = " SELECT Mykad FROM kpmkv_pelajar"
@@ -822,7 +893,7 @@ Public Class markah_ulang_akademik_insert_v21
                     If Not (B_BahasaMelayuSem4) = "-1" Then
                         PB4 = Math.Ceiling((B_BahasaMelayuSem4 / 100) * BerterusanBM)
                         PABmSetara = Math.Ceiling((A_BahasaMelayuSem4 / 100) * 40)
-                        PAPB4 = Math.Ceiling(((Kertas1 + Kertas2 + PABmSetara) / 280) * AkhiranBM)
+                        PAPB4 = Math.Ceiling(((Kertas1 + Kertas2 + PABmSetara) / 280) * AkhiranBM1)
                         'PAPB4 = Math.Ceiling(PAPB * AkhiranBM)
 
                         'gred sem 4 
@@ -1125,11 +1196,12 @@ Public Class markah_ulang_akademik_insert_v21
                 Dim NamaMataPelajaran As Label = datRespondent.Rows(i).FindControl("NamaMataPelajaran")
                 Dim MarkahPB As TextBox = datRespondent.Rows(i).FindControl("MarkahPB")
                 Dim MarkahPA As TextBox = datRespondent.Rows(i).FindControl("MarkahPA")
+                Dim MarkahPA2 As TextBox = datRespondent.Rows(i).FindControl("MarkahPA2")
                 Dim Gred As Label = datRespondent.Rows(i).FindControl("Gred")
 
-                table = New PdfPTable(8)
+                table = New PdfPTable(9)
                 table.WidthPercentage = 105
-                table.SetWidths({2, 30, 10, 10, 15, 10, 10, 10})
+                table.SetWidths({2, 30, 10, 10, 15, 10, 5, 5, 10})
                 table.DefaultCell.Border = 0
 
                 'BILANGAN
@@ -1183,6 +1255,14 @@ Public Class markah_ulang_akademik_insert_v21
                 'MarkahPA
                 cell = New PdfPCell()
                 cetak = MarkahPA.Text
+                para = New Paragraph(cetak, FontFactory.GetFont("Arial", 8))
+                cell.AddElement(para)
+                cell.Border = 0
+                table.AddCell(cell)
+
+                'MarkahPA2
+                cell = New PdfPCell()
+                cetak = MarkahPA2.Text
                 para = New Paragraph(cetak, FontFactory.GetFont("Arial", 8))
                 cell.AddElement(para)
                 cell.Border = 0

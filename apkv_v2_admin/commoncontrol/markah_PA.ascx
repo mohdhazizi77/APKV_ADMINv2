@@ -40,6 +40,8 @@
             </asp:CheckBoxList>
     </tr>
     <tr>
+        <td></td>
+        <td></td>
         <td colspan="3">
             <asp:Button ID="btnCari" runat="server" Text="Cari" CssClass="fbbutton" />&nbsp;</td>
     </tr>
@@ -110,6 +112,8 @@
 </table>
 <br />
 <div class="info" id="divMsg" runat="server">
+    <asp:Label ID="lblKolejID" runat="server" Text="" Visible="false"></asp:Label>
+
     <asp:Label ID="lblUserId" runat="server" Text="" Visible="false"></asp:Label>
     <asp:Label ID="lblUserType" runat="server" Text="" Visible="false"></asp:Label>
 

@@ -811,6 +811,9 @@ Public Class pembetulan_markah_PA_akademik
                 strSQL = "SELECT Tahun, Semester FROM kpmkv_pelajar WHERE PelajarID = '" & datRespondent.DataKeys(i).Value.ToString & "'"
                 strRet = oCommon.getFieldValueEx(strSQL)
 
+                strSQL = "SELECT TahunSem FROM kpmkv_pelajar WHERE PelajarID = '" & datRespondent.DataKeys(i).Value.ToString & "'"
+                Dim TahunPeperiksaan As String = oCommon.getFieldValue(strSQL)
+
                 Dim ar_TahunSemester As Array
                 ar_TahunSemester = strRet.Split("|")
 
@@ -824,7 +827,8 @@ Public Class pembetulan_markah_PA_akademik
 
                     ' Dim GredBM As Integer
                     Dim BerterusanBM As Integer
-                    Dim AkhiranBM As Integer
+                    Dim AkhiranBM1 As Integer
+                    Dim AkhiranBM2 As Integer
 
                     If ddlSemester.Text = "1" Then
                         Dim AM_BahasaMelayu As Integer
@@ -833,13 +837,20 @@ Public Class pembetulan_markah_PA_akademik
                         Dim A_BahasaMelayu As Double
                         Dim PointerBM As Integer
 
-                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                         BerterusanBM = oCommon.getFieldValue(strSQL)
 
-                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                        AkhiranBM = oCommon.getFieldValue(strSQL)
+                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM1 = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM2 = oCommon.getFieldValue(strSQL)
 
                         strSQL = "Select B_BahasaMelayu from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                         B_BahasaMelayu = oCommon.getFieldValue(strSQL)
@@ -854,7 +865,7 @@ Public Class pembetulan_markah_PA_akademik
                         'checkin Markah
                         If Not (B_BahasaMelayu) = "-1" And Not (A_BahasaMelayu) = "-1" Then
                             BM_BahasaMelayu = Math.Ceiling((B_BahasaMelayu / 100) * BerterusanBM)
-                            AM_BahasaMelayu = Math.Ceiling((A_BahasaMelayu / 100) * AkhiranBM)
+                            AM_BahasaMelayu = Math.Ceiling((A_BahasaMelayu / 100) * AkhiranBM1)
                             PointerBM = Math.Ceiling(BM_BahasaMelayu + AM_BahasaMelayu)
                             strSQL = "UPDATE kpmkv_pelajar_markah SET BahasaMelayu='" & PointerBM & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                             strRet = oCommon.ExecuteSQL(strSQL)
@@ -872,13 +883,20 @@ Public Class pembetulan_markah_PA_akademik
                         Dim A_BahasaMelayu2 As Double
                         Dim PointerBM2 As Integer
 
-                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                         BerterusanBM = oCommon.getFieldValue(strSQL)
 
-                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                        AkhiranBM = oCommon.getFieldValue(strSQL)
+                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM1 = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM2 = oCommon.getFieldValue(strSQL)
 
                         strSQL = "Select B_BahasaMelayu from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                         B_BahasaMelayu2 = oCommon.getFieldValue(strSQL)
@@ -893,7 +911,7 @@ Public Class pembetulan_markah_PA_akademik
                         'checkin Markah
                         If Not (B_BahasaMelayu2) = "-1" And Not (A_BahasaMelayu2) = "-1" Then
                             BM_BahasaMelayu2 = Math.Ceiling((B_BahasaMelayu2 / 100) * BerterusanBM)
-                            AM_BahasaMelayu2 = Math.Ceiling((A_BahasaMelayu2 / 100) * AkhiranBM)
+                            AM_BahasaMelayu2 = Math.Ceiling((A_BahasaMelayu2 / 100) * AkhiranBM1)
                             PointerBM2 = Math.Ceiling(BM_BahasaMelayu2 + AM_BahasaMelayu2)
                             strSQL = "UPDATE kpmkv_pelajar_markah SET BahasaMelayu='" & PointerBM2 & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                             strRet = oCommon.ExecuteSQL(strSQL)
@@ -912,13 +930,20 @@ Public Class pembetulan_markah_PA_akademik
                         Dim A_BahasaMelayu3 As Double
                         Dim PointerBM3 As Integer
 
-                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                         BerterusanBM = oCommon.getFieldValue(strSQL)
 
-                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                        AkhiranBM = oCommon.getFieldValue(strSQL)
+                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM1 = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM2 = oCommon.getFieldValue(strSQL)
 
                         strSQL = "Select B_BahasaMelayu from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                         B_BahasaMelayu3 = oCommon.getFieldValue(strSQL)
@@ -933,7 +958,7 @@ Public Class pembetulan_markah_PA_akademik
                         'checkin Markah
                         If Not (B_BahasaMelayu3) = "-1" And Not (A_BahasaMelayu3) = "-1" Then
                             BM_BahasaMelayu3 = Math.Ceiling((B_BahasaMelayu3 / 100) * BerterusanBM)
-                            AM_BahasaMelayu3 = Math.Ceiling((A_BahasaMelayu3 / 100) * AkhiranBM)
+                            AM_BahasaMelayu3 = Math.Ceiling((A_BahasaMelayu3 / 100) * AkhiranBM1)
                             PointerBM3 = Math.Ceiling(BM_BahasaMelayu3 + AM_BahasaMelayu3)
                             strSQL = "UPDATE kpmkv_pelajar_markah SET BahasaMelayu='" & PointerBM3 & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                             strRet = oCommon.ExecuteSQL(strSQL)
@@ -957,13 +982,20 @@ Public Class pembetulan_markah_PA_akademik
                         Dim A_BahasaMelayuSem4 As Integer
                         Dim PointerBMSetara As Integer
 
-                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                        'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                         BerterusanBM = oCommon.getFieldValue(strSQL)
 
-                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                        strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                        AkhiranBM = oCommon.getFieldValue(strSQL)
+                        'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                        'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                        '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                        strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM1 = oCommon.getFieldValue(strSQL)
+
+                        strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'BM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                        AkhiranBM2 = oCommon.getFieldValue(strSQL)
 
                         'get mykad
                         strSQL = " SELECT Mykad FROM kpmkv_pelajar"
@@ -1044,7 +1076,7 @@ Public Class pembetulan_markah_PA_akademik
                             'PABmSetara = Math.Ceiling(A_BahasaMelayuSem4)
 
                             PABmSetara = Math.Ceiling((A_BahasaMelayuSem4 / 100) * 40)
-                            PAPB4 = Math.Ceiling(((Kertas1 + Kertas2 + PABmSetara) / 280) * AkhiranBM)
+                            PAPB4 = Math.Ceiling(((Kertas1 + Kertas2 + PABmSetara) / 280) * AkhiranBM1)
                             'PAPB4 = Math.Ceiling(PAPB * AkhiranBM)
 
                             'gred sem 4 
@@ -1076,18 +1108,26 @@ Public Class pembetulan_markah_PA_akademik
                     Dim BM_BahasaInggeris As Integer
                     Dim AM_BahasaInggeris As Integer
                     Dim BerterusanBI As Integer
-                    Dim AkhiranBI As Integer
+                    Dim AkhiranBI1 As Integer
+                    Dim AkhiranBI2 As Integer
                     Dim B_BahasaInggeris As Double
                     Dim A_BahasaInggeris As Double
                     Dim PointerBI As Integer
 
-                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A02'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A02'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'BI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                     BerterusanBI = oCommon.getFieldValue(strSQL)
 
-                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A02'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                    AkhiranBI = oCommon.getFieldValue(strSQL)
+                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'BI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranBI1 = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'BI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranBI2 = oCommon.getFieldValue(strSQL)
 
                     strSQL = "Select B_BahasaInggeris from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                     B_BahasaInggeris = oCommon.getFieldValue(strSQL)
@@ -1102,7 +1142,7 @@ Public Class pembetulan_markah_PA_akademik
                     'checkin Markah
                     If Not (B_BahasaInggeris) = "-1" And Not (A_BahasaInggeris) = "-1" Then
                         BM_BahasaInggeris = Math.Ceiling((B_BahasaInggeris / 100) * BerterusanBI)
-                        AM_BahasaInggeris = Math.Ceiling((A_BahasaInggeris / 100) * AkhiranBI)
+                        AM_BahasaInggeris = Math.Ceiling((A_BahasaInggeris / 100) * AkhiranBI1)
                         PointerBI = Math.Ceiling(BM_BahasaInggeris + AM_BahasaInggeris)
                         strSQL = "UPDATE kpmkv_pelajar_markah SET BahasaInggeris='" & PointerBI & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                         strRet = oCommon.ExecuteSQL(strSQL)
@@ -1118,7 +1158,8 @@ Public Class pembetulan_markah_PA_akademik
                     Dim AM_Science1 As Integer
                     Dim AM_Science2 As Integer
                     Dim BerterusanSc As Integer
-                    Dim AkhiranSc As Integer
+                    Dim AkhiranSC1 As Integer
+                    Dim AkhiranSC2 As Integer
                     Dim B_Science1 As Double
                     Dim A_Science1 As Double
                     Dim A_Science2 As Double
@@ -1127,13 +1168,20 @@ Public Class pembetulan_markah_PA_akademik
                     Dim PointerSC As Integer
                     'Dim GredSC As Integer 
 
-                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A04'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A04'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'SC' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                     BerterusanSc = oCommon.getFieldValue(strSQL)
 
-                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A04'+'" & strKodMP & "%'AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                    AkhiranSc = oCommon.getFieldValue(strSQL)
+                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'SC' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranSC1 = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'SC' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranSC2 = oCommon.getFieldValue(strSQL)
 
                     strSQL = "Select B_Science1 from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                     B_Science1 = oCommon.getFieldValue(strSQL)
@@ -1146,45 +1194,35 @@ Public Class pembetulan_markah_PA_akademik
                     A_Science1 = Math.Ceiling(A_Science1)
 
                     strSQL = "Select A_Science2 from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                    A_Science2 = oCommon.getFieldValue(strSQL)
-                    'round up
-                    A_Science2 = Math.Ceiling(A_Science2)
+                    If oCommon.getFieldValue(strSQL) = "" Then
+
+                        A_Science2 = 0
+
+                    Else
+
+                        A_Science2 = oCommon.getFieldValue(strSQL)
+                        'round up
+                        A_Science2 = Math.Ceiling(A_Science2)
+
+                    End If
 
                     'check sem 3 n 4 ada  kertas 1
                     BM_Science1 = Math.Ceiling((B_Science1 / 100) * BerterusanSc)
 
-                    If ddlSemester.Text = "1" Or ddlSemester.Text = "2" Then
+                    If Not (A_Science1) = "-1" And Not (A_Science2) = "-1" Then
+                        AM_Science1 = Math.Ceiling((A_Science1 / 100) * AkhiranSC1) '50%
 
-                        If Not (A_Science1) = "-1" And Not (A_Science2) = "-1" Then
-                            AM_Science1 = Math.Ceiling((A_Science1 / 100) * 50) '50%
+                        AM_Science2 = Math.Ceiling((A_Science2 / 100) * AkhiranSC2) '20% 
 
-                            AM_Science2 = Math.Ceiling((A_Science2 / 100) * 20) '20% 
+                        PointerSC1 = Math.Ceiling(BM_Science1)
+                        PointerSC2 = Math.Ceiling((AM_Science1) + (AM_Science2))
+                        PointerSC = Math.Ceiling((PointerSC1) + (PointerSC2))
 
-                            PointerSC1 = Math.Ceiling(BM_Science1)
-                            PointerSC2 = Math.Ceiling((AM_Science1) + (AM_Science2))
-                            PointerSC = Math.Ceiling((PointerSC1) + (PointerSC2))
-
-                            strSQL = "UPDATE kpmkv_pelajar_markah SET Science='" & PointerSC & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                            strRet = oCommon.ExecuteSQL(strSQL)
-                        ElseIf (A_Science1) = "-1" Or (A_Science2) = "-1" Then
-                            strSQL = "UPDATE kpmkv_pelajar_markah SET Science='-1' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                            strRet = oCommon.ExecuteSQL(strSQL)
-                        End If
-                    Else
-                        If Not (A_Science1) = "-1" And Not (A_Science2) = "-1" Then
-                            AM_Science1 = Math.Ceiling((A_Science1 / 100) * 70) '70%
-                            AM_Science2 = Math.Ceiling((A_Science2 / 100) * 70) '70%
-                            PointerSC1 = Math.Ceiling(BM_Science1)
-                            PointerSC2 = Math.Ceiling((AM_Science1) + (AM_Science2))
-                            PointerSC = Math.Ceiling((PointerSC1) + (PointerSC2))
-
-                            strSQL = "UPDATE kpmkv_pelajar_markah SET Science='" & PointerSC & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                            strRet = oCommon.ExecuteSQL(strSQL)
-                        ElseIf (A_Science1) = "-1" Or (A_Science2) = "-1" Then
-                            strSQL = "UPDATE kpmkv_pelajar_markah SET Science='-1' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
-                            strRet = oCommon.ExecuteSQL(strSQL)
-                        End If
-
+                        strSQL = "UPDATE kpmkv_pelajar_markah SET Science='" & PointerSC & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
+                        strRet = oCommon.ExecuteSQL(strSQL)
+                    ElseIf (A_Science1) = "-1" Or (A_Science2) = "-1" Then
+                        strSQL = "UPDATE kpmkv_pelajar_markah SET Science='-1' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
+                        strRet = oCommon.ExecuteSQL(strSQL)
                     End If
 
                 ElseIf strNamaMP = "SEJARAH" Then
@@ -1192,19 +1230,27 @@ Public Class pembetulan_markah_PA_akademik
                     Dim BM_Sejarah As Integer
                     Dim AM_Sejarah As Integer
                     Dim BerterusanSJ As Integer
-                    Dim AkhiranSJ As Integer
+                    Dim AkhiranSJ1 As Integer
+                    Dim AkhiranSJ2 As Integer
                     Dim B_Sejarah As Double
                     Dim A_Sejarah As Double
                     Dim PointerSJ As Integer
                     'Dim GredSJ As Integer 
 
-                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A05'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A05'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'SJ' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                     BerterusanSJ = oCommon.getFieldValue(strSQL)
 
-                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A05'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                    AkhiranSJ = oCommon.getFieldValue(strSQL)
+                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'SJ' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranSJ1 = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'SJ' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranSJ2 = oCommon.getFieldValue(strSQL)
 
                     strSQL = "Select B_Sejarah from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                     B_Sejarah = oCommon.getFieldValue(strSQL)
@@ -1219,7 +1265,7 @@ Public Class pembetulan_markah_PA_akademik
                     'checkin Markah
                     If Not (B_Sejarah) = "-1" And Not (A_Sejarah) = "-1" Then
                         BM_Sejarah = Math.Ceiling((B_Sejarah / 100) * BerterusanSJ)
-                        AM_Sejarah = Math.Ceiling((A_Sejarah / 100) * AkhiranSJ)
+                        AM_Sejarah = Math.Ceiling((A_Sejarah / 100) * AkhiranSJ1)
                         PointerSJ = Math.Ceiling(BM_Sejarah + AM_Sejarah)
                         strSQL = "UPDATE kpmkv_pelajar_markah SET Sejarah='" & PointerSJ & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                         strRet = oCommon.ExecuteSQL(strSQL)
@@ -1285,7 +1331,8 @@ Public Class pembetulan_markah_PA_akademik
 
                     Dim BM_PendidikanIslam1 As Integer
                     Dim BerterusanPI As Integer
-                    Dim AkhiranPI As Integer
+                    Dim AkhiranPI1 As Integer
+                    Dim AkhiranPI2 As Integer
                     Dim B_PendidikanIslam1 As Integer
                     Dim A_PendidikanIslam1 As Integer
                     Dim A_PendidikanIslam2 As Integer
@@ -1294,13 +1341,20 @@ Public Class pembetulan_markah_PA_akademik
                     Dim PointerPI As Integer
                     ' Dim GredPI As Integer 
 
-                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A06'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A06'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'PI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                     BerterusanPI = oCommon.getFieldValue(strSQL)
 
-                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A06'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                    AkhiranPI = oCommon.getFieldValue(strSQL)
+                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A06'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'PI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranPI1 = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'PI' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranPI2 = oCommon.getFieldValue(strSQL)
 
                     strSQL = "Select B_PendidikanIslam1 from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                     B_PendidikanIslam1 = oCommon.getFieldValue(strSQL)
@@ -1320,8 +1374,8 @@ Public Class pembetulan_markah_PA_akademik
                     BM_PendidikanIslam1 = Math.Ceiling((B_PendidikanIslam1 / 100) * BerterusanPI)
 
                     If Not (A_PendidikanIslam1) = "-1" And Not (A_PendidikanIslam2) = "-1" Then
-                        A_PendidikanIslam1 = Math.Ceiling((A_PendidikanIslam1 / 100) * 50) '50%
-                        A_PendidikanIslam2 = Math.Ceiling((A_PendidikanIslam2 / 100) * 20) '20%
+                        A_PendidikanIslam1 = Math.Ceiling((A_PendidikanIslam1 / 100) * AkhiranPI1) '50%
+                        A_PendidikanIslam2 = Math.Ceiling((A_PendidikanIslam2 / 100) * AkhiranPI2) '20%
 
                         PointerPI1 = Math.Ceiling(BM_PendidikanIslam1)
                         PointerPI2 = Math.Ceiling(A_PendidikanIslam1 + A_PendidikanIslam2)
@@ -1339,19 +1393,27 @@ Public Class pembetulan_markah_PA_akademik
                     Dim BM_PendidikanMoral As Integer
                     Dim AM_PendidikanMoral As Integer
                     Dim BerterusanPM As Integer
-                    Dim AkhiranPM As Integer
+                    Dim AkhiranPM1 As Integer
+                    Dim AkhiranPM2 As Integer
                     Dim B_PendidikanMoral As Integer
                     Dim A_PendidikanMoral As Integer
                     Dim PointerPM As Integer
                     'Dim GredPM As Integer 
 
-                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A07'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A07'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'PM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                     BerterusanPM = oCommon.getFieldValue(strSQL)
 
-                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A07'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                    AkhiranPM = oCommon.getFieldValue(strSQL)
+                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A07'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'PM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranPM1 = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'PM' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranPM2 = oCommon.getFieldValue(strSQL)
 
                     strSQL = "Select B_PendidikanMoral from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                     B_PendidikanMoral = oCommon.getFieldValue(strSQL)
@@ -1366,7 +1428,7 @@ Public Class pembetulan_markah_PA_akademik
                     'checkin Markah
                     If Not (B_PendidikanMoral) = "-1" And Not (A_PendidikanMoral) = "-1" Then
                         BM_PendidikanMoral = Math.Ceiling((B_PendidikanMoral / 100) * BerterusanPM)
-                        AM_PendidikanMoral = Math.Ceiling((A_PendidikanMoral / 100) * AkhiranPM)
+                        AM_PendidikanMoral = Math.Ceiling((A_PendidikanMoral / 100) * AkhiranPM1)
                         PointerPM = Math.Ceiling(BM_PendidikanMoral + AM_PendidikanMoral)
                         strSQL = "UPDATE kpmkv_pelajar_markah SET PendidikanMoral='" & PointerPM & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                         strRet = oCommon.ExecuteSQL(strSQL)
@@ -1380,19 +1442,27 @@ Public Class pembetulan_markah_PA_akademik
                     Dim BM_Mathematics As Integer
                     Dim AM_Mathematics As Integer
                     Dim BerterusanMT As Integer
-                    Dim AkhiranMT As Integer
+                    Dim AkhiranMT1 As Integer
+                    Dim AkhiranMT2 As Integer
                     Dim B_Mathematics As Integer
                     Dim A_Mathematics As Integer
                     Dim PointerMT As Integer
                     'Dim GredMT As Integer 
 
-                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
+                    'strSQL = "Select PB from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PB FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Berterusan FROM kpmkv_wajaran_a WHERE Subjek = 'MT' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
                     BerterusanMT = oCommon.getFieldValue(strSQL)
 
-                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & Tahun & "'"
-                    strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & Tahun & "'"
-                    AkhiranMT = oCommon.getFieldValue(strSQL)
+                    'strSQL = "Select PA from kpmkv_matapelajaran Where KodMataPelajaran LIKE '%A03'+'" & strKodMP & "%' AND Tahun='" & ddlTahun.Text & "'"
+                    'strSQL = "SELECT PA FROM kpmkv_aka_weightage WHERE Tahun='" & ddlTahun.Text & "'"
+                    '-- PERTUKARAN KE TABLE kpmkv_wajaran_a WAJARAN PADA 10 NOV 2021
+                    strSQL = "SELECT Akhir1 FROM kpmkv_wajaran_a WHERE Subjek = 'MT' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranMT1 = oCommon.getFieldValue(strSQL)
+
+                    strSQL = "SELECT Akhir2 FROM kpmkv_wajaran_a WHERE Subjek = 'MT' AND Kohort = '" & ddlTahun.Text & "' AND TahunPeperiksaan = '" & TahunPeperiksaan & "' AND Semester = '" & ddlSemester.Text & "'"
+                    AkhiranMT2 = oCommon.getFieldValue(strSQL)
 
                     strSQL = "Select B_Mathematics from kpmkv_pelajar_markah Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                     B_Mathematics = oCommon.getFieldValue(strSQL)
@@ -1407,7 +1477,7 @@ Public Class pembetulan_markah_PA_akademik
                     'checkin Markah
                     If Not (B_Mathematics) = "-1" And Not (A_Mathematics) = "-1" Then
                         BM_Mathematics = Math.Ceiling((B_Mathematics / 100) * BerterusanMT)
-                        AM_Mathematics = Math.Ceiling((A_Mathematics / 100) * AkhiranMT)
+                        AM_Mathematics = Math.Ceiling((A_Mathematics / 100) * AkhiranMT1)
                         PointerMT = Math.Ceiling(BM_Mathematics + AM_Mathematics)
                         strSQL = "UPDATE kpmkv_pelajar_markah SET Mathematics='" & PointerMT & "' Where PelajarID='" & datRespondent.DataKeys(i).Value.ToString & "'"
                         strRet = oCommon.ExecuteSQL(strSQL)

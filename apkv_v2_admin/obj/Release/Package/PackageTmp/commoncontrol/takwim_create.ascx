@@ -84,6 +84,15 @@
             </asp:DropDownList>
         </td>
     </tr>
+
+     <tr>
+        <td>Tahun Semasa:</td>
+        <td>
+            <asp:DropDownList ID="ddlTahunSemasa" runat="server" Width="150px">
+            </asp:DropDownList>
+        </td>
+    </tr>
+
     <tr>
         <td>Kohort:</td>
         <td>

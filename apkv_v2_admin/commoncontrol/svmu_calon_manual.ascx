@@ -5,8 +5,8 @@
         <td colspan="4">Daftar Maklumat Calon SVMU (MANUAL)</td>
     </tr>
 
-    <tr>
-    
+  <%--  <tr>
+
         <td style="width: 35px"></td>
         <td style="width: 130px">No. Rujukan</td>
         <td>:</td>
@@ -18,7 +18,7 @@
             <asp:Label ID="lblMsgRujukan" runat="server" ForeColor="Red"></asp:Label>
         </td>
 
-    </tr>
+    </tr>--%>
 
     <tr>
 
@@ -28,10 +28,9 @@
         <td>
             <asp:TextBox ID="txtMYKAD" runat="server" Width="150px"></asp:TextBox>
             (Nota: Tanpa "-")
-        </td>
-        <td>
             <asp:Label ID="lblMsgMYKAD" runat="server" ForeColor="Red"></asp:Label>
         </td>
+
 
     </tr>
 
@@ -42,8 +41,7 @@
         <td>:</td>
         <td>
             <asp:TextBox ID="txtAngkaGiliran" runat="server" Width="150px"></asp:TextBox>
-            (Contoh: K011FETE001)</td>
-        <td>
+            (Contoh: K011FETE001)
             <asp:Label ID="lblMsgAngkaGiliran" runat="server" ForeColor="Red"></asp:Label>
         </td>
 

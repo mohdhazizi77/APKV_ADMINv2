@@ -60,7 +60,7 @@ Public Class svmu_senarai_semak_calon_ulang
     Private Function getSQL() As String
 
         strSQL = "SELECT DISTINCT
-kpmkv_svmu.svmu_id, kpmkv_svmu.MYKAD, kpmkv_svmu.AngkaGiliran,
+kpmkv_svmu.svmu_id, kpmkv_svmu_calon.svmu_calon_id, kpmkv_svmu.MYKAD, kpmkv_svmu.AngkaGiliran,
 kpmkv_svmu_calon.Nama, kpmkv_svmu_calon.svmu_no_permohonan, kpmkv_svmu_calon.Status
 FROM kpmkv_svmu
 LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
@@ -106,10 +106,22 @@ AND kpmkv_svmu.svmu_id = '" & AsciiSwitchWithMod(Request.QueryString("NO"), -19,
 
         Dim strKeyID As String = datRespondent.DataKeys(e.NewSelectedIndex).Value.ToString
 
-        strSQL = "SELECT RefNo FROM kpmkv_svmu_calon WHERE svmu_no_permohonan = '" & strKeyID & "'"
-        Dim RefNo As String = oCommon.getFieldValue(strSQL)
+        strSQL = "SELECT JenisDaftar FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strKeyID & "'"
+        Dim JenisDaftar As String = oCommon.getFieldValue(strSQL)
 
-        Response.Redirect("svmu.tindakan.calon.aspx?RefNo=" & RefNo)
+        If JenisDaftar = "MANUAL" Then
+
+            Response.Redirect("svmu.tindakan.calon.aspx?Type=M&ID=" & strKeyID)
+
+        Else
+
+            strSQL = "SELECT RefNo FROM kpmkv_svmu_calon WHERE svmu_calon_id = '" & strKeyID & "'"
+            Dim RefNo As String = oCommon.getFieldValue(strSQL)
+
+            Response.Redirect("svmu.tindakan.calon.aspx?Type=O&RefNo=" & RefNo)
+
+        End If
+
 
     End Sub
     Function AsciiSwitchWithMod(InputString As String, ValueToAdd As Integer, ModValue As Integer) As String

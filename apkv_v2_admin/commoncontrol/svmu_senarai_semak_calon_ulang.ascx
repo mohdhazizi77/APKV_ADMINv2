@@ -12,7 +12,7 @@
     <tr>
         <td colspan="2">
             <asp:GridView ID="datRespondent" runat="server" AutoGenerateColumns="False" AllowPaging="True"
-                CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="svmu_no_permohonan"
+                CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="svmu_calon_id"
                 Width="100%" PageSize="40" CssClass="gridview_footer">
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>

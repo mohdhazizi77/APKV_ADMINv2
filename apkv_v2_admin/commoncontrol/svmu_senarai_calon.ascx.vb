@@ -207,6 +207,38 @@ Public Class svmu_senarai_calon
 
         End If
 
+        strSQL += " UNION
+                    SELECT
+                    kpmkv_svmu.svmu_id, kpmkv_svmu.MYKAD, kpmkv_svmu.AngkaGiliran,
+                    kpmkv_svmu_calon.svmu_calon_id, kpmkv_svmu_calon.Nama, kpmkv_svmu_calon.Status, kpmkv_svmu_calon.MataPelajaran,
+                    kpmkv_kolej.Kod,
+                    kpmkv_svmu_payment_status.PaymentStatus
+                    FROM kpmkv_svmu
+                    LEFT JOIN kpmkv_svmu_calon ON kpmkv_svmu_calon.svmu_id = kpmkv_svmu.svmu_id
+                    LEFT JOIN kpmkv_kolej ON kpmkv_kolej.RecordID = kpmkv_svmu_calon.PusatPeperiksaanID
+                    LEFT JOIN kpmkv_svmu_payment_status ON kpmkv_svmu_payment_status.RefNo = kpmkv_svmu_calon.RefNo
+                    WHERE
+                    kpmkv_kolej.Negeri IS NOT NULL
+                    AND kpmkv_svmu_calon.JenisDaftar = 'MANUAL'"
+
+        If Not ddlTahunPeperiksaanSVMU.SelectedValue = "0" Then
+
+            strSQL += " AND kpmkv_svmu_calon.TahunPeperiksaan = '" & ddlTahunPeperiksaanSVMU.SelectedValue & "'"
+
+        End If
+
+        If Not ddlNegeri.SelectedValue = "0" Then
+
+            strSQL += " AND kpmkv_kolej.Negeri = '" & ddlNegeri.SelectedValue & "'"
+
+        End If
+
+        If Not ddlKodPusat.SelectedValue = "0" Then
+
+            strSQL += " AND kpmkv_svmu_calon.PusatPeperiksaanID = '" & ddlKodPusat.SelectedValue & "'"
+
+        End If
+
         strSQL += " ORDER BY kpmkv_kolej.Kod, kpmkv_svmu_calon.Nama"
 
         getSQL = strSQL

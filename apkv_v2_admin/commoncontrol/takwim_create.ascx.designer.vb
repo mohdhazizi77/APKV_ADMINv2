@@ -68,6 +68,15 @@ Partial Public Class takwim_create
     Protected WithEvents ddlSubMenu As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''ddlTahunSemasa control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTahunSemasa As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''ddlTahun control.
     '''</summary>
     '''<remarks>

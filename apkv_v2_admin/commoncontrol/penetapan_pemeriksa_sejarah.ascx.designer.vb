@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class penetapan_pemeriksa_sejarah1
-    
+
     '''<summary>
     '''ddlKodPusat control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKodPusat As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''lblNamaKolej control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblNamaKolej As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''ddlTahun control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''chkSesi control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkSesi As Global.System.Web.UI.WebControls.CheckBoxList
-    
+
     '''<summary>
     '''btnCari control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''datRespondent control.
     '''</summary>
@@ -66,7 +66,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''ddlPemeriksa control.
     '''</summary>
@@ -75,7 +75,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlPemeriksa As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''btnSimpan control.
     '''</summary>
@@ -84,7 +84,43 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSimpan As Global.System.Web.UI.WebControls.Button
-    
+
+    '''<summary>
+    '''btnFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnFile As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''FlUploadcsv control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents FlUploadcsv As Global.System.Web.UI.WebControls.FileUpload
+
+    '''<summary>
+    '''regexValidator control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents regexValidator As Global.System.Web.UI.WebControls.RegularExpressionValidator
+
+    '''<summary>
+    '''btnUpload control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnUpload As Global.System.Web.UI.WebControls.Button
+
     '''<summary>
     '''divMsg control.
     '''</summary>
@@ -93,7 +129,7 @@ Partial Public Class penetapan_pemeriksa_sejarah1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''lblmsg control.
     '''</summary>
