@@ -132,6 +132,7 @@ Public Class pentaksirbm_calon_bm4
                                 BM4_Total = '" & BM4.Text & "',
                                 StatusBM4 = '1'
                                 WHERE id = '" & datRespondent.DataKeys(i).Value.ToString & "'"
+                        strRet = oCommon.ExecuteSQL(strSQL)
 
                     Else
 
@@ -140,13 +141,11 @@ Public Class pentaksirbm_calon_bm4
                                 BM4 = '" & BM4.Text & "',
                                 StatusBM4 = '1'
                                 WHERE id = '" & datRespondent.DataKeys(i).Value.ToString & "'"
+                        strRet = oCommon.ExecuteSQL(strSQL)
 
                     End If
 
                 End If
-
-
-                strRet = oCommon.ExecuteSQL(strSQL)
 
                 If strRet = "0" Then
                     lblMsg.Attributes("class") = "info"

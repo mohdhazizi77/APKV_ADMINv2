@@ -23210,6 +23210,249 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._ddlNegeri">
+<summary>
+ddlNegeri control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._ddlJenis">
+<summary>
+ddlJenis control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._ddlKolej">
+<summary>
+ddlKolej control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._ddlTahun">
+<summary>
+ddlTahun control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._txtMYKAD">
+<summary>
+txtMYKAD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._btnCari">
+<summary>
+btnCari control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._datRespondent">
+<summary>
+datRespondent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._divMsg">
+<summary>
+divMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah._lblMsg">
+<summary>
+lblMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._lblMP">
+<summary>
+lblMP control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._lblPP">
+<summary>
+lblPP control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._Label3">
+<summary>
+Label3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._txtCarian">
+<summary>
+txtCarian control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._btnCari">
+<summary>
+btnCari control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._datRespondent">
+<summary>
+datRespondent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._btnBack">
+<summary>
+btnBack control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._divMsg">
+<summary>
+divMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm3._lblMsg">
+<summary>
+lblMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._lblMP">
+<summary>
+lblMP control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._lblPP">
+<summary>
+lblPP control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._Label3">
+<summary>
+Label3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._txtCarian">
+<summary>
+txtCarian control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._btnCari">
+<summary>
+btnCari control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._datRespondent">
+<summary>
+datRespondent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._btnBack">
+<summary>
+btnBack control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._divMsg">
+<summary>
+divMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm4._lblMsg">
+<summary>
+lblMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:apkv_v2_admin.pentaksirbm_borang_markah_induk1._Label3">
 <summary>
 Label3 control.
@@ -33905,6 +34148,33 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:apkv_v2_admin.pentaksirbm._lblFooterMsg">
 <summary>
 lblFooterMsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah1._pentaksirbm_admin_senarai_markah">
+<summary>
+pentaksirbm_admin_senarai_markah control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm31._pentaksirbm_admin_senarai_markah_bm3">
+<summary>
+pentaksirbm_admin_senarai_markah_bm3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:apkv_v2_admin.pentaksirbm_admin_senarai_markah_bm41._pentaksirbm_admin_senarai_markah_bm4">
+<summary>
+pentaksirbm_admin_senarai_markah_bm4 control.
 </summary>
 <remarks>
 Auto-generated field.
