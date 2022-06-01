@@ -378,6 +378,9 @@
     <Content Include="commoncontrol\pentaksiran_roster.ascx" />
     <Content Include="commoncontrol\pentaksiran_sijil_vokasional.ascx" />
     <Content Include="commoncontrol\pentaksiran_vokasional.ascx" />
+    <Content Include="commoncontrol\pentaksirbm_admin_senarai_markah.ascx" />
+    <Content Include="commoncontrol\pentaksirbm_admin_senarai_markah_bm3.ascx" />
+    <Content Include="commoncontrol\pentaksirbm_admin_senarai_markah_bm4.ascx" />
     <Content Include="commoncontrol\pentaksirbm_borang_markah_induk.ascx" />
     <Content Include="commoncontrol\pentaksirbm_calon.ascx" />
     <Content Include="commoncontrol\pentaksirbm_calon_bm3.ascx" />
@@ -707,6 +710,9 @@
     <Content Include="pensyarah.search.aspx" />
     <Content Include="pensyarah.update.aspx" />
     <Content Include="pensyarah.view.aspx" />
+    <Content Include="pentaksirbm_admin_senarai_markah.aspx" />
+    <Content Include="pentaksirbm_admin_senarai_markah_bm3.aspx" />
+    <Content Include="pentaksirbm_admin_senarai_markah_bm4.aspx" />
     <Content Include="pentaksirbm_borang_markah_induk.aspx" />
     <Content Include="pentaksirbm_calon.aspx" />
     <Content Include="pentaksirbm_calon_bm3.aspx" />
@@ -2470,6 +2476,27 @@
       <DependentUpon>pentaksiran_vokasional.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\pentaksirbm_admin_senarai_markah.ascx.designer.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\pentaksirbm_admin_senarai_markah.ascx.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\pentaksirbm_admin_senarai_markah_bm3.ascx.designer.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm3.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\pentaksirbm_admin_senarai_markah_bm3.ascx.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm3.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\pentaksirbm_admin_senarai_markah_bm4.ascx.designer.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm4.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\pentaksirbm_admin_senarai_markah_bm4.ascx.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm4.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\pentaksirbm_borang_markah_induk.ascx.designer.vb">
       <DependentUpon>pentaksirbm_borang_markah_induk.ascx</DependentUpon>
     </Compile>
@@ -4192,6 +4219,27 @@
     <Compile Include="pentaksirbm.Master.vb">
       <DependentUpon>pentaksirbm.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pentaksirbm_admin_senarai_markah.aspx.designer.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pentaksirbm_admin_senarai_markah.aspx.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="pentaksirbm_admin_senarai_markah_bm3.aspx.designer.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pentaksirbm_admin_senarai_markah_bm3.aspx.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm3.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="pentaksirbm_admin_senarai_markah_bm4.aspx.designer.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pentaksirbm_admin_senarai_markah_bm4.aspx.vb">
+      <DependentUpon>pentaksirbm_admin_senarai_markah_bm4.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="pentaksirbm_borang_markah_induk.aspx.designer.vb">
       <DependentUpon>pentaksirbm_borang_markah_induk.aspx</DependentUpon>
