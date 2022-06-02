@@ -1,4 +1,4 @@
-﻿<%@ control language="vb" autoeventwireup="false" codebehind="pelajar_list_kemaskini.ascx.vb" inherits="apkv_v2_admin.pelajar_list_kemaskini" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="pelajar_list_kemaskini.ascx.vb" Inherits="apkv_v2_admin.pelajar_list_kemaskini" %>
 
 <table class="fbform">
     <tr class="fbform_header">
