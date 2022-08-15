@@ -2953,7 +2953,13 @@ Public Class jana_keseluruhan_vokasional1
 
             lblMsg.Text = ""
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej"
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Jenis = 'KPM'"
+
+            If Not ddlNegeri.Text = "" Then
+
+                strSQL += " AND Negeri ='" & ddlNegeri.Text & "'"
+
+            End If
 
             strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -2978,6 +2984,14 @@ Public Class jana_keseluruhan_vokasional1
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
 
                 End If
+
+                strSQL += " AND kpmkv_pelajar.PelajarID IN (
+490350,
+490418,
+495969,
+503104,
+490467,
+493049)"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -3024,17 +3038,6 @@ Public Class jana_keseluruhan_vokasional1
     Private Sub Vokasional_markah_keseluruhan()
 
         Dim tempSkipIfNull As String = ""
-
-        tempSkipIfNull = oCommon.getFieldValue(strSQL)
-        If Not tempSkipIfNull = "" Then
-
-
-
-        Else
-
-            Exit Sub
-
-        End If
 
         strSQL = "SELECT KodModul from kpmkv_modul WHERE KursusID='" & strKursusID & "' AND Tahun='" & ddlTahun.Text & "' AND Semester='" & strSemester & "' AND KodModul Like '%01%' "
         Dim strModul1 As String = oCommon.getFieldValue(strSQL) '1
@@ -5138,7 +5141,7 @@ Public Class jana_keseluruhan_vokasional1
                     Else
 
                         SMP_PA = (CDbl(PAAV1) + CDbl(PATV1) + CDbl(PAAV2) + CDbl(PATV2) + CDbl(PAAV3) + CDbl(PATV3) + CDbl(PAAV4) + CDbl(PATV4) + CDbl(PAAV5) + CDbl(PATV5)) / 5
-                        SMP_PB = (CDbl(PBAV1) + CDbl(PBTV1) + CDbl(PBAV2) + CDbl(PBTV2) + CDbl(PBAV3) + CDbl(PBTV3) + CDbl(PBAV4) + CDbl(PBTV4) + CDbl(PBAV5) + CDbl(PBTV5) / 5)
+                        SMP_PB = (CDbl(PBAV1) + CDbl(PBTV1) + CDbl(PBAV2) + CDbl(PBTV2) + CDbl(PBAV3) + CDbl(PBTV3) + CDbl(PBAV4) + CDbl(PBTV4) + CDbl(PBAV5) + CDbl(PBTV5)) / 5
                         SMP_Total = Math.Ceiling(SMP_PB + SMP_PA)
 
                         strSQL = "UPDATE kpmkv_pelajar_markah SET SMP_Total='" & SMP_Total & "' Where PelajarID='" & strPelajarID & "'"
@@ -5311,7 +5314,14 @@ Public Class jana_keseluruhan_vokasional1
 
             lblMsg.Text = ""
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej"
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Jenis = 'KPM'"
+            If Not ddlNegeri.Text = "" Then
+
+                strSQL += " AND Negeri ='" & ddlNegeri.Text & "'"
+
+            End If
+
+            strSQL += " ORDER BY Negeri, Nama"
 
             strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5336,6 +5346,9 @@ Public Class jana_keseluruhan_vokasional1
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
 
                 End If
+
+                '                strSQL += " AND B_Amali4 IS NOT NULL
+                'AND (PBPAM4 IS NULL OR PBPAM4 = '')"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5380,7 +5393,14 @@ Public Class jana_keseluruhan_vokasional1
 
             lblMsg.Text = ""
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej"
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Jenis = 'KPM'"
+            If Not ddlNegeri.Text = "" Then
+
+                strSQL += " AND Negeri ='" & ddlNegeri.Text & "'"
+
+            End If
+
+            strSQL += " ORDER BY Negeri, Nama"
 
             strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5405,6 +5425,9 @@ Public Class jana_keseluruhan_vokasional1
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
 
                 End If
+
+                '                strSQL += " AND PBPAM5 IS NOT NULL
+                'AND (GredV5 IS NULL OR GredV5 = '')"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5449,8 +5472,12 @@ Public Class jana_keseluruhan_vokasional1
 
             lblMsg.Text = ""
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej"
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Jenis = 'KPM'"
+            If Not ddlNegeri.Text = "" Then
 
+                strSQL += " AND Negeri ='" & ddlNegeri.Text & "' ORDER BY Negeri, Nama"
+
+            End If
             strRet = oCommon.ExecuteSQL(strSQL)
 
             Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
@@ -5474,6 +5501,9 @@ Public Class jana_keseluruhan_vokasional1
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
 
                 End If
+
+                strSQL += " AND (SMP_PB = 0)"
+
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5518,8 +5548,12 @@ Public Class jana_keseluruhan_vokasional1
 
             lblMsg.Text = ""
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej"
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Jenis = 'KPM'"
+            If Not ddlNegeri.Text = "" Then
 
+                strSQL += " AND Negeri ='" & ddlNegeri.Text & "'"
+
+            End If
             strRet = oCommon.ExecuteSQL(strSQL)
 
             Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
@@ -5543,6 +5577,8 @@ Public Class jana_keseluruhan_vokasional1
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
 
                 End If
+
+                'strSQL += " AND (SMP_PAT IS NULL OR SMP_PAT = '')"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5586,9 +5622,12 @@ Public Class jana_keseluruhan_vokasional1
         Try
 
             lblMsg.Text = ""
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Jenis = 'KPM'"
+            If Not ddlNegeri.Text = "" Then
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej"
+                strSQL += " AND Negeri ='" & ddlNegeri.Text & "'"
 
+            End If
             strRet = oCommon.ExecuteSQL(strSQL)
 
             Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
@@ -5612,6 +5651,8 @@ Public Class jana_keseluruhan_vokasional1
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
 
                 End If
+
+                strSQL += " AND (Gred_Kompeten = 'G')"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5656,7 +5697,12 @@ Public Class jana_keseluruhan_vokasional1
 
             lblMsg.Text = ""
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej"
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Jenis = 'KPM'"
+            If Not ddlNegeri.Text = "" Then
+
+                strSQL += " AND Negeri ='" & ddlNegeri.Text & "' ORDER BY Negeri, Nama"
+
+            End If
 
             strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -5681,6 +5727,8 @@ Public Class jana_keseluruhan_vokasional1
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
 
                 End If
+
+                strSQL += " AND kpmkv_pelajar_markah.SMP_Total < 60"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 

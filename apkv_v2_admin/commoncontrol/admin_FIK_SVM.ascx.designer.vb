@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class admin_FIK_SVM
-    
+
     '''<summary>
     '''ddlTahun control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''chkSesi control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkSesi As Global.System.Web.UI.WebControls.CheckBoxList
-    
+
     '''<summary>
     '''ddlNegeri control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlJenis control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlKolej control.
     '''</summary>
@@ -57,7 +57,16 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKolej As Global.System.Web.UI.WebControls.DropDownList
-    
+
+    '''<summary>
+    '''txtMYKAD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtMYKAD As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
     '''btnJana control.
     '''</summary>
@@ -66,7 +75,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnJana As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''btnSearch control.
     '''</summary>
@@ -75,7 +84,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''btnStep1 control.
     '''</summary>
@@ -84,7 +93,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnStep1 As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lblStep1 control.
     '''</summary>
@@ -93,7 +102,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblStep1 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''btnStep2 control.
     '''</summary>
@@ -102,7 +111,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnStep2 As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lblStep2 control.
     '''</summary>
@@ -111,25 +120,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblStep2 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''btnStep2_2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnStep2_2 As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''lblStep2_2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblStep2_2 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''btnStep3 control.
     '''</summary>
@@ -138,7 +129,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnStep3 As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lblStep3 control.
     '''</summary>
@@ -147,7 +138,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblStep3 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''btnStep4 control.
     '''</summary>
@@ -156,7 +147,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnStep4 As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lblStep4 control.
     '''</summary>
@@ -165,7 +156,25 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblStep4 As Global.System.Web.UI.WebControls.Label
-    
+
+    '''<summary>
+    '''btnStep5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnStep5 As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblStep5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblStep5 As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
     '''pnl control.
     '''</summary>
@@ -174,7 +183,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnl As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''ddlCondition control.
     '''</summary>
@@ -183,7 +192,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlCondition As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''btnCari control.
     '''</summary>
@@ -192,7 +201,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''tblContent control.
     '''</summary>
@@ -201,7 +210,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblContent As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''btnDelete control.
     '''</summary>
@@ -210,7 +219,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''divMsg control.
     '''</summary>
@@ -219,7 +228,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>
@@ -228,7 +237,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblCOUNTP control.
     '''</summary>
@@ -237,7 +246,7 @@ Partial Public Class admin_FIK_SVM
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCOUNTP As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''btnExport control.
     '''</summary>

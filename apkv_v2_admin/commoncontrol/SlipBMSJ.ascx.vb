@@ -500,7 +500,7 @@ Public Class SlipBMSJ1
             End If
 
             If LayakSVM.Text = "TIDAK LAYAK" Then
-                strSQL += " AND kpmkv_SVM.LayakSVM = '0'"
+                strSQL += " AND kpmkv_SVM.LayakSVM IS NULL"
             End If
 
             strSQL += " ORDER BY kpmkv_pelajar.Nama ASC"
@@ -805,8 +805,6 @@ Public Class SlipBMSJ1
 
                     ''BAHASA MELAYU
                     strSQL = "select GredBMSetara from kpmkv_pelajar_markah where PelajarID = '" & strkey & "'"
-                    strSQL += " AND Tahun='" & ddlTahun.SelectedValue & "'"
-                    strSQL += " AND Sesi='" & chkSesi.SelectedValue & "'"
                     Dim strgredBMSetara As String = oCommon.getFieldValue(strSQL)
                     If strgredBMSetara = "" Then
                         strgredBMSetara = ""
@@ -855,8 +853,6 @@ Public Class SlipBMSJ1
 
                     ''SEJARAH
                     strSQL = "select GredSJSetara from kpmkv_pelajar_markah where PelajarID = '" & strkey & "'"
-                    strSQL += " AND Tahun='" & ddlTahun.SelectedValue & "'"
-                    strSQL += " AND Sesi='" & chkSesi.SelectedValue & "'"
                     Dim strgredSJSetara As String = oCommon.getFieldValue(strSQL)
 
                     strSQL = "SELECT Kompetensi FROM kpmkv_gred_sejarah WHERE Gred = '" & strgredSJSetara & "'"
@@ -888,7 +884,7 @@ Public Class SlipBMSJ1
 
                     cell = New PdfPCell()
                     cetak = ""
-                    cetak += strkompetensiSJSetara
+                    cetak += strgredSJSetara
                     cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 11)))
                     cell.Border = 0
                     table.AddCell(cell)
@@ -902,6 +898,31 @@ Public Class SlipBMSJ1
 
                     Debug.WriteLine(cetak)
                     myDocument.Add(table)
+
+                    strSQL = "SELECT GredBMLisan FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "' "
+                    Dim GredBMLisan As String = oCommon.getFieldValue(strSQL)
+
+                    ''UJIAN LISAN BAHASA MELAYU
+                    If Not GredBMLisan = "BM SETARA TH" And Not GredBMLisan = "" Then
+
+                        myDocument.Add(imgSpacing)
+
+                        table = New PdfPTable(1)
+                        table.WidthPercentage = 102
+                        table.SetWidths({100})
+                        table.DefaultCell.Border = 0
+
+                        cell = New PdfPCell()
+                        cetak = ""
+                        cetak += "UJIAN LISAN BAHASA MELAYU: " & GredBMLisan
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 11)))
+                        cell.Border = 0
+                        table.AddCell(cell)
+
+                        Debug.WriteLine(cetak)
+                        myDocument.Add(table)
+
+                    End If
 
                     myDocument.Add(imgSpacing)
                     myDocument.Add(imgSpacing)

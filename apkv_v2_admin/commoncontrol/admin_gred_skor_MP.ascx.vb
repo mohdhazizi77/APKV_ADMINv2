@@ -244,25 +244,55 @@ Public Class admin_gred_skor_MP
             lblMsg.Text = "System Error:" & ex.Message
         End Try
     End Sub
-    'Private Sub getSQL_SMP_PAT()
-    '    lblMsg.Text = ""
-    '    Try
-    '        strSQL = "UPDATE kpmkv_pelajar_markah SET SMP_Grade='G' WHERE SMP_Total ='0'"
-    '        strSQL += " AND Tahun ='" & ddlTahun.Text & "'"
-    '        strSQL += " AND Semester='" & ddlSemester.Text & "'"
-    '        strSQL += " AND Sesi ='" & chkSesi.Text & "'"
-    '        strRet = oCommon.ExecuteSQL(strSQL)
-    '    Catch ex As Exception
-    '        lblMsg.Text = "System Error:" & ex.Message
-    '    End Try
-    'End Sub
+    Private Sub getSQL_SMP_PAT()
+        lblMsg.Text = ""
+        Try
+            strSQL = "UPDATE kpmkv_pelajar_markah SET SMP_Grade='G' WHERE SMP_Total ='0'"
+            strSQL += " AND Tahun ='" & ddlTahun.Text & "'"
+            strSQL += " AND Semester='" & ddlSemester.Text & "'"
+            strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+            strRet = oCommon.ExecuteSQL(strSQL)
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
+        End Try
+    End Sub
+
+    Private Sub getSQL_SMP_PB_Keseluruhan()
+        lblMsg.Text = ""
+        Try
+            strSQL = "UPDATE kpmkv_pelajar_markah SET SMP_Grade='G' WHERE (SMP_PB ='0' OR SMP_PAA ='0' OR SMP_PAT ='0' OR Gred_Kompeten='0')"
+            strSQL += " AND Tahun ='" & ddlTahun.Text & "'"
+            strSQL += " AND Semester='" & ddlSemester.Text & "'"
+            strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+
+            strRet = oCommon.ExecuteSQL(strSQL)
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
+        End Try
+    End Sub
+    Private Sub getSQL_SMP_PAA_Keseluruhan()
+        lblMsg.Text = ""
+        Try
+            strSQL = "UPDATE kpmkv_pelajar_markah SET SMP_Grade='T' WHERE SMP_Total ='-1'"
+            strSQL += " AND Tahun ='" & ddlTahun.Text & "'"
+            strSQL += " AND Semester='" & ddlSemester.Text & "'"
+            strSQL += " AND Sesi ='" & chkSesi.Text & "'"
+
+            strRet = oCommon.ExecuteSQL(strSQL)
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
+        End Try
+    End Sub
+
+
+
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strOrder As String = " ORDER BY PelajarID ASC"
 
         '--not deleted
         tmpSQL = "SELECT a.PelajarID FROM kpmkv_pelajar_markah a, kpmkv_kolej b"
-        tmpSQL += " WHERE a.KolejRecordID=b.RecordID AND b.Negeri='" & ddlNegeri.Text & "'"
+        tmpSQL += " WHERE a.KolejRecordID=b.RecordID AND b.Negeri IS NOT NULL"
         tmpSQL += " AND a.SMP_PB='1' AND a.SMP_PAA='1' AND a.SMP_PAT='1'"
         tmpSQL += " AND a.Tahun ='" & ddlTahun.Text & "'"
         tmpSQL += " AND a.Semester='" & ddlSemester.Text & "'"
@@ -270,9 +300,7 @@ Public Class admin_gred_skor_MP
         If Not ddlKolej.SelectedValue = "" And Not ddlKodKursus.SelectedValue = "" Then
             tmpSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
             tmpSQL += " AND KursusID='" & oCommon.FixSingleQuotes(ddlKodKursus.SelectedValue) & "'"
-        ElseIf ddlKodKursus.SelectedValue = "" Then
-            divMsg.Attributes("class") = "error"
-            lblMsg.Text = "Sila Pilih Kod Kursus"
+
         End If
 
         getSQL = tmpSQL & strOrder
@@ -438,8 +466,8 @@ Public Class admin_gred_skor_MP
         lblMsg.Text = ""
         Try
 
-            getSQL_SMP_PB()
-            getSQL_SMP_PAA()
+            getSQL_SMP_PB_Keseluruhan()
+            getSQL_SMP_PAA_Keseluruhan()
             ' getSQL_SMP_PAT()
 
 

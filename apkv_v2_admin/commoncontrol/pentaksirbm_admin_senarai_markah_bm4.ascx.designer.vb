@@ -77,6 +77,15 @@ Partial Public Class pentaksirbm_admin_senarai_markah_bm4
     Protected WithEvents btnBack As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''btnUpdate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnUpdate As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''divMsg control.
     '''</summary>
     '''<remarks>

@@ -143,7 +143,7 @@ Public Class inden_matapelajaran_akademik
 				    COUNT(kpmkv_pelajar.PelajarID) as Sains,
 				    COUNT(kpmkv_pelajar.PelajarID) as Sejarah,
 				    COUNT(CASE WHEN kpmkv_pelajar.Agama = 'ISLAM' THEN 1 ELSE NULL END) as PendidikanIslam,
-				    COUNT(CASE WHEN kpmkv_pelajar.Agama = 'LAIN-LAIN' THEN 1 ELSE NULL END) as PendidikanMoral
+				    COUNT(CASE WHEN kpmkv_pelajar.Agama <> 'ISLAM' THEN 1 ELSE NULL END) as PendidikanMoral
 				    FROM kpmkv_pelajar
 				    LEFT JOIN kpmkv_kolej ON kpmkv_pelajar.KolejRecordID = kpmkv_kolej.RecordID"
 
@@ -187,7 +187,7 @@ Public Class inden_matapelajaran_akademik
 			        COUNT(CASE WHEN kpmkv_kursus.JenisKursus = 'TECHNOLOGY' THEN 1 ELSE NULL END) as SainsUntukTeknologi,
 			        COUNT(kpmkv_pelajar.PelajarID) as Sejarah,
 			        COUNT(CASE WHEN kpmkv_pelajar.Agama = 'ISLAM' THEN 1 ELSE NULL END) as PendidikanIslam,
-			        COUNT(CASE WHEN kpmkv_pelajar.Agama = 'LAIN-LAIN' THEN 1 ELSE NULL END) as PendidikanMoral
+				    COUNT(CASE WHEN kpmkv_pelajar.Agama <> 'ISLAM' THEN 1 ELSE NULL END) as PendidikanMoral
 			        FROM kpmkv_pelajar
 			        LEFT JOIN kpmkv_kolej ON kpmkv_pelajar.KolejRecordID = kpmkv_kolej.RecordID
 			        LEFT JOIN kpmkv_kursus ON kpmkv_kursus.KursusID = kpmkv_pelajar.KursusID"

@@ -238,7 +238,7 @@ Public Class pentaksirbm_admin_senarai_markah
         Dim strWhere As String = ""
         Dim strOrder As String = " ORDER BY UserGroupCode ASC"
 
-        tmpSQL = "  SELECT kpmkv_pentaksir_bmsetara.id,
+        tmpSQL = "  SELECT DISTINCT kpmkv_pentaksir_bmsetara.id,
                     kpmkv_pentaksir_bmsetara.UserID,
                     kpmkv_pentaksir_bmsetara.MataPelajaran,
                     kpmkv_pentaksir_bmsetara.Kohort,
@@ -249,6 +249,7 @@ Public Class pentaksirbm_admin_senarai_markah
                     kpmkv_kolej.Nama AS 'NamaKolej'
                     FROM kpmkv_pentaksir_bmsetara
                     LEFT JOIN kpmkv_kolej ON kpmkv_kolej.RecordID = kpmkv_pentaksir_bmsetara.KolejRecordID
+                    LEFT JOIN kpmkv_pentaksir_bmsetara_calon ON kpmkv_pentaksir_bmsetara_calon.KolejRecordID = kpmkv_kolej.RecordID
                     WHERE kpmkv_kolej.Negeri IS NOT NULL"
 
         If Not ddlNegeri.Text = "0" Then
@@ -264,11 +265,11 @@ Public Class pentaksirbm_admin_senarai_markah
         End If
 
         If Not ddlTahun.Text = "0" Then
-            strWhere += " AND kpmkv_pentaksir_bmsetara.Kohort = '" & ddlTahun.Text & "'"
+            strWhere += " AND kpmkv_pentaksir_bmsetara_calon.Tahun = '" & ddlTahun.Text & "'"
         End If
 
         If Not txtMYKAD.Text = "" Then
-            strWhere += " AND kpmkv_pentaksir_bmsetara.MYKAD = '" & txtMYKAD.Text & "'"
+            strWhere += " AND kpmkv_pentaksir_bmsetara_calon.MYKAD = '" & txtMYKAD.Text & "'"
         End If
 
         getSQL = tmpSQL + strWhere

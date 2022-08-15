@@ -344,7 +344,7 @@ Public Class jana_keseluruhan_pngs1
                 strSQL += " AND kpmkv_pelajar.Tahun ='" & ddlTahun.Text & "'"
                 strSQL += " AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
                 strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
-                strSQL += " AND kpmkv_pelajar.KursusID='" & strKursusID & "'"
+                strSQL += " AND kpmkv_pelajar.KursusID = '" & strKursusID & "'"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -482,19 +482,19 @@ Public Class jana_keseluruhan_pngs1
                     End If
 
                     'MATHEMATIC
-                    If ddlSemester.Text = "1" Or ddlSemester.Text = "2" Then
+                    'If ddlSemester.Text = "1" Or ddlSemester.Text = "2" Then
 
-                        strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
+                    strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
                         strSQL += " AND NamaMataPelajaran='MATEMATIK' AND Tahun='" & ddlTahun.SelectedValue & "'"
                         strRet = oCommon.getFieldValueEx(strSQL)
 
-                    Else
+                    'Else
 
-                        strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
-                        strSQL += " AND NamaMataPelajaran LIKE '%MATEMATIK%' AND Jenis = '" & strJenisKursus & "' AND Tahun='" & ddlTahun.SelectedValue & "'"
-                        strRet = oCommon.getFieldValueEx(strSQL)
+                    'strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
+                    '    strSQL += " AND NamaMataPelajaran LIKE '%MATEMATIK%' AND Jenis = '" & strJenisKursus & "' AND Tahun='" & ddlTahun.SelectedValue & "'"
+                    '    strRet = oCommon.getFieldValueEx(strSQL)
 
-                    End If
+                    'End If
 
                     Dim ar_KODMT As Array
                     ar_KODMT = strRet.Split("|")
@@ -522,19 +522,19 @@ Public Class jana_keseluruhan_pngs1
 
                     'SCIENCE
 
-                    If ddlSemester.Text = "1" Or ddlSemester.Text = "2" Then
+                    'If ddlSemester.Text = "1" Or ddlSemester.Text = "2" Then
 
-                        strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
+                    strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
                         strSQL += " AND NamaMataPelajaran='SAINS' AND Tahun='" & ddlTahun.SelectedValue & "'"
                         strRet = oCommon.getFieldValueEx(strSQL)
 
-                    Else
+                    'Else
 
-                        strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
-                        strSQL += " AND NamaMataPelajaran LIKE '%SAINS%' AND Jenis = '" & strJenisKursus & "' AND Tahun='" & ddlTahun.SelectedValue & "'"
-                        strRet = oCommon.getFieldValueEx(strSQL)
+                    '    strSQL = "SELECT  KODMatapelajaran, NamaMataPelajaran,JamKredit FROM kpmkv_matapelajaran WHERE Semester='" & ddlSemester.Text & "'"
+                    '    strSQL += " AND NamaMataPelajaran LIKE '%SAINS%' AND Jenis = '" & strJenisKursus & "' AND Tahun='" & ddlTahun.SelectedValue & "'"
+                    '    strRet = oCommon.getFieldValueEx(strSQL)
 
-                    End If
+                    'End If
 
                     Dim ar_MPSC As Array
                     ar_MPSC = strRet.Split("|")
@@ -697,11 +697,15 @@ Public Class jana_keseluruhan_pngs1
 
                     If Not strGredPI = "" Then
                         strJamKreditAkademik = CDbl(strJamKreditBM) + CDbl(strJamKreditBI) + CDbl(strJamKreditMT) + CDbl(strJamKreditSC) + CDbl(strJamKreditSJ) + CDbl(strJamKreditPI)
-                    ElseIf Not strGredPM = "" Then
-                        strJamKreditAkademik = CDbl(strJamKreditBM) + CDbl(strJamKreditBI) + CDbl(strJamKreditMT) + CDbl(strJamKreditSC) + CDbl(strJamKreditSJ) + CDbl(strJamKreditPI)
+                    Else
+                        strJamKreditAkademik = CDbl(strJamKreditBM) + CDbl(strJamKreditBI) + CDbl(strJamKreditMT) + CDbl(strJamKreditSC) + CDbl(strJamKreditSJ) + CDbl(strJamKreditPM)
                     End If
 
                     'check by semester
+
+                    If strPelajarID = "488973" Then
+                        strPelajarID = "488973"
+                    End If
 
                     Dim strTotalNilaiMataAkademik As Double = CDbl(strNilaiMataBM) + CDbl(strNilaiMataBI) + CDbl(strNilaiMataMT) + CDbl(strNilaiMataSC) + CDbl(strNilaiMataSJ) + CDbl(strNilaiMataPI) + CDbl(strNilaiMataPM)
                     Dim strTotalNilaiMataPNGA As Double = Math.Round((strTotalNilaiMataAkademik / strJamKreditAkademik), 2)
@@ -1191,7 +1195,7 @@ Public Class jana_keseluruhan_pngs1
 
             Next
 
-            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Negeri IS NOT NULL"
+            strSQL = "SELECT RecordID FROM kpmkv_kolej WHERE Negeri IS NOT NULL AND Jenis = 'KPM'"
 
             If Not ddlNegeri.SelectedValue = "" Then
 
@@ -1213,16 +1217,24 @@ Public Class jana_keseluruhan_pngs1
                 strSQL += " FROM kpmkv_pelajar_markah "
                 strSQL += " LEFT OUTER JOIN kpmkv_pelajar On kpmkv_pelajar_markah.PelajarID = kpmkv_pelajar.PelajarID"
                 strSQL += " LEFT OUTER Join kpmkv_kursus On kpmkv_pelajar.KursusID = kpmkv_kursus.KursusID"
-                strSQL += " WHERE kpmkv_pelajar.KolejRecordID='" & strRecordID & "'"
+                strSQL += " WHERE kpmkv_pelajar.KolejRecordID = '" & strRecordID & "'"
                 strSQL += " AND kpmkv_pelajar.IsDeleted='N' AND kpmkv_pelajar.StatusID='2' AND kpmkv_pelajar.JenisCalonID='2'"
 
                 If Not ddlTahun.Text = "" Then
-                    strSQL += " AND kpmkv_pelajar.Tahun ='" & ddlTahun.Text & "'"
+                    strSQL += " And kpmkv_pelajar.Tahun ='" & ddlTahun.Text & "'"
                 End If
 
                 If Not ddlSemester.Text = "" Then
                     strSQL += " AND kpmkv_pelajar.Semester ='" & ddlSemester.Text & "'"
                 End If
+
+                strSQL += " AND kpmkv_pelajar.PelajarID IN (
+490350,
+490418,
+495969,
+503104,
+490467,
+493049)"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
 
@@ -1396,8 +1408,8 @@ Public Class jana_keseluruhan_pngs1
 
                     If Not strGredPI = "" Then
                         strJamKreditAkademik = CDbl(strJamKreditBM) + CDbl(strJamKreditBI) + CDbl(strJamKreditMT) + CDbl(strJamKreditSC) + CDbl(strJamKreditSJ) + CDbl(strJamKreditPI)
-                    ElseIf Not strGredPM = "" Then
-                        strJamKreditAkademik = CDbl(strJamKreditBM) + CDbl(strJamKreditBI) + CDbl(strJamKreditMT) + CDbl(strJamKreditSC) + CDbl(strJamKreditSJ) + CDbl(strJamKreditPI)
+                    Else
+                        strJamKreditAkademik = CDbl(strJamKreditBM) + CDbl(strJamKreditBI) + CDbl(strJamKreditMT) + CDbl(strJamKreditSC) + CDbl(strJamKreditSJ) + CDbl(strJamKreditPM)
                     End If
 
                     'check by semester

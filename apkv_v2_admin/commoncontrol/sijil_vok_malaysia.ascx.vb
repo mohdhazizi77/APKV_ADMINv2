@@ -527,14 +527,16 @@ Public Class sijil_vok_malaysia1
 
         Dim myDocument As New Document
 
+        Dim FontType As String = "Times"
+
         If ddlStatus.SelectedValue = "TIDAK LAYAK" Then
 
             myDocument = New Document(PageSize.A4, 38, 36, 37, 37)
 
 
         Else
-
-            myDocument = New Document(PageSize.A4, 38.5, 36, 37, 37)
+            Dim pgSize As New Rectangle(216, 279)
+            myDocument = New Document(pgSize)
 
         End If
 
@@ -727,167 +729,69 @@ Public Class sijil_vok_malaysia1
                     Dim cetak As String = ""
 
                     ''NAMA
-                    table = New PdfPTable(4)
+                    table = New PdfPTable(1)
                     table.WidthPercentage = 100
-                    table.SetWidths({0, 30, 3, 67})
-
-                    cell = New PdfPCell()
-                    cetak = ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = "NAMA"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = " : "
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
+                    table.SetWidths({100})
 
                     cell = New PdfPCell()
                     cetak = strname
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 11, Font.BOLD)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     myDocument.Add(table)
 
-
-
+                    Dim p1 As String = strmykad.Substring(0, 6)
+                    Dim p2 As String = strmykad.Substring(6, 2)
+                    Dim p3 As String = strmykad.Substring(8, 4)
 
                     ''NO. KAD PENGENALAN
-                    table = New PdfPTable(4)
+                    table = New PdfPTable(1)
                     table.WidthPercentage = 100
-                    table.SetWidths({0, 30, 3, 67})
+                    table.SetWidths({100})
 
                     cell = New PdfPCell()
-                    cetak = ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = "NO. KAD PENGENALAN"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = " : "
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = strmykad
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cetak = p1 & "-" & p2 & "-" & p3
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 11)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     myDocument.Add(table)
 
-
-
-
                     ''ANGKA GILIRAN
-                    table = New PdfPTable(4)
+                    table = New PdfPTable(1)
                     table.WidthPercentage = 100
-                    table.SetWidths({0, 30, 3, 67})
-
-                    cell = New PdfPCell()
-                    cetak = ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = "ANGKA GILIRAN"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = " : "
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
+                    table.SetWidths({100})
 
                     cell = New PdfPCell()
                     cetak = strag
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 11)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     myDocument.Add(table)
 
-
-
-
                     ''INSTITUSI
-                    table = New PdfPTable(4)
+                    table = New PdfPTable(1)
                     table.WidthPercentage = 100
-                    table.SetWidths({0, 30, 3, 67})
-
-                    cell = New PdfPCell()
-                    cetak = ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = "INSTITUSI"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = " : "
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
+                    table.SetWidths({100})
 
                     cell = New PdfPCell()
                     cetak = strKolejnama & ", " & strKolejnegeri
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 11)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     myDocument.Add(table)
 
-
-
-
                     ''PROGRAM
-                    table = New PdfPTable(4)
+                    table = New PdfPTable(1)
                     table.WidthPercentage = 100
-                    table.SetWidths({0, 30, 3, 67})
-
-                    cell = New PdfPCell()
-                    cetak = ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = "PROGRAM"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
-
-                    cell = New PdfPCell()
-                    cetak = " : "
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    cell.Border = 0
-                    table.AddCell(cell)
+                    table.SetWidths({100})
 
                     cell = New PdfPCell()
                     cetak = strprogram
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 11, Font.BOLD)))
                     cell.Border = 0
                     table.AddCell(cell)
 
@@ -898,37 +802,64 @@ Public Class sijil_vok_malaysia1
 
                     myDocument.Add(imgSpacing)
 
-
                     table = New PdfPTable(4)
                     table.WidthPercentage = 100
-                    table.SetWidths({0, 10, 60, 30})
+                    table.SetWidths({0, 15, 60, 25})
 
                     cell = New PdfPCell()
                     cetak = ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell()
-                    cetak = "KOD"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)))
+                    cetak = "Kod"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell()
-                    cetak = "MATA PELAJARAN"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)))
+                    cetak = "Mata Pelajaran"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell()
-                    cetak = "GRED"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)))
+                    cetak = "Gred"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
+                    cell.HorizontalAlignment = HorizontalAlign.Center
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    cell = New PdfPCell()
+                    cetak = ""
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10, Font.ITALIC)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    cell = New PdfPCell()
+                    cetak = "Code"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10, Font.ITALIC)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    cell = New PdfPCell()
+                    cetak = "Subject"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10, Font.ITALIC)))
+                    cell.Border = 0
+                    table.AddCell(cell)
+
+                    cell = New PdfPCell()
+                    cetak = "Grade"
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10, Font.ITALIC)))
                     cell.HorizontalAlignment = HorizontalAlign.Center
                     cell.Border = 0
                     table.AddCell(cell)
 
                     myDocument.Add(table)
+
+                    myDocument.Add(imgSpacing)
+
 
                     'matapelajaran vokasional------------------------------------------------------------------------------
 
@@ -941,6 +872,8 @@ Public Class sijil_vok_malaysia1
                     sqlDA2.Fill(ds2, "AnyTable")
 
                     Dim Kompeten As Integer = 1
+
+                    Dim countMP As Integer = 0
 
                     For j As Integer = 0 To ds2.Tables(0).Rows.Count - 1
 
@@ -958,8 +891,6 @@ Public Class sijil_vok_malaysia1
                         Dim fieldValueEx As Array
                         fieldValueEx = strRet.Split("|")
 
-
-
                         If Not fieldValueEx(j) = "G" And Not fieldValueEx(j) = "T" Then
 
                             strSQL = " SELECT Status FROM kpmkv_gred_vokasional WHERE Gred = '" & fieldValueEx(j) & "' AND Tahun = '" & ddlTahun.Text & "'"
@@ -974,37 +905,39 @@ Public Class sijil_vok_malaysia1
 
                             cell = New PdfPCell()
                             cetak = ""
-                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                             cell.Border = 0
                             table.AddCell(cell)
 
                             cell = New PdfPCell()
                             cetak = strKodMPVOK
-                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                             cell.Border = 0
                             table.AddCell(cell)
 
                             cell = New PdfPCell()
                             cetak = strNamaMPVOK
-                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                             cell.Border = 0
                             table.AddCell(cell)
 
                             cell = New PdfPCell()
                             cetak = fieldValueEx(j)
-                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                             cell.HorizontalAlignment = HorizontalAlign.Center
                             cell.Border = 0
                             table.AddCell(cell)
 
                             cell = New PdfPCell()
-                            cetak = strStatusV
-                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                            cetak = "(" & strStatusV & ")"
+                            cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                             cell.HorizontalAlignment = HorizontalAlign.Center
                             cell.Border = 0
                             table.AddCell(cell)
 
                             myDocument.Add(table)
+
+                            countMP = countMP + 1
 
                         Else
 
@@ -1048,37 +981,39 @@ Public Class sijil_vok_malaysia1
 
                         cell = New PdfPCell()
                         cetak = ""
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
                         cetak = "1104"
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
                         cetak = "BAHASA MELAYU"
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
                         cetak = strGredBMSetara
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.HorizontalAlignment = HorizontalAlign.Center
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
-                        cetak = strStatusBM
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cetak = "(" & strStatusBM & ")"
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.HorizontalAlignment = HorizontalAlign.Center
                         cell.Border = 0
                         table.AddCell(cell)
 
                         myDocument.Add(table)
+
+                        countMP = countMP + 1
 
                     Else
 
@@ -1098,19 +1033,19 @@ Public Class sijil_vok_malaysia1
 
                         cell = New PdfPCell()
                         cetak = ""
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
                         cetak = "1251"
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
                         cetak = "SEJARAH"
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
@@ -1119,19 +1054,21 @@ Public Class sijil_vok_malaysia1
 
                         cell = New PdfPCell()
                         cetak = strGredSJSetara
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.HorizontalAlignment = HorizontalAlign.Center
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
                         cetak = ""
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.HorizontalAlignment = HorizontalAlign.Center
                         cell.Border = 0
                         table.AddCell(cell)
 
                         myDocument.Add(table)
+
+                        countMP = countMP + 1
 
                     Else
 
@@ -1143,93 +1080,40 @@ Public Class sijil_vok_malaysia1
 
                     myDocument.Add(imgSpacing)
 
-                    'strSQL = "Select GredBMSetara from kpmkv_pelajar_markah where PelajarID = '" & strkey & "'"
-                    'strSQL += " AND Tahun='" & ddlTahun.SelectedValue & "'"
-                    'strSQL += " AND Sesi='" & chkSesi.SelectedValue & "'"
-                    'Dim strgred As String = oCommon.getFieldValue(strSQL)
-                    'If strgred = "" Then
-                    '    strgred = ""
-                    'End If
+                    ''''' UJIAN LISAN
 
+                    strSQL = "SELECT GredBMLisan FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strkey & "'"
+                    Dim GredBMLisan As String = oCommon.getFieldValue(strSQL)
 
-                    'table = New PdfPTable(4)
-                    'table.WidthPercentage = 100
-                    'table.SetWidths({10, 70, 15, 5})
-                    'table.DefaultCell.Border = 0
+                    If Not GredBMLisan = "" Then
 
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += ""
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
+                        table = New PdfPTable(2)
+                        table.WidthPercentage = 100
+                        table.SetWidths({0, 100})
+                        table.DefaultCell.Border = 0
 
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += "BAHASA MELAYU KOLEJ VOKASIONAL 1104"
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
+                        cell = New PdfPCell()
+                        cetak = ""
+                        cetak += ""
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
+                        cell.Border = 0
+                        table.AddCell(cell)
 
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += "GRED " & strgred
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
+                        cell = New PdfPCell()
+                        cetak = ""
+                        cetak += "UJIAN LISAN BAHASA MELAYU: " & GredBMLisan
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
+                        cell.Border = 0
+                        table.AddCell(cell)
 
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += ""
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
+                        myDocument.Add(table)
 
-                    'Debug.WriteLine(cetak)
-                    'myDocument.Add(table)
+                        myDocument.Add(imgSpacing)
 
+                    Else
+                        myDocument.Add(imgSpacing)
 
-                    ''Kluster---------------------------------------------------------------------------
-
-                    'table = New PdfPTable(4)
-                    'table.WidthPercentage = 100
-                    'table.SetWidths({10, 70, 15, 5})
-                    'table.DefaultCell.Border = 0
-
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += ""
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
-
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += "KOMPETEN SEMUA MODUL " & strbidang
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
-
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += ""
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
-
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += ""
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
-
-                    'Debug.WriteLine(cetak)
-                    'myDocument.Add(table)
-
-                    'myDocument.Add(imgSpacing)
-
-                    'kompeten semua kursus-----------------------------------------------------------
+                    End If
 
                     If Not ddlStatus.SelectedValue = "TIDAK LAYAK" Then
 
@@ -1241,14 +1125,14 @@ Public Class sijil_vok_malaysia1
                         cell = New PdfPCell()
                         cetak = ""
                         cetak += ""
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
                         cell = New PdfPCell()
                         cetak = ""
                         cetak += "KOMPETEN SEMUA KURSUS"
-                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                        cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                         cell.Border = 0
                         table.AddCell(cell)
 
@@ -1266,21 +1150,21 @@ Public Class sijil_vok_malaysia1
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += "PURATA NILAI GRED KUMULATIF AKADEMIK (PNGKA)"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += FormatNumber(CDbl(strPNGKA), 2)
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
@@ -1296,21 +1180,21 @@ Public Class sijil_vok_malaysia1
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += "PURATA NILAI GRED KUMULATIF VOKASIONAL (PNGKV)"
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += FormatNumber(CDbl(strPNGKV), 2)
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
@@ -1340,7 +1224,7 @@ Public Class sijil_vok_malaysia1
                     cetak += "Kelulusan Bahasa Melayu Kod 1104 adalah setara dengan Bahasa Melayu Kod 1103 SPM." & Environment.NewLine
                     cetak += "Kelulusan Sejarah Kod 1251 adalah setara dengan lulus Sejarah Kod 1249 SPM." & Environment.NewLine
                     cetak += "Kelulusan bagi semua mata pelajaran vokasional adalah setara dengan mata pelajaran elektif SPM."
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLDITALIC)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10, Font.BOLD)))
                     cell.Border = 0
                     table.AddCell(cell)
 
@@ -1362,8 +1246,8 @@ Public Class sijil_vok_malaysia1
                         'Dim qr As BarcodeQRCode = New BarcodeQRCode("http://apkv.moe.gov.my/apkv_v2_admin/svm.pengesahan.aspx?id=" & encryptedStrkey, 150, 150, hints)
                         'Dim qr As BarcodeQRCode = New BarcodeQRCode("http://localhost:49286/svm.pengesahan.aspx?id=" & encryptedStrkey, 150, 150, hints)
                         Dim qrImage As iTextSharp.text.Image = qr.GetImage()
-                        qrImage.SetAbsolutePosition(250, 122)
-                        qrImage.ScalePercent(45)
+                        qrImage.SetAbsolutePosition(250, 50)
+                        qrImage.ScalePercent(50)
                         myDocument.Add(qrImage)
 
                     End If
@@ -1405,11 +1289,7 @@ Public Class sijil_vok_malaysia1
                     Dim bfAgency As BaseFont = BaseFont.CreateFont(fontPath & "agency.ttf", BaseFont.CP1252, BaseFont.EMBEDDED)
 
                     Dim agencyFont As iTextSharp.text.Font = New iTextSharp.text.Font(bfAgency, 15)
-                    '' changed fontsize from 13 to 15 21112018
 
-                    'myDocument.Add(imgSpacing)
-                    'myDocument.Add(imgSpacing)
-                    'myDocument.Add(imgSpacing)
                     myDocument.Add(imgSpacing)
                     myDocument.Add(imgSpacing)
                     myDocument.Add(imgSpacing)
@@ -1435,26 +1315,25 @@ Public Class sijil_vok_malaysia1
 
                     End If
 
-                    'table = New PdfPTable(2)
-                    'table.WidthPercentage = 100
-                    'table.SetWidths({0, 100})
-                    'table.DefaultCell.Border = 1
+                    Dim JumMataPelajaran As String = ""
 
-                    'cell = New PdfPCell()
-                    'cetak = ""
-                    'cetak += ""
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
-                    'cell.Border = 0
-                    'table.AddCell(cell)
-
-                    'cell = New PdfPCell
-                    'cetak = "PEPERIKSAAN TAHUN " & strTahunSem
-                    'cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-                    'cell.VerticalAlignment = Element.ALIGN_BOTTOM
-                    'cell.Border = 0
-                    'table.AddCell(cell)
-
-                    'myDocument.Add(table)
+                    If countMP = 1 Then
+                        JumMataPelajaran = "SATU"
+                    ElseIf countMP = 2 Then
+                        JumMataPelajaran = "DUA"
+                    ElseIf countMP = 3 Then
+                        JumMataPelajaran = "TIGA"
+                    ElseIf countMP = 4 Then
+                        JumMataPelajaran = "EMPAT"
+                    ElseIf countMP = 5 Then
+                        JumMataPelajaran = "LIMA"
+                    ElseIf countMP = 6 Then
+                        JumMataPelajaran = "ENAM"
+                    ElseIf countMP = 7 Then
+                        JumMataPelajaran = "TUJUH"
+                    ElseIf countMP = 8 Then
+                        JumMataPelajaran = "LAPAN"
+                    End If
 
                     table = New PdfPTable(2)
                     table.WidthPercentage = 100
@@ -1465,15 +1344,17 @@ Public Class sijil_vok_malaysia1
                     cell = New PdfPCell()
                     cetak = ""
                     cetak += ""
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 10)))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.Border = 0
                     table.AddCell(cell)
 
                     cell = New PdfPCell
+                    cetak = "JUMLAH MATA PELAJARAN " & JumMataPelajaran & Environment.NewLine
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cetak = "PEPERIKSAAN TAHUN " & strTahunSem & Environment.NewLine
-                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont("Arial", 9)))
-                    cetak = strRunningNo & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine
-                    cell.AddElement(New Paragraph(cetak, agencyFont))
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
+                    cetak = strRunningNo & Environment.NewLine & Environment.NewLine & Environment.NewLine & Environment.NewLine
+                    cell.AddElement(New Paragraph(cetak, FontFactory.GetFont(FontType, 10)))
                     cell.VerticalAlignment = Element.ALIGN_BOTTOM
                     cell.Border = 0
                     table.AddCell(cell)
@@ -1491,7 +1372,7 @@ Public Class sijil_vok_malaysia1
                         'Dim imageHeader As String = Server.MapPath(fileSavePath)
                         imgHeader = Image.GetInstance(imageHeader)
                         imgHeader.ScalePercent(23)
-                        imgHeader.SetAbsolutePosition(40, 63)
+                        imgHeader.SetAbsolutePosition(40, 15)
 
                         myDocument.Add(imgHeader)
 

@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class markah_ulang_BMSetara1
-    
+
     '''<summary>
     '''ddlNegeri control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlJenis control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlKolej control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKolej As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlTahun control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlBMTahun control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlBMTahun As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''chkSesi control.
     '''</summary>
@@ -66,7 +66,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkSesi As Global.System.Web.UI.WebControls.CheckBoxList
-    
+
     '''<summary>
     '''ddlKodKursus control.
     '''</summary>
@@ -75,7 +75,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKodKursus As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''ddlKelas control.
     '''</summary>
@@ -84,7 +84,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlKelas As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''btnCari control.
     '''</summary>
@@ -93,7 +93,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''datRespondent control.
     '''</summary>
@@ -102,7 +102,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''btnGred control.
     '''</summary>
@@ -111,7 +111,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnGred As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''janagred control.
     '''</summary>
@@ -120,7 +120,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents janagred As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''btnPointer control.
     '''</summary>
@@ -129,7 +129,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnPointer As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''janapointer control.
     '''</summary>
@@ -138,7 +138,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents janapointer As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''btnUpdate control.
     '''</summary>
@@ -147,7 +147,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnUpdate As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''Label1 control.
     '''</summary>
@@ -156,7 +156,43 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
-    
+
+    '''<summary>
+    '''ddlTahunSem control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTahunSem As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Label2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''btnJanaKohortLama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnJanaKohortLama As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblJanaKohortLama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJanaKohortLama As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
     '''divMsg control.
     '''</summary>
@@ -165,7 +201,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''lblKolejID control.
     '''</summary>
@@ -174,7 +210,7 @@ Partial Public Class markah_ulang_BMSetara1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblKolejID As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>

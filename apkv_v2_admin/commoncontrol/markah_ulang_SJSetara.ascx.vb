@@ -5,10 +5,13 @@ Imports System.Data.SqlClient
 Public Class markah_ulang_SJSetara1
     Inherits System.Web.UI.UserControl
     Dim oCommon As New Commonfunction
+    Dim oCommon2 As New Commonfunction2
     Dim strSQL As String
     Dim strRet As String
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+    Dim strConn2 As String = ConfigurationManager.AppSettings("ConnectionString2")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
+    Dim objConn2 As SqlConnection = New SqlConnection(strConn2)
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -25,6 +28,8 @@ Public Class markah_ulang_SJSetara1
 
                 kpmkv_tahun_list()
                 ddlTahun.Text = Now.Year
+
+                kpmkv_tahunSem()
 
                 kpmkv_bmtahun_list()
                 ddlBMTahun.Text = Now.Year
@@ -139,6 +144,33 @@ Public Class markah_ulang_SJSetara1
 
             '--ALL
             ddlTahun.Items.Add(New ListItem("-Pilih-", "0"))
+
+        Catch ex As Exception
+            lblMsg.Text = "System Error:" & ex.Message
+
+        Finally
+            objConn.Dispose()
+        End Try
+
+    End Sub
+
+    Private Sub kpmkv_tahunSem()
+        strSQL = "SELECT DISTINCT TahunSem FROM kpmkv_pelajar WHERE TahunSem IS NOT NULL ORDER BY TahunSem"
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            ddlTahunSem.DataSource = ds
+            ddlTahunSem.DataTextField = "TahunSem"
+            ddlTahunSem.DataValueField = "TahunSem"
+            ddlTahunSem.DataBind()
+
+            '--ALL
+            ddlTahunSem.Items.Add(New ListItem("-Pilih-", "0"))
 
         Catch ex As Exception
             lblMsg.Text = "System Error:" & ex.Message
@@ -319,9 +351,31 @@ Public Class markah_ulang_SJSetara1
                     kpmkv_pelajar_ulang.NamaMataPelajaran = 'SEJARAH'
                     AND kpmkv_pelajar.IsBMTahun = '" & ddlBMTahun.Text & "'
                     AND kpmkv_pelajar.Semester = '4'
-                    AND kpmkv_pelajar.Sesi = '" & chkSesi.Text & "'
                     AND kpmkv_pelajar_ulang.KursusID ='" & ddlKodKursus.SelectedValue & "'
                     AND kpmkv_pelajar_ulang.KelasID ='" & ddlKelas.SelectedValue & "'
+                    ORDER BY
+                    kpmkv_pelajar.Nama"
+
+        tmpSQL = "  SELECT
+                    kpmkv_pelajar.Nama,
+                    kpmkv_pelajar.PelajarID,
+                    kpmkv_pelajar.MYKAD,
+                    kpmkv_pelajar.AngkaGiliran,
+                    kpmkv_pelajar_markah.Sejarah,
+                    kpmkv_pelajar_markah.GredSJ,
+                    kpmkv_pelajar_ulang.MarkahBMUlang AS 'SejarahUlang',
+                    kpmkv_pelajar_ulang.Gred AS 'GredSJUlang',
+                    kpmkv_pelajar_ulang.PointerBMUlang AS 'PointerSJUlang',
+                    kpmkv_pelajar_ulang.GredPointerBMUlang AS 'GredPointerSJUlang'
+                    FROM
+                    kpmkv_pelajar
+                    LEFT JOIN kpmkv_pelajar_markah ON kpmkv_pelajar_markah.PelajarID = kpmkv_pelajar.PelajarID
+                    LEFT JOIN kpmkv_markah_bmsj_setara ON kpmkv_markah_bmsj_setara.PelajarID = kpmkv_pelajar.PelajarID
+                    WHERE
+                    kpmkv_markah_bmsj_setara.MataPelajaran = 'SEJARAH'
+                    AND kpmkv_pelajar.IsBMTahun = '" & ddlBMTahun.Text & "'
+                    AND kpmkv_pelajar.Semester = '4'
+                    AND kpmkv_markah_bmsj_setara.KodKursus ='" & ddlKodKursus.SelectedValue & "'
                     ORDER BY
                     kpmkv_pelajar.Nama"
 
@@ -712,5 +766,131 @@ Public Class markah_ulang_SJSetara1
 
         Next
 
+    End Sub
+
+    Private Sub btnJanaKohortLama_Click(sender As Object, e As EventArgs) Handles btnJanaKohortLama.Click
+        strSQL = "SELECT DISTINCT A.MYKAD, B.PusatPeperiksaanID, A.PelajarID FROM kpmkv_svmu A
+LEFT JOIN kpmkv_svmu_calon B ON A.svmu_id = B.svmu_id
+LEFT JOIN kpmkv_pelajar C ON C.MYKAD = A.MYKAD
+WHERE 
+A.Tahun = '" & ddlTahunSem.SelectedValue & "'
+AND A.DatabaseName = 'APKV'
+AND C.Tahun IN (2012,2013,2014,2015,2016)
+AND B.MataPelajaran = 'SJ'
+AND B.Status = 'DISAHKAN'"
+
+        Dim sqlMYKAD As New SqlDataAdapter(strSQL, objConn)
+        Dim dsMYKAD As DataSet = New DataSet
+        sqlMYKAD.Fill(dsMYKAD, "AnyTable")
+
+        For i As Integer = 0 To dsMYKAD.Tables(0).Rows.Count - 1
+
+            Dim MYKAD As String = dsMYKAD.Tables(0).Rows(i).Item(0).ToString
+            Dim RecordID As String = dsMYKAD.Tables(0).Rows(i).Item(1).ToString
+            Dim PelajarID As String = dsMYKAD.Tables(0).Rows(i).Item(2).ToString
+            PelajarID = PelajarID.Replace(" ", "")
+
+            If MYKAD = "991129065156" Then
+                MYKAD = "991129065156"
+            End If
+
+            '' A_BM sem4
+            Dim SJ1 As Integer
+
+            Dim checkSJ1 As Integer = -1
+
+            strSQL = "  SELECT SJ FROM kpmkv_pelajar_markah_import_sj WHERE MYKAD = '" & MYKAD & "'"
+            If Not oCommon.getFieldValue(strSQL).Length = 0 Then
+                checkSJ1 = 0
+                SJ1 = oCommon.getFieldValue(strSQL)
+            End If
+
+            strSQL = "SELECT Tahun FROM kpmkv_pelajar WHERE PelajarID = '" & PelajarID & "'"
+            Dim Tahun As String = oCommon2.getFieldValue(strSQL)
+
+            strSQL = "SELECT Sesi FROM kpmkv_pelajar WHERE PelajarID = '" & PelajarID & "'"
+            Dim Sesi As String = oCommon2.getFieldValue(strSQL)
+
+            strSQL = "SELECT KursusID FROM kpmkv_pelajar WHERE PelajarID = '" & PelajarID & "'"
+            Dim KursusID As String = oCommon2.getFieldValue(strSQL)
+
+            strSQL = "SELECT KodKursus FROM kpmkv_kursus WHERE KursusID = '" & KursusID & "'"
+            Dim KodKursus As String = oCommon2.getFieldValue(strSQL)
+
+            If checkSJ1 = -1 Then
+
+                strSQL = "SELECT PelajarID FROM kpmkv_markah_bmsj_setara WHERE PelajarID = '" & PelajarID & "' AND IsAKATahun = '" & ddlTahunSem.SelectedValue & "'"
+                Dim checkID As String = oCommon.getFieldValue(strSQL)
+
+                If checkID = "" Then
+                    strSQL = "  INSERT INTO kpmkv_markah_bmsj_setara 
+                               (PelajarID, KolejRecordID, Tahun, Sesi, Kodkursus, MataPelajaran, IsCalon, IsAKATahun, IsAKASesi, IsAKADated, Markah, Gred, Catatan1)
+                                VALUES
+                               ('" & PelajarID & "', '" & RecordID & "', '" & Tahun & "', '" & Sesi & "', '" & KodKursus & "', 'BAHASA MELAYU', '1', '" & ddlTahunSem.SelectedValue & "', '1',  GETDATE(), '-1', 'T', 'KPMKV')"
+                Else
+                    strSQL = " UPDATE kpmkv_markah_bmsj_setara SET KolejRecordID = '" & RecordID & "', Markah = '-1', Gred = 'T', Catatan1 = 'KPMKV' WHERE PelajarID = '" & PelajarID & "' AND MataPelajaran = 'SEJARAH' AND IsAKATahun = '" & ddlTahunSem.SelectedValue & "'"
+                End If
+
+                If checkID = "" Then
+                    strSQL = "  INSERT INTO kpmkv_markah_bmsj_setara 
+                               (PelajarID, KolejRecordID, Tahun, Sesi, Kodkursus, MataPelajaran, IsCalon, IsAKATahun, IsAKASesi, IsAKADated, Markah, Gred, Catatan1)
+                                VALUES
+                               ('" & PelajarID & "', '" & RecordID & "', '" & Tahun & "', '" & Sesi & "', '" & KodKursus & "', 'SEJARAH', '1', '" & ddlTahunSem.SelectedValue & "', '1',  GETDATE(), '-1', 'T', 'KPMKV')"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                Else
+                    strSQL = " UPDATE kpmkv_markah_bmsj_setara SET KolejRecordID = '" & RecordID & "', Markah = '-1', Gred = 'T', Catatan1 = 'KPMKV' WHERE PelajarID = '" & PelajarID & "' AND MataPelajaran = 'SEJARAH' AND IsAKATahun = '" & ddlTahunSem.SelectedValue & "'"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                End If
+
+                strRet = oCommon.ExecuteSQL(strSQL)
+
+            Else
+
+                Dim PointerSJSetara As Integer = SJ1
+
+                strSQL = "SELECT PelajarID FROM kpmkv_markah_bmsj_setara WHERE PelajarID = '" & PelajarID & "' AND IsAKATahun = '" & ddlTahunSem.SelectedValue & "' AND MataPelajaran = 'SEJARAH'"
+                Dim checkID As String = oCommon.getFieldValue(strSQL)
+
+                strSQL = "SELECT TOP ( 1 ) Status FROM  kpmkv_gred_sejarah WHERE '" & Math.Round(Double.Parse(PointerSJSetara), 0) & "' BETWEEN MarkahFrom AND MarkahTo AND Tahun='2021'"
+                Dim kpmkv_gred_sejarah As String = oCommon.getFieldValue(strSQL)
+
+                If checkID = "" Then
+
+                    strSQL = "  INSERT INTO kpmkv_markah_bmsj_setara 
+                               (PelajarID, KolejRecordID, Tahun, Sesi, Kodkursus, MataPelajaran, IsCalon, IsAKATahun, IsAKASesi, IsAKADated, Markah, Gred, Catatan1)
+                                VALUES
+                               ('" & PelajarID & "', '" & RecordID & "', '" & Tahun & "', '" & Sesi & "', '" & KodKursus & "', 'SEJARAH', '1', '" & ddlTahunSem.SelectedValue & "', '1',  GETDATE(), '" & PointerSJSetara & "', '" & kpmkv_gred_sejarah & "', 'KPMKV')"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                Else
+                    strSQL = " UPDATE kpmkv_markah_bmsj_setara SET KolejRecordID = '" & RecordID & "', Markah = '" & PointerSJSetara & "', Gred = '" & kpmkv_gred_sejarah & "', Catatan1 = 'KPMKV' WHERE PelajarID = '" & PelajarID & "' AND MataPelajaran = 'SEJARAH' AND IsAKATahun = '" & ddlTahunSem.SelectedValue & "'"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+
+                End If
+
+                'strSQL = "SELECT TOP ( 1 ) Gred FROM  kpmkv_gred WHERE '" & Integer.Parse(PointerSJ) & "' BETWEEN MarkahFrom AND MarkahTo AND Jenis='AKADEMIK'"
+                'Dim GredSJ As String = oCommon.getFieldValue(strSQL)
+
+                'strSQL = "SELECT PointerSJSetara FROM kpmkv_pelajar_markah WHERE PelajarID = '" & strPelajarID & "'"
+                'Dim strPointerLama As String = oCommon.getFieldValue(strSQL)
+
+                'If PointerSJSetara > strPointerLama Then
+                '    strSQL = "  UPDATE kpmkv_pelajar_markah 
+                '            SET
+                '            Sejarah = '" & PointerSJ & "',
+                '            GredSJ = '" & GredSJ & "',
+                '            PointerSJSetara = '" & PointerSJSetara & "',
+                '            GredSJSetara = '" & kpmkv_gred_sejarah & "'
+                '            WHERE PelajarID = '" & strPelajarID & "'"
+
+                '    strRet = oCommon.ExecuteSQL(strSQL)
+                'End If
+
+            End If
+
+
+        Next
     End Sub
 End Class

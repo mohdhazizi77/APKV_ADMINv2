@@ -72,34 +72,7 @@
         <td></td>
     </tr>
 
-    <tr>
-        <td><b>Nota:</b></td>
-    </tr>
-    <tr>
-        <td colspan="2">1. [*] - Elemen yang telah diserahkan oleh pentaksir dan <b>mempunyai markah</b></td>
-    </tr>
-    <tr>
-        <td colspan="2">2. [T] - Elemen yang telah diserahkan oleh pentaksir dan statusnya adalah <b>Tidak Hadir</b></td>
-    </tr>
-    <tr>
-        <td colspan="2">3. [-] - Elemen yang masih <b>belum diserahkan</b> oleh pentaksir</td>
-    </tr>
-
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-
-
-
+    
 </table>
 
 <br />
@@ -143,7 +116,8 @@
                     <asp:TemplateField HeaderText="Markah Elemen">
                         <HeaderStyle HorizontalAlign="Center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblMarkahElemen" runat="server" Text=""></asp:Label>
+                            <asp:TextBox ID="txtMarkahElemen1" runat="server" Text="" Width="30px"></asp:TextBox>
+                            <asp:TextBox ID="txtMarkahElemen2" runat="server" Text="" Width="30px"></asp:TextBox>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" />
                     </asp:TemplateField>
@@ -186,6 +160,7 @@
     <tr>
         <td style="text-align: center">
             <asp:Button ID="btnBack" runat="server" Text="Kembali" CssClass="fbbutton" Width="70px" Visible="true" />&nbsp;
+            <asp:Button ID="btnUpdate" runat="server" Text="Kemaskini" CssClass="fbbutton" Width="70px" Visible="true" />&nbsp;
         </td>
     </tr>
 

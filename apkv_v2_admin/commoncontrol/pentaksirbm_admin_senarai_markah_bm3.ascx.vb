@@ -38,7 +38,8 @@ Public Class pentaksirbm_admin_senarai_markah_bm3
         For i As Integer = 0 To datRespondent.Rows.Count - 1
 
             Dim strKey As String = datRespondent.DataKeys(i).Value.ToString
-            Dim lblME As Label = CType(datRespondent.Rows(i).FindControl("lblMarkahElemen"), Label)
+            Dim txtME1 As TextBox = CType(datRespondent.Rows(i).FindControl("txtMarkahElemen1"), TextBox)
+            Dim txtME2 As TextBox = CType(datRespondent.Rows(i).FindControl("txtMarkahElemen2"), TextBox)
 
             strSQL = "  SELECT BM3_1 FROM kpmkv_pentaksir_bmsetara_calon
                         WHERE id = '" & strKey & "'"
@@ -48,23 +49,24 @@ Public Class pentaksirbm_admin_senarai_markah_bm3
                         WHERE id = '" & strKey & "'"
             Dim BM3_2 As String = oCommon.getFieldValue(strSQL)
 
-            If BM3_1 = "" Then
-                BM3_1 = "-"
-            ElseIf BM3_1 = "T" Then
-                BM3_1 = "T"
-            Else
-                BM3_1 = "*"
-            End If
+            'If BM3_1 = "" Then
+            '    BM3_1 = "-"
+            'ElseIf BM3_1 = "T" Then
+            '    BM3_1 = "T"
+            'Else
+            '    BM3_1 = "*"
+            'End If
 
-            If BM3_2 = "" Then
-                BM3_2 = "-"
-            ElseIf BM3_2 = "T" Then
-                BM3_2 = "T"
-            Else
-                BM3_2 = "*"
-            End If
+            'If BM3_2 = "" Then
+            '    BM3_2 = "-"
+            'ElseIf BM3_2 = "T" Then
+            '    BM3_2 = "T"
+            'Else
+            '    BM3_2 = "*"
+            'End If
 
-            lblME.Text = "[" & BM3_1 & "][" & BM3_2 & "]"
+            txtME1.Text = BM3_1
+            txtME2.Text = BM3_2
 
         Next
 
@@ -80,6 +82,44 @@ Public Class pentaksirbm_admin_senarai_markah_bm3
 
         strRet = BindData(datRespondent)
         MarkahElemen()
+
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+
+        For i As Integer = 0 To datRespondent.Rows.Count - 1
+
+            Dim strKey As String = datRespondent.DataKeys(i).Value.ToString
+            Dim txtME1 As TextBox = CType(datRespondent.Rows(i).FindControl("txtMarkahElemen1"), TextBox)
+            Dim txtME2 As TextBox = CType(datRespondent.Rows(i).FindControl("txtMarkahElemen2"), TextBox)
+
+            Dim BM3_Total As Integer
+
+            If Not (txtME1.Text = "t" Or txtME1.Text = "T") And Not (txtME2.Text = "t" Or txtME2.Text = "T") Then
+                BM3_Total = Integer.Parse(txtME1.Text) + Integer.Parse(txtME2.Text)
+            End If
+
+            strSQL = "  UPDATE kpmkv_pentaksir_bmsetara_calon SET
+                        BM3_1 = '" & txtME1.Text & "',
+                        BM3_2 = '" & txtME2.Text & "',
+                        BM3_Total = '" & BM3_Total & "'
+                        WHERE id = '" & strKey & "'"
+
+            strRet = oCommon.ExecuteSQL(strSQL)
+
+            If strRet = "0" Then
+
+                divMsg.Attributes("class") = "info"
+                lblMsg.Text = "Markah berjaya dikemaskini"
+
+            Else
+
+                divMsg.Attributes("class") = "error"
+                lblMsg.Text = "Markah tidak berjaya dikemaskini"
+
+            End If
+
+        Next
 
     End Sub
 

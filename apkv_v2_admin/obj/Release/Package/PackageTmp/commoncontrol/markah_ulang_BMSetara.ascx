@@ -121,7 +121,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Markah BM Ulang">
                         <ItemTemplate>
-                            <asp:Label ID="MarkahBMUlang" runat="server" Width="30px"  Text='<%# Bind("BahasaMelayuUlang")%>'></asp:Label>
+                            <asp:Label ID="MarkahBMUlang" runat="server" Width="30px" Text='<%# Bind("BahasaMelayuUlang")%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Gred BM Ulang">
@@ -179,6 +179,30 @@
             <asp:Label ID="Label1" runat="server" Text="kemaskini markah bm"></asp:Label>
         </td>
     </tr>
+</table>
+
+<br />
+
+<table class="fbform">
+    <tr class="fbform_header">
+        <td colspan="3">Jana BM Setara (Kohort Lama)
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <asp:DropDownList ID="ddlTahunSem" runat="server"></asp:DropDownList>
+            <asp:Label ID="Label2" runat="server" Text="TahunSem"></asp:Label>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <asp:Button ID="btnJanaKohortLama" runat="server" Text="Jana BM Setara" CssClass="fbbutton" />&nbsp;
+            <asp:Label ID="lblJanaKohortLama" runat="server" Text="jana bm setara (kohort lama) dari svmu"></asp:Label>
+        </td>
+    </tr>
+
 </table>
 
 <br />

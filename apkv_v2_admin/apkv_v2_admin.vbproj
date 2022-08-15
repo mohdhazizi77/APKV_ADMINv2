@@ -243,6 +243,7 @@
     <Content Include="commoncontrol\gred_view.ascx" />
     <Content Include="commoncontrol\import_markah_matapelajaran.ascx" />
     <Content Include="commoncontrol\import_markah_modul.ascx" />
+    <Content Include="commoncontrol\import_markah_setara.ascx" />
     <Content Include="commoncontrol\inden_bm1104.ascx" />
     <Content Include="commoncontrol\inden_kohort.ascx" />
     <Content Include="commoncontrol\inden_kursus.ascx" />
@@ -252,6 +253,7 @@
     <Content Include="commoncontrol\inden_sj1251.ascx" />
     <Content Include="commoncontrol\inden_svm.ascx" />
     <Content Include="commoncontrol\jana_FIK_semasa.ascx" />
+    <Content Include="commoncontrol\jana_gred_bmsetara_svmu.ascx" />
     <Content Include="commoncontrol\jana_gred_BM_ulang.ascx" />
     <Content Include="commoncontrol\jana_keseluruhan_akademik.ascx" />
     <Content Include="commoncontrol\jana_keseluruhan_pngs.ascx" />
@@ -434,6 +436,7 @@
     <Content Include="commoncontrol\svmu_senarai_calon_bm.ascx" />
     <Content Include="commoncontrol\svmu_senarai_calon_sj.ascx" />
     <Content Include="commoncontrol\svmu_senarai_semak_calon_ulang.ascx" />
+    <Content Include="commoncontrol\svmu_slip_keputusan_ulangan.ascx" />
     <Content Include="commoncontrol\svmu_tindakan_calon.ascx" />
     <Content Include="commoncontrol\svm_pengesahan.ascx" />
     <Content Include="commoncontrol\takwim_create.ascx" />
@@ -585,6 +588,7 @@
     <Content Include="img\white_space.jpg" />
     <Content Include="import.markah.matapelajaran.aspx" />
     <Content Include="import.modul.markah.aspx" />
+    <Content Include="import_markah_setara.aspx" />
     <Content Include="inbox\admin.import.html" />
     <Content Include="inden.bm1104.aspx" />
     <Content Include="inden.kohort.aspx" />
@@ -775,6 +779,7 @@
     <Content Include="svmu_senarai_calon_bm.aspx" />
     <Content Include="svmu_senarai_calon_sj.aspx" />
     <Content Include="svmu_senarai_semak_calon_ulang.aspx" />
+    <Content Include="svmu_slip_keputusan_ulangan.aspx" />
     <Content Include="transkrip.12.14.aspx" />
     <Content Include="transkrip.sijil.vok.aspx" />
     <Content Include="UpgradeLog.htm" />
@@ -1533,6 +1538,13 @@
       <DependentUpon>import_markah_modul.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\import_markah_setara.ascx.designer.vb">
+      <DependentUpon>import_markah_setara.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\import_markah_setara.ascx.vb">
+      <DependentUpon>import_markah_setara.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\inden_bm1104.ascx.designer.vb">
       <DependentUpon>inden_bm1104.ascx</DependentUpon>
     </Compile>
@@ -1594,6 +1606,13 @@
     </Compile>
     <Compile Include="commoncontrol\jana_FIK_semasa.ascx.vb">
       <DependentUpon>jana_FIK_semasa.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\jana_gred_bmsetara_svmu.ascx.designer.vb">
+      <DependentUpon>jana_gred_bmsetara_svmu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\jana_gred_bmsetara_svmu.ascx.vb">
+      <DependentUpon>jana_gred_bmsetara_svmu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\jana_gred_BM_ulang.ascx.designer.vb">
@@ -2866,6 +2885,13 @@
       <DependentUpon>svmu_senarai_semak_calon_ulang.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\svmu_slip_keputusan_ulangan.ascx.designer.vb">
+      <DependentUpon>svmu_slip_keputusan_ulangan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\svmu_slip_keputusan_ulangan.ascx.vb">
+      <DependentUpon>svmu_slip_keputusan_ulangan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\svmu_tindakan_calon.ascx.designer.vb">
       <DependentUpon>svmu_tindakan_calon.ascx</DependentUpon>
     </Compile>
@@ -3376,6 +3402,13 @@
     <Compile Include="import.modul.markah.aspx.vb">
       <DependentUpon>import.modul.markah.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="import_markah_setara.aspx.designer.vb">
+      <DependentUpon>import_markah_setara.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="import_markah_setara.aspx.vb">
+      <DependentUpon>import_markah_setara.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="inden.bm1104.aspx.designer.vb">
       <DependentUpon>inden.bm1104.aspx</DependentUpon>
@@ -4698,6 +4731,13 @@
     </Compile>
     <Compile Include="svmu_senarai_semak_calon_ulang.aspx.vb">
       <DependentUpon>svmu_senarai_semak_calon_ulang.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="svmu_slip_keputusan_ulangan.aspx.designer.vb">
+      <DependentUpon>svmu_slip_keputusan_ulangan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="svmu_slip_keputusan_ulangan.aspx.vb">
+      <DependentUpon>svmu_slip_keputusan_ulangan.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="transkrip.12.14.aspx.designer.vb">

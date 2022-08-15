@@ -44,6 +44,11 @@
         <td>
             <asp:DropDownList ID="ddlKolej" runat="server" AutoPostBack="false" Width="350px"></asp:DropDownList></td>
     </tr>
+     <tr>
+        <td>MYKAD:</td>
+        <td>
+            <asp:TextBox ID="txtMYKAD" runat="server" AutoPostBack="false" Width="350px"></asp:TextBox></td>
+    </tr>
     <tr>
         <td colspan="2">&nbsp;</td>
     </tr>
@@ -85,9 +90,9 @@
         <td style="text-align: center">3.</td>
         <td style="font-style: italic">Get [grade] from kpmkv_pelajar_markah & Update into table kpmkv_svm  by [IsBMTahun]</td>
         <td>
-            <asp:Button ID="btnStep2_2" runat="server" Text="Jana Peringkat 3" CssClass="fbbutton" /></td>
+            <asp:Button ID="btnStep3" runat="server" Text="Jana Peringkat 3" CssClass="fbbutton" /></td>
         <td>Status :[
-            <asp:Label ID="lblStep2_2" runat="server"></asp:Label>
+            <asp:Label ID="lblStep3" runat="server"></asp:Label>
             ]</td>
     </tr>
 
@@ -95,18 +100,18 @@
         <td style="text-align: center">4.</td>
         <td style="font-style: italic">Update Record by semester isLayak='0' for uncompetent grade</td>
         <td>
-            <asp:Button ID="btnStep3" runat="server" Text="Jana Peringkat 4" CssClass="fbbutton" /></td>
+            <asp:Button ID="btnStep4" runat="server" Text="Jana Peringkat 4" CssClass="fbbutton" /></td>
         <td>Status :[
-            <asp:Label ID="lblStep3" runat="server"></asp:Label>
+            <asp:Label ID="lblStep4" runat="server"></asp:Label>
             ]</td>
     </tr>
     <tr>
         <td style="text-align: center">5.</td>
         <td style="font-style: italic">Update Status (PNGKA,PNGKV,ISSETARA,Kompetensi,Layak SVM)</td>
         <td>
-            <asp:Button ID="btnStep4" runat="server" Text="Jana Peringkat 5" CssClass="fbbutton" /></td>
+            <asp:Button ID="btnStep5" runat="server" Text="Jana Peringkat 5" CssClass="fbbutton" /></td>
         <td>Status :[
-            <asp:Label ID="lblStep4" runat="server"></asp:Label>
+            <asp:Label ID="lblStep5" runat="server"></asp:Label>
             ]</td>
     </tr>
 

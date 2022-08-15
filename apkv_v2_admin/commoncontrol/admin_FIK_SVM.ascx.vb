@@ -190,16 +190,32 @@ Public Class admin_FIK_SVM
             Exit Sub
         End If
 
-        strSQL = "SELECT * FROM kpmkv_SVM WHERE IsBMTahun='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        If oCommon.isExist(strSQL) = True Then
+        'strSQL = "SELECT * FROM kpmkv_SVM WHERE isBMTahun = '" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
 
-            strSQL = "DELETE FROM kpmkv_SVM WHERE IsBMTahun='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-            strRet = oCommon.ExecuteSQL(strSQL)
-        End If
+        'If oCommon.isExist(strSQL) = True Then
+
+        '    strSQL = "DELETE FROM kpmkv_SVM WHERE isBMTahun = '" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
+
+        '    strRet = oCommon.ExecuteSQL(strSQL)
+        'End If
 
         getSQL1()
 
         getSQL2()
+
+        getSQL3()
+
+        strSQL = "UPDATE kpmkv_SVM SET IsLayak='1' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
+
+        If Not ddlKolej.SelectedValue = "" Then
+            strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
+        strRet = oCommon.ExecuteSQL(strSQL)
 
         ''kompeten
         getSQLVOK1()
@@ -249,16 +265,20 @@ Public Class admin_FIK_SVM
 
         '--tahun
         If Not ddlTahun.Text = "" Then
-            strWhere += " AND IsBMTahun ='" & ddlTahun.Text & "'"
+            strWhere += " AND IsBMTahun = '" & ddlTahun.Text & "'"
         End If
 
         '--sesi
         If Not chkSesi.Text = "" Then
-            strWhere += " AND Sesi ='" & chkSesi.Text & "'"
+            strWhere += " AND Sesi = '" & chkSesi.Text & "'"
         End If
 
         If Not ddlKolej.SelectedValue = "" Then
-            strWhere += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+            strWhere += " AND KolejRecordID = '" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strWhere += " AND MYKAD = '" & txtMYKAD.Text & "'"
         End If
 
         getSQL = tmpSQL & strWhere & strOrder
@@ -276,7 +296,11 @@ Public Class admin_FIK_SVM
         tmpSQL = "SELECT DISTINCT(PelajarID) FROM kpmkv_SVM where IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
 
         If Not ddlKolej.SelectedValue = "" Then
-            strWhere += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+            strWhere += " And KolejRecordID ='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strWhere += " AND MYKAD = '" & txtMYKAD.Text & "'"
         End If
 
         getSQLSVM = tmpSQL & strWhere & strOrder
@@ -289,7 +313,9 @@ Public Class admin_FIK_SVM
     'insert data in kpmkv_svm
     Private Sub getSQL1()
         Dim strMykad As String = ""
+        Dim strMykadSem As String = ""
         lblStep1.Text = ""
+        strRet = 0
 
         'Get the data from database into datatable 
         Dim cmd As New SqlCommand(getSQL)
@@ -298,26 +324,94 @@ Public Class admin_FIK_SVM
         For i As Integer = 0 To dt.Rows.Count - 1
             strMykad = dt.Rows(i)("Mykad")
 
-            strSQL = "DELETE FROM kpmkv_SVM WHERE Mykad = '" & strMykad & "'"
-            strRet = oCommon.ExecuteSQL(strSQL)
+            strSQL = "SELECT Mykad FROM kpmkv_SVM WHERE Mykad = '" & strMykad & "' AND Semester = '1'"
+            strMykadSem = oCommon.getFieldValue(strSQL)
 
-            strSQL = "INSERT INTO kpmkv_SVM(PelajarID,KolejRecordID,IsBMTahun,Tahun,Sesi,Semester,Nama,"
-            strSQL += " Mykad,AngkaGiliran,KodKursus)"
-            strSQL += " SELECT  kpmkv_pelajar.PelajarID, kpmkv_pelajar.KolejRecordID,'" & ddlTahun.Text & "',"
-            strSQL += " kpmkv_pelajar.Tahun,kpmkv_pelajar.Sesi,kpmkv_pelajar.Semester,kpmkv_pelajar.Nama,"
-            strSQL += " kpmkv_pelajar.MYKAD,kpmkv_pelajar.AngkaGiliran, "
-            strSQL += " kpmkv_kursus.KodKursus FROM kpmkv_pelajar"
-            strSQL += " LEFT OUTER JOIN kpmkv_kursus ON kpmkv_kursus.KursusID=kpmkv_pelajar.KursusID "
-            strSQL += " WHERE kpmkv_pelajar.IsDeleted='N' AND kpmkv_pelajar.StatusID='2'"
-            strSQL += " AND kpmkv_pelajar.Mykad='" & strMykad & "' AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
-            strSQL += " AND kpmkv_pelajar.KelasID IS NOT NULL"
+            If strMykadSem = "" Then
+                strSQL = "INSERT INTO kpmkv_SVM(PelajarID,KolejRecordID,IsBMTahun,Tahun,Sesi,Semester,Nama,"
+                strSQL += " Mykad,AngkaGiliran,KodKursus)"
+                strSQL += " SELECT  kpmkv_pelajar.PelajarID, kpmkv_pelajar.KolejRecordID,'" & ddlTahun.Text & "',"
+                strSQL += " kpmkv_pelajar.Tahun,kpmkv_pelajar.Sesi,kpmkv_pelajar.Semester,kpmkv_pelajar.Nama,"
+                strSQL += " kpmkv_pelajar.MYKAD,kpmkv_pelajar.AngkaGiliran, "
+                strSQL += " kpmkv_kursus.KodKursus FROM kpmkv_pelajar"
+                strSQL += " LEFT OUTER JOIN kpmkv_kursus ON kpmkv_kursus.KursusID=kpmkv_pelajar.KursusID "
+                strSQL += " WHERE kpmkv_pelajar.IsDeleted='N' AND kpmkv_pelajar.StatusID='2'"
+                strSQL += " AND kpmkv_pelajar.Mykad='" & strMykad & "' AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
+                strSQL += " AND kpmkv_pelajar.KelasID IS NOT NULL AND Semester = '1'"
 
+                If Not ddlKolej.SelectedValue = "" Then
+                    strSQL += " AND kpmkv_pelajar.KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+                End If
 
-            If Not ddlKolej.SelectedValue = "" Then
-                strSQL += " AND kpmkv_pelajar.KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+                strRet = oCommon.ExecuteSQL(strSQL)
             End If
 
-            strRet = oCommon.ExecuteSQL(strSQL)
+            strSQL = "SELECT Mykad FROM kpmkv_SVM WHERE Mykad = '" & strMykad & "' AND Semester = '2'"
+            strMykadSem = oCommon.getFieldValue(strSQL)
+
+            If strMykadSem = "" Then
+                strSQL = "INSERT INTO kpmkv_SVM(PelajarID,KolejRecordID,IsBMTahun,Tahun,Sesi,Semester,Nama,"
+                strSQL += " Mykad,AngkaGiliran,KodKursus)"
+                strSQL += " SELECT  kpmkv_pelajar.PelajarID, kpmkv_pelajar.KolejRecordID,'" & ddlTahun.Text & "',"
+                strSQL += " kpmkv_pelajar.Tahun,kpmkv_pelajar.Sesi,kpmkv_pelajar.Semester,kpmkv_pelajar.Nama,"
+                strSQL += " kpmkv_pelajar.MYKAD,kpmkv_pelajar.AngkaGiliran, "
+                strSQL += " kpmkv_kursus.KodKursus FROM kpmkv_pelajar"
+                strSQL += " LEFT OUTER JOIN kpmkv_kursus ON kpmkv_kursus.KursusID=kpmkv_pelajar.KursusID "
+                strSQL += " WHERE kpmkv_pelajar.IsDeleted='N' AND kpmkv_pelajar.StatusID='2'"
+                strSQL += " AND kpmkv_pelajar.Mykad='" & strMykad & "' AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
+                strSQL += " AND kpmkv_pelajar.KelasID IS NOT NULL AND Semester = '2'"
+
+                If Not ddlKolej.SelectedValue = "" Then
+                    strSQL += " AND kpmkv_pelajar.KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+                End If
+
+                strRet = oCommon.ExecuteSQL(strSQL)
+            End If
+
+            strSQL = "SELECT Mykad FROM kpmkv_SVM WHERE Mykad = '" & strMykad & "' AND Semester = '3'"
+            strMykadSem = oCommon.getFieldValue(strSQL)
+
+            If strMykadSem = "" Then
+                strSQL = "INSERT INTO kpmkv_SVM(PelajarID,KolejRecordID,IsBMTahun,Tahun,Sesi,Semester,Nama,"
+                strSQL += " Mykad,AngkaGiliran,KodKursus)"
+                strSQL += " SELECT  kpmkv_pelajar.PelajarID, kpmkv_pelajar.KolejRecordID,'" & ddlTahun.Text & "',"
+                strSQL += " kpmkv_pelajar.Tahun,kpmkv_pelajar.Sesi,kpmkv_pelajar.Semester,kpmkv_pelajar.Nama,"
+                strSQL += " kpmkv_pelajar.MYKAD,kpmkv_pelajar.AngkaGiliran, "
+                strSQL += " kpmkv_kursus.KodKursus FROM kpmkv_pelajar"
+                strSQL += " LEFT OUTER JOIN kpmkv_kursus ON kpmkv_kursus.KursusID=kpmkv_pelajar.KursusID "
+                strSQL += " WHERE kpmkv_pelajar.IsDeleted='N' AND kpmkv_pelajar.StatusID='2'"
+                strSQL += " AND kpmkv_pelajar.Mykad='" & strMykad & "' AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
+                strSQL += " AND kpmkv_pelajar.KelasID IS NOT NULL AND Semester = '3'"
+
+                If Not ddlKolej.SelectedValue = "" Then
+                    strSQL += " AND kpmkv_pelajar.KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+                End If
+
+                strRet = oCommon.ExecuteSQL(strSQL)
+            End If
+
+            strSQL = "SELECT Mykad FROM kpmkv_SVM WHERE Mykad = '" & strMykad & "' AND Semester = '4'"
+            strMykadSem = oCommon.getFieldValue(strSQL)
+
+            If strMykadSem = "" Then
+                strSQL = "INSERT INTO kpmkv_SVM(PelajarID,KolejRecordID,IsBMTahun,Tahun,Sesi,Semester,Nama,"
+                strSQL += " Mykad,AngkaGiliran,KodKursus)"
+                strSQL += " SELECT  kpmkv_pelajar.PelajarID, kpmkv_pelajar.KolejRecordID,'" & ddlTahun.Text & "',"
+                strSQL += " kpmkv_pelajar.Tahun,kpmkv_pelajar.Sesi,kpmkv_pelajar.Semester,kpmkv_pelajar.Nama,"
+                strSQL += " kpmkv_pelajar.MYKAD,kpmkv_pelajar.AngkaGiliran, "
+                strSQL += " kpmkv_kursus.KodKursus FROM kpmkv_pelajar"
+                strSQL += " LEFT OUTER JOIN kpmkv_kursus ON kpmkv_kursus.KursusID=kpmkv_pelajar.KursusID "
+                strSQL += " WHERE kpmkv_pelajar.IsDeleted='N' AND kpmkv_pelajar.StatusID='2'"
+                strSQL += " AND kpmkv_pelajar.Mykad='" & strMykad & "' AND kpmkv_pelajar.Sesi ='" & chkSesi.Text & "'"
+                strSQL += " AND kpmkv_pelajar.KelasID IS NOT NULL AND Semester = '4'"
+
+                If Not ddlKolej.SelectedValue = "" Then
+                    strSQL += " AND kpmkv_pelajar.KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+                End If
+
+                strRet = oCommon.ExecuteSQL(strSQL)
+            End If
+
 
             If Not strRet = "0" Then
                 lblStep1.Text = "system error:" & strRet
@@ -338,21 +432,28 @@ Public Class admin_FIK_SVM
         Dim strRet2 As String = ""
 
         Dim IntPelajarID As Integer = 0
-        Dim StrGredV1 As String = ""
-        Dim StrGredV2 As String = ""
-        Dim StrGredV3 As String = ""
-        Dim StrGredV4 As String = ""
-        Dim StrGredV5 As String = ""
-        Dim StrGredV6 As String = ""
-        Dim StrGredV7 As String = ""
-        Dim StrGredV8 As String = ""
+
 
         'Get the data from database into datatable 
         Dim cmd As New SqlCommand(getSQLSVM)
         Dim dt As DataTable = GetData(cmd)
 
         For i As Integer = 0 To dt.Rows.Count - 1
+
+            Dim StrGredV1 As String = ""
+            Dim StrGredV2 As String = ""
+            Dim StrGredV3 As String = ""
+            Dim StrGredV4 As String = ""
+            Dim StrGredV5 As String = ""
+            Dim StrGredV6 As String = ""
+            Dim StrGredV7 As String = ""
+            Dim StrGredV8 As String = ""
+
             IntPelajarID = dt.Rows(i)("PelajarID")
+
+            If IntPelajarID = "476391" Then
+                IntPelajarID = "476391"
+            End If
 
             strSQL1 = " SELECT GredV1,GredV2,GredV3,GredV4,GredV5,GredV6,GredV7,GredV8"
             strSQL1 += " FROM kpmkv_pelajar_markah"
@@ -362,14 +463,30 @@ Public Class admin_FIK_SVM
             Dim ar_Detail As Array
             ar_Detail = strRet1.Split("|")
 
-            StrGredV1 = ar_Detail(0)
-            StrGredV2 = ar_Detail(1)
-            StrGredV3 = ar_Detail(2)
-            StrGredV4 = ar_Detail(3)
-            StrGredV5 = ar_Detail(4)
-            StrGredV6 = ar_Detail(5)
-            StrGredV7 = ar_Detail(6)
-            StrGredV8 = ar_Detail(7)
+            If Not ar_Detail(0) = "" Then
+                StrGredV1 = ar_Detail(0)
+            End If
+            If Not ar_Detail(1) = "" Then
+                StrGredV2 = ar_Detail(1)
+            End If
+            If Not ar_Detail(2) = "" Then
+                StrGredV3 = ar_Detail(2)
+            End If
+            If Not ar_Detail(3) = "" Then
+                StrGredV4 = ar_Detail(3)
+            End If
+            If Not ar_Detail(4) = "" Then
+                StrGredV5 = ar_Detail(4)
+            End If
+            If Not ar_Detail(5) = "" Then
+                StrGredV6 = ar_Detail(5)
+            End If
+            If Not ar_Detail(6) = "" Then
+                StrGredV7 = ar_Detail(6)
+            End If
+            If Not ar_Detail(7) = "" Then
+                StrGredV8 = ar_Detail(7)
+            End If
 
             strSQL2 = " UPDATE kpmkv_SVM SET GredV1='" & StrGredV1 & "',GredV2='" & StrGredV2 & "',GredV3='" & StrGredV3 & "',GredV4='" & StrGredV4 & "',"
             strSQL2 += " GredV5='" & StrGredV5 & "',GredV6='" & StrGredV6 & "',GredV7='" & StrGredV7 & "',"
@@ -389,17 +506,20 @@ Public Class admin_FIK_SVM
     Private Sub getSQL3()
 
         Dim IntPelajarID As Integer = 0
-        Dim StrGredBMSetara As String = ""
-        Dim StrGredSJSetara As String = ""
-        Dim StrPNGKA As String = ""
-        Dim StrPNGKV As String = ""
-        Dim StrPNGKK As String = ""
+
 
         'Get the data from database into datatable 
         Dim cmd As New SqlCommand(getSQLSVM)
         Dim dt As DataTable = GetData(cmd)
 
         For i As Integer = 0 To dt.Rows.Count - 1
+
+            Dim StrGredBMSetara As String = ""
+            Dim StrGredSJSetara As String = ""
+            Dim StrPNGKA As String = ""
+            Dim StrPNGKV As String = ""
+            Dim StrPNGKK As String = ""
+
             IntPelajarID = dt.Rows(i)("PelajarID")
 
             strSQL = " SELECT GredBMSetara,GredSJSetara,PNGKA,PNGKV,PNGKK"
@@ -421,30 +541,34 @@ Public Class admin_FIK_SVM
             strRet = oCommon.ExecuteSQL(strSQL)
 
             If Not strRet = "0" Then
-                lblStep2_2.Text = "system error:" & strRet
+                lblStep3.Text = "system error:" & strRet
                 Exit Sub
             End If
         Next
 
-        lblStep2_2.Text = "Peringkat 3 Berjaya"
+        lblStep3.Text = "Peringkat 3 Berjaya"
     End Sub
 
     'delete if gred x kompeten
     Private Sub getSQLVOK1()
 
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv1 NOT IN ('A', 'A-', 'B+', 'B', 'B-') "
+        strSQL += " AND gredv1 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 4 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
@@ -452,41 +576,49 @@ Public Class admin_FIK_SVM
     End Sub
 
     Private Sub getSQLVOK2()
-        lblStep3.Text = ""
+        lblStep4.Text = ""
 
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv2 NOT IN ('A', 'A-', 'B+', 'B', 'B-') "
+        strSQL += " AND gredv2 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 3 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
     End Sub
 
     Private Sub getSQLVOK3()
-        lblStep3.Text = ""
+        lblStep4.Text = ""
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv3 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL','') "
+        strSQL += " AND gredv3 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 3 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
@@ -494,19 +626,24 @@ Public Class admin_FIK_SVM
     End Sub
 
     Private Sub getSQLVOK4()
-        lblStep3.Text = ""
+        lblStep4.Text = ""
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv4 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL','') "
+        strSQL += " AND gredv4 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
+
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 3 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
@@ -514,42 +651,50 @@ Public Class admin_FIK_SVM
     End Sub
 
     Private Sub getSQLVOK5()
-        lblStep3.Text = ""
+        lblStep4.Text = ""
 
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv5 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL','') "
+        strSQL += " AND gredv5 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 3 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
     End Sub
 
     Private Sub getSQLVOK6()
-        lblStep3.Text = ""
+        lblStep4.Text = ""
 
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv6 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL','') "
+        strSQL += " AND gredv6 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 3 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
@@ -557,21 +702,25 @@ Public Class admin_FIK_SVM
     End Sub
 
     Private Sub getSQLVOK7()
-        lblStep3.Text = ""
+        lblStep4.Text = ""
 
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv7 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL','') "
+        strSQL += " AND gredv7 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 3 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
@@ -579,21 +728,25 @@ Public Class admin_FIK_SVM
     End Sub
 
     Private Sub getSQLVOK8()
-        lblStep3.Text = ""
+        lblStep4.Text = ""
 
         strSQL = "UPDATE kpmkv_SVM SET IsLayak='0' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-        strSQL += " AND gredv8 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL','') "
+        strSQL += " AND gredv8 NOT IN ('A', 'A-', 'B+', 'B', 'B-', 'NULL', '')"
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
         If strRet = "0" Then
-            lblStep3.Text = "Peringkat 3 Berjaya"
+            lblStep4.Text = "Peringkat 4 Berjaya"
         Else
-            lblStep3.Text = "system error:" & strRet
+            lblStep4.Text = "system error:" & strRet
 
             Exit Sub
         End If
@@ -608,6 +761,10 @@ Public Class admin_FIK_SVM
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
         End If
 
         strRet = oCommon.ExecuteSQL(strSQL)
@@ -632,6 +789,10 @@ Public Class admin_FIK_SVM
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
 
@@ -646,6 +807,10 @@ Public Class admin_FIK_SVM
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
         End If
 
         strRet = oCommon.ExecuteSQL(strSQL)
@@ -665,10 +830,14 @@ Public Class admin_FIK_SVM
         Try
 
             strSQL = "SELECT Mykad,IsLayak FROM kpmkv_SVM WHERE IsBMTahun ='" & ddlTahun.Text & "' "
-            strSQL += " AND Sesi='" & chkSesi.Text & "' "
+            strSQL += " AND Sesi='" & chkSesi.Text & "'"
 
             If Not ddlKolej.SelectedValue = "" Then
                 strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+            End If
+
+            If Not txtMYKAD.Text = "" Then
+                strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
             End If
 
             strSQL += " GROUP BY Mykad ,IsLayak having sum(islayak)=4 "
@@ -700,7 +869,7 @@ Public Class admin_FIK_SVM
                     strSQL = " UPDATE kpmkv_SVM SET Islayak='1'"
                     strSQL += " WHERE Mykad ='" & strMykad & "' AND Semester='4'"
                     strSQL += " AND IsBMTahun ='" & ddlTahun.Text & "' "
-                    strSQL += " AND Sesi='" & chkSesi.Text & "' "
+                    strSQL += " AND Sesi='" & chkSesi.Text & "'"
 
                     If Not ddlKolej.SelectedValue = "" Then
                         strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
@@ -724,10 +893,14 @@ Public Class admin_FIK_SVM
         Try
 
             strSQL = "SELECT Mykad,IsLayak FROM kpmkv_SVM WHERE IsBMTahun ='" & ddlTahun.Text & "' "
-            strSQL += " AND Sesi='" & chkSesi.Text & "' "
+            strSQL += " AND Sesi='" & chkSesi.Text & "'"
 
             If Not ddlKolej.SelectedValue = "" Then
                 strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+            End If
+
+            If Not txtMYKAD.Text = "" Then
+                strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
             End If
 
             strSQL += " GROUP BY Mykad ,IsLayak having sum(islayak)<4 "
@@ -759,7 +932,7 @@ Public Class admin_FIK_SVM
                     strSQL = " UPDATE kpmkv_SVM SET Islayak='0'"
                     strSQL += " WHERE Mykad ='" & strMykad & "' AND Semester='4'"
                     strSQL += " AND IsBMTahun ='" & ddlTahun.Text & "' "
-                    strSQL += " AND Sesi='" & chkSesi.Text & "' "
+                    strSQL += " AND Sesi='" & chkSesi.Text & "'"
 
                     If Not ddlKolej.SelectedValue = "" Then
                         strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
@@ -791,13 +964,17 @@ Public Class admin_FIK_SVM
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         strRet = oCommon.ExecuteSQL(strSQL)
 
 
         If strRet = "0" Then
-            lblStep4.Text = "Peringkat 5 Berjaya"
+            lblStep5.Text = "Peringkat 5 Berjaya"
         Else
-            lblStep4.Text = "system error:" & strRet
+            lblStep5.Text = "system error:" & strRet
 
             Exit Sub
         End If
@@ -823,6 +1000,10 @@ Public Class admin_FIK_SVM
             strWhere += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
         End If
 
+        If Not txtMYKAD.Text = "" Then
+            strWhere += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
         getSQLLayakSVM = strSQL & strWhere
 
         Return getSQLLayakSVM
@@ -840,6 +1021,10 @@ Public Class admin_FIK_SVM
 
         If Not ddlKolej.SelectedValue = "" Then
             strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
         End If
 
         lblCOUNTP.Text = " ( Jumlah Layak SVM :" + oCommon.getFieldValue(strSQL) + " )"
@@ -861,6 +1046,10 @@ Public Class admin_FIK_SVM
 
         If Not ddlKolej.SelectedValue = "" Then
             strWhere += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strWhere += " AND MYKAD = '" & txtMYKAD.Text & "'"
         End If
 
         getSQLLayakSVMExcel = strSQL & strWhere
@@ -998,12 +1187,12 @@ Public Class admin_FIK_SVM
 
         strSQL = "SELECT * FROM kpmkv_SVM WHERE IsBMTahun='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
         strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
-        If oCommon.isExist(strSQL) = True Then
+        'If oCommon.isExist(strSQL) = True Then
 
-            strSQL = "DELETE FROM kpmkv_SVM WHERE IsBMTahun='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-            strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
-            strRet = oCommon.ExecuteSQL(strSQL)
-        End If
+        '    strSQL = "DELETE FROM kpmkv_SVM WHERE IsBMTahun='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
+        '    strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        '    strRet = oCommon.ExecuteSQL(strSQL)
+        'End If
 
         getSQL1()
 
@@ -1060,6 +1249,7 @@ Public Class admin_FIK_SVM
         lblStep2.Text = ""
         lblStep3.Text = ""
         lblStep4.Text = ""
+        lblStep5.Text = ""
 
         lblMsg.Text = ""
 
@@ -1075,11 +1265,11 @@ Public Class admin_FIK_SVM
         End If
         If oCommon.isExist(strSQL) = True Then
 
-            strSQL = "DELETE FROM kpmkv_SVM WHERE IsBMTahun='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
-            If Not ddlKolej.SelectedValue = "" Then
-                strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
-            End If
-            strRet = oCommon.ExecuteSQL(strSQL)
+            'strSQL = "DELETE FROM kpmkv_SVM WHERE IsBMTahun='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
+            'If Not ddlKolej.SelectedValue = "" Then
+            '    strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+            'End If
+            'strRet = oCommon.ExecuteSQL(strSQL)
         End If
 
         getSQL1()
@@ -1091,6 +1281,7 @@ Public Class admin_FIK_SVM
         lblStep2.Text = ""
         lblStep3.Text = ""
         lblStep4.Text = ""
+        lblStep5.Text = ""
 
         lblMsg.Text = ""
 
@@ -1104,11 +1295,11 @@ Public Class admin_FIK_SVM
 
     End Sub
 
-    Private Sub btnStep2_2_Click(sender As Object, e As EventArgs) Handles btnStep2_2.Click
+    Private Sub btnStep3_Click(sender As Object, e As EventArgs) Handles btnStep3.Click
 
-        lblStep2_2.Text = ""
         lblStep3.Text = ""
         lblStep4.Text = ""
+        lblStep5.Text = ""
 
         lblMsg.Text = ""
 
@@ -1117,15 +1308,16 @@ Public Class admin_FIK_SVM
             divMsg.Attributes("class") = "error"
             Exit Sub
         End If
+
 
         getSQL3()
 
     End Sub
 
     'step 3
-    Protected Sub btnStep3_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnStep3.Click
-        lblStep3.Text = ""
+    Protected Sub btnStep4_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnStep4.Click
         lblStep4.Text = ""
+        lblStep5.Text = ""
 
         lblMsg.Text = ""
 
@@ -1134,6 +1326,18 @@ Public Class admin_FIK_SVM
             divMsg.Attributes("class") = "error"
             Exit Sub
         End If
+
+        strSQL = "UPDATE kpmkv_SVM SET IsLayak='1' WHERE IsBMTahun ='" & ddlTahun.Text & "' AND Sesi ='" & chkSesi.Text & "'"
+
+        If Not ddlKolej.SelectedValue = "" Then
+            strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"
+        End If
+
+        If Not txtMYKAD.Text = "" Then
+            strSQL += " AND MYKAD = '" & txtMYKAD.Text & "'"
+        End If
+
+        strRet = oCommon.ExecuteSQL(strSQL)
 
         getSQLVOK1()
 
@@ -1154,8 +1358,8 @@ Public Class admin_FIK_SVM
     End Sub
 
     'step 4
-    Protected Sub btnStep4_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnStep4.Click
-        lblStep4.Text = ""
+    Protected Sub btnStep5_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnStep5.Click
+        lblStep5.Text = ""
 
         lblMsg.Text = ""
 
@@ -1305,7 +1509,7 @@ Public Class admin_FIK_SVM
         lblMsg.Text = ""
         Try
 
-            strSQL = "SELECT Mykad FROM kpmkv_SVM WHERE IsBMTahun ='" & ddlTahun.Text & "' "
+            strSQL = "SELECT Mykad FROM kpmkv_SVM WHERE IsBMTahun ='" & ddlTahun.Text & "'"
             strSQL += " AND Sesi='" & chkSesi.Text & "' "
 
             If Not ddlKolej.SelectedValue = "" Then
@@ -1347,7 +1551,7 @@ Public Class admin_FIK_SVM
                     strSQL = " DELETE FROM kpmkv_SVM"
                     strSQL += " WHERE Mykad ='" & strMykad & "'"
                     strSQL += " AND IsBMTahun ='" & ddlTahun.Text & "' "
-                    strSQL += " AND Sesi='" & chkSesi.Text & "' "
+                    strSQL += " AND Sesi='" & chkSesi.Text & "'"
 
                     If Not ddlKolej.SelectedValue = "" Then
                         strSQL += " AND KolejRecordID='" & oCommon.FixSingleQuotes(ddlKolej.SelectedValue) & "'"

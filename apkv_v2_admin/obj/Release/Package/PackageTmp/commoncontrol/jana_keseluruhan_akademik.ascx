@@ -58,6 +58,12 @@
         </td>
     </tr>
     <tr>
+        <td>MYKAD:</td>
+        <td>
+            <asp:TextBox ID="txtMykad" runat="server"  Width="350px"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
         <td></td>
         <td colspan="2">
             <asp:Button ID="btnCari" runat="server" Text="Cari" CssClass="fbbutton" />&nbsp;</td>

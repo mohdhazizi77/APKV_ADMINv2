@@ -77,6 +77,15 @@ Partial Public Class jana_keseluruhan_akademik1
     Protected WithEvents ddlKodKursus As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''txtMykad control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtMykad As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''btnCari control.
     '''</summary>
     '''<remarks>

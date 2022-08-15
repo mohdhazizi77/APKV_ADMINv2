@@ -37,21 +37,21 @@ Public Class pentaksirbm_admin_senarai_markah_bm4
         For i As Integer = 0 To datRespondent.Rows.Count - 1
 
             Dim strKey As String = datRespondent.DataKeys(i).Value.ToString
-            Dim lblME As Label = CType(datRespondent.Rows(i).FindControl("lblMarkahElemen"), Label)
+            Dim txtME As TextBox = CType(datRespondent.Rows(i).FindControl("txtMarkahElemen"), TextBox)
 
             strSQL = "  SELECT BM4 FROM kpmkv_pentaksir_bmsetara_calon
                         WHERE id = '" & strKey & "'"
             Dim BM4 As String = oCommon.getFieldValue(strSQL)
 
-            If BM4 = "" Then
-                BM4 = "-"
-            ElseIf BM4 = "T" Then
-                BM4 = "T"
-            Else
-                BM4 = "*"
-            End If
+            'If BM4 = "" Then
+            '    BM4 = "-"
+            'ElseIf BM4 = "T" Then
+            '    BM4 = "T"
+            'Else
+            '    BM4 = "*"
+            'End If
 
-            lblME.Text = "[" & BM4 & "]"
+            txtME.Text = BM4
 
         Next
 
@@ -67,6 +67,36 @@ Public Class pentaksirbm_admin_senarai_markah_bm4
 
         strRet = BindData(datRespondent)
         MarkahElemen()
+
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+
+        For i As Integer = 0 To datRespondent.Rows.Count - 1
+
+            Dim strKey As String = datRespondent.DataKeys(i).Value.ToString
+            Dim txtME As TextBox = CType(datRespondent.Rows(i).FindControl("txtMarkahElemen"), TextBox)
+
+            strSQL = "  UPDATE kpmkv_pentaksir_bmsetara_calon SET
+                        BM4 = '" & txtME.Text & "',
+                        BM4_Total = '" & txtME.Text & "'
+                        WHERE id = '" & strKey & "'"
+
+            strRet = oCommon.ExecuteSQL(strSQL)
+
+            If strRet = "0" Then
+
+                divMsg.Attributes("class") = "info"
+                lblMsg.Text = "Markah berjaya dikemaskini"
+
+            Else
+
+                divMsg.Attributes("class") = "error"
+                lblMsg.Text = "Markah tidak berjaya dikemaskini"
+
+            End If
+
+        Next
 
     End Sub
 

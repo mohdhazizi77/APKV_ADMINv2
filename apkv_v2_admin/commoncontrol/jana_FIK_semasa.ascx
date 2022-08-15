@@ -37,7 +37,11 @@
     <tr>
         <td></td>
         <td colspan="2">
-            <asp:Button ID="btnCari" runat="server" Text="Eksport" CssClass="fbbutton" />&nbsp;</td>
+            <asp:Button ID="btnCari" runat="server" Text="Eksport" CssClass="fbbutton" />
+            <asp:Button ID="btnModul" runat="server" Text="Modul" CssClass="fbbutton" />
+            <asp:Button ID="btnMP" runat="server" Text="MataPelajaran" CssClass="fbbutton" />&nbsp;
+        </td>
+
     </tr>
 
 </table>

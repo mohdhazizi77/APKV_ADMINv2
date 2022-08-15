@@ -182,6 +182,30 @@
 </table>
 
 <br />
+
+<table class="fbform">
+    <tr class="fbform_header">
+        <td colspan="3">Jana SJ Setara (Kohort Lama)
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <asp:DropDownList ID="ddlTahunSem" runat="server"></asp:DropDownList>
+            <asp:Label ID="Label2" runat="server" Text="TahunSem"></asp:Label>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <asp:Button ID="btnJanaKohortLama" runat="server" Text="Jana BM Setara" CssClass="fbbutton" />&nbsp;
+            <asp:Label ID="lblJanaKohortLama" runat="server" Text="jana bm setara (kohort lama) dari svmu"></asp:Label>
+        </td>
+    </tr>
+
+</table>
+
+<br />
 <div class="info" id="divMsg" runat="server">
     <asp:Label ID="lblKolejID" runat="server" Text="" Visible="false"></asp:Label>
     <asp:Label ID="lblMsg" runat="server" Text="System message..."></asp:Label>
